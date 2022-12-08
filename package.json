@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:githubPages": "tsc && vite build --base=/LearnCard/ --outDir=./githubPages",
+    "build:githubPages": "tsc && vite build --base=/story-play/ --outDir=./githubPages",
     "preview": "vite preview"
   },
   "repository": {
