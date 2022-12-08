@@ -1,0 +1,36 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.wordWrap": "on",
+		"workbench.colorCustomizations": {
+			"titleBar.activeBackground": "#215602",
+			"statusBar.background": "#215602"
+		},
+		"files.associations": {
+			"*.css": "tailwindcss"
+		},
+		"emmet.includeLanguages": {
+			"postcss": "css"
+		},
+		"files.trimTrailingWhitespace": true,
+		"editor.tabSize": 2,
+		"files.insertFinalNewline": true,
+		"files.exclude": {
+			"**/node_modules/": true,
+			"LICENSE": true,
+		},
+		"cSpell.words": [
+			"daisyui",
+			"Katex",
+			"rehype",
+			"tailwindcss"
+		],
+		"editor.formatOnSave": true,
+		"editor.fontSize": 12,
+		"editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+	}
+}
