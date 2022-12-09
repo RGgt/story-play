@@ -1,12 +1,17 @@
 import Phaser from 'phaser';
 import config from './config';
-import SampleScene from './SampleScene';
+// import SampleScene from './SampleScene';
+import BootScene from './scenes/BootScene';
+import PreloadScene from './scenes/PreloadScene';
+import TitleScene from './scenes/TitleScene';
 type GameConfig = Phaser.Types.Core.GameConfig;
 
 class SimpleGame extends Phaser.Game {
   constructor(config: GameConfig) {
-    const realConfig = Object.assign(config, { scene: [SampleScene] });
+    const realConfig = Object.assign(config, { scene: [BootScene, PreloadScene, TitleScene] });
     super(realConfig);
   }
 }
-const game: Phaser.Game = new SimpleGame(config);
+window.addEventListener('load', () => {
+  let game: Phaser.Game = new SimpleGame(config);
+});
