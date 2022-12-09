@@ -1,0 +1,14 @@
+{
+  "image": {
+    "main": "assets/images/frame_001.png",
+    "beta": "assets/images/MET_DP18371_001.jpg"
+  },
+  "svg": {
+    "test": "assets/images/vite.svg"
+  },
+  "audio": {
+    "music": {
+      "wav": "assets/audio/andrew_sitkov__romantic_pop__dream_on_looped.wav"
+    }
+  }
+}
