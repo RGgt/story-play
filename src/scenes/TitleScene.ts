@@ -39,9 +39,11 @@ export default class TitleScene extends Phaser.Scene {
   }
   create_v2() {
     let customComponent = new MyButton(this);
-    customComponent.init(100, 100);
+    const onClick = () => {
+      console.log("clicked!");
+    }
+    customComponent.init(100, 100, 200, 75, onClick);
     this.add.existing(customComponent);
-    // this.update.add
   }
   create_v1() {
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;

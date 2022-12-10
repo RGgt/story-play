@@ -12,34 +12,60 @@ export default class MyButton extends Phaser.GameObjects.Group {
   private _bounds: Phaser.Geom.Rectangle | undefined;
   private _x: number = 0;
   private _y: number = 0;
+  private _scaleX: number = 1;
+  private _scaleY: number = 1;
   private _disabled: boolean = false;
+  public onClick: undefined | (() => void);
   constructor(scene: Phaser.Scene) {
     super(scene);
   }
-  init(x: number, y: number) {
+  init(x: number, y: number, width: number, height: number, onClick: undefined | (() => void)) {
+
     this._x = x;
     this._y = y;
     const screenCenterX = this.scene.cameras.main.worldView.x + this.scene.cameras.main.width / 2;
     const screenCenterY = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2;
-    // this.add(new Phaser.GameObjects.Sprite(this.scene,screenCenterX, screenCenterY, 'main');
+
     this.addFrames("btnNormal");
     this.addFrames("btnHover");
     this.addFrames("btnPressed");
     this.addFrames("btnDisabled");
 
-    this.spriteTL = this.scene.add.sprite(x + 0 + 0, y + 0, 'btnNormal', 'frmTL');
-    this.spriteT = this.scene.add.sprite(x + 0 + 8 + 294 / 2, y + 0, 'btnNormal', 'frmT');
-    this.spriteTR = this.scene.add.sprite(x + 0 + 16 + 294, y + 0, 'btnNormal', 'frmTR');
+    this.calculateScales(width, height);
 
-    this.spriteML = this.scene.add.sprite(x + 0 + 0, y + 0 + 22 + 8, 'btnNormal', 'frmML');
-    this.spriteM = this.scene.add.sprite(x + 0 + 8 + 294 / 2, y + 0 + 22 + 8, 'btnNormal', 'frmM');
-    this.spriteMR = this.scene.add.sprite(x + 0 + 16 + 294, y + 0 + 22 + 8, 'btnNormal', 'frmMR');
+    let scaleX = this._scaleX;
+    let scaleY = this._scaleY;
 
-    this.spriteBL = this.scene.add.sprite(x + 0 + 0, y + 0 + 30 + 22 + 8, 'btnNormal', 'frmBL');
-    this.spriteB = this.scene.add.sprite(x + 0 + 8 + 294 / 2, y + 0 + 30 + 22 + 8, 'btnNormal', 'frmB');
-    this.spriteBR = this.scene.add.sprite(x + 0 + 16 + 294, y + 0 + 30 + 22 + 8, 'btnNormal', 'frmBR');
-    this._bounds = new Phaser.Geom.Rectangle(x, y, 310, 60);
+
+    let midWidth = 294 * scaleX;
+    let midHeight = 44 * scaleY;
+
+    this.spriteTL = this.scene.add.sprite(x + 0, y + 0, 'btnNormal', 'frmTL');
+    this.spriteT = this.scene.add.sprite(x + 8, y + 0, 'btnNormal', 'frmT');
+    this.spriteTR = this.scene.add.sprite(x + 8 + midWidth, y + 0, 'btnNormal', 'frmTR');
+
+    this.spriteML = this.scene.add.sprite(x + 0 + 0, y + 0 + 8, 'btnNormal', 'frmML');
+    this.spriteM = this.scene.add.sprite(x + 0 + 8, y + 0 + 8, 'btnNormal', 'frmM');
+    this.spriteMR = this.scene.add.sprite(x + 0 + 8 + midWidth, y + 8, 'btnNormal', 'frmMR');
+
+    this.spriteBL = this.scene.add.sprite(x + 0 + 0, y + 0 + midHeight + 8, 'btnNormal', 'frmBL');
+    this.spriteB = this.scene.add.sprite(x + 0 + 8, y + 0 + midHeight + 8, 'btnNormal', 'frmB');
+    this.spriteBR = this.scene.add.sprite(x + 0 + 8 + midWidth, y + 0 + midHeight + 8, 'btnNormal', 'frmBR');
+    this._bounds = new Phaser.Geom.Rectangle(x, y, midWidth + 16, midHeight + 16);
+    this.spriteTL.setOrigin(0, 0);
+    this.spriteT.setOrigin(0, 0);
+    this.spriteTR.setOrigin(0, 0);
+    this.spriteML.setOrigin(0, 0);
+    this.spriteM.setOrigin(0, 0);
+    this.spriteMR.setOrigin(0, 0);
+    this.spriteBL.setOrigin(0, 0);
+    this.spriteB.setOrigin(0, 0);
+    this.spriteBR.setOrigin(0, 0);
     // this._disabled = true;
+
+    this._setScales(scaleX, scaleY);
+    // this.spriteTL.visible = false;
+    this.onClick = onClick;
   }
   addFrames(textureName: TextureName) {
     const texture = this.scene.textures.get(textureName);
@@ -66,6 +92,7 @@ export default class MyButton extends Phaser.GameObjects.Group {
     this.spriteB?.setTexture(textureName, 'frmB')
     this.spriteBR?.setTexture(textureName, 'frmBR')
   }
+  private _lPressed = false;
   preUpdate() {
 
     // Get the current cursor position
@@ -73,14 +100,48 @@ export default class MyButton extends Phaser.GameObjects.Group {
 
     // Check if the cursor is over the component
     if (this._disabled) {
+      this._lPressed = false;
       this.setTexture('btnDisabled')
     } else if (this._bounds!.contains(pointer.x, pointer.y)) {
-      if (pointer.button === 0 && pointer.isDown)
+      if (pointer.button === 0 && pointer.isDown) {
+        this._lPressed = true;
         this.setTexture('btnPressed')
-      else
+      }
+      else {
+        if (this._lPressed && this.onClick) this.onClick();
+        this._lPressed = false;
         this.setTexture('btnHover')
+      }
     } else {
       this.setTexture('btnNormal')
+      this._lPressed = false;
     }
+  }
+  calculateScales(width: number, height: number) {
+    this._scaleX = (width - 16) / (310 - 16);
+    this._scaleY = (height - 16) / (60 - 16);
+  }
+  private _setScales(scaleX: number, scaleY: number) {
+    if (!this.spriteTL) throw new Error("Component not initialised!");
+    this.spriteTL!.scaleX = 1;
+    this.spriteT!.scaleX = scaleX;
+    this.spriteTR!.scaleX = 1;
+    this.spriteML!.scaleX = 1;
+    this.spriteM!.scaleX = scaleX;
+    this.spriteMR!.scaleX = 1;
+    this.spriteBL!.scaleX = 1;
+    this.spriteB!.scaleX = scaleX;
+    this.spriteBR!.scaleX = 1;
+
+    this.spriteTL!.scaleY = 1;
+    this.spriteT!.scaleY = 1;
+    this.spriteTR!.scaleY = 1;
+    this.spriteML!.scaleY = scaleY;
+    this.spriteM!.scaleY = scaleY;
+    this.spriteMR!.scaleY = scaleY;
+    this.spriteBL!.scaleY = 1;
+    this.spriteB!.scaleY = 1;
+    this.spriteBR!.scaleY = 1;
+
   }
 }
