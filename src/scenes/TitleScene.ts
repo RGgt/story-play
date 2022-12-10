@@ -41,6 +41,7 @@ export default class TitleScene extends Phaser.Scene {
     let customComponent = new MyButton(this);
     const onClick = () => {
       console.log("clicked!");
+      alert("you clicked it");
     }
     customComponent.init(100, 100, 200, 75, onClick);
     this.add.existing(customComponent);
