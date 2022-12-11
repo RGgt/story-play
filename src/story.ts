@@ -8,10 +8,7 @@ type GameConfig = Phaser.Types.Core.GameConfig;
 
 class SimpleGame extends Phaser.Game {
   constructor(config: GameConfig) {
-    const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
-    const contextId = Phaser.WEBGL ? 'webgl' : 'canvas';
-    const context = canvas!.getContext(contextId);
-    const realConfig = Object.assign(config, { scene: [BootScene, PreloadScene, TitleScene], context });
+    const realConfig = Object.assign(config, { scene: [BootScene, PreloadScene, TitleScene] });
     super(realConfig);
   }
 }

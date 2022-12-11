@@ -1,16 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/css/main.css" />
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/main.css" />
     <title>Story-Play</title>
-</head>
+    <style>
+      /* Define the dimensions of the game canvas */
+      #phaser canvas {
+        width: 800px;
+        height: 600px;
+      }
+      /* Use a media query to adjust the dimensions of the game canvas if the resulting height is smaller than the screen height */
+      @media only screen and (max-height: calc(100vw / 800 * 600)) {
+          #phaser canvas {
+          width: calc(100vh / 600 * 800);
+          height: 100vh;
+        }
+      }
+
+      .game-canvas-wrapper{
+        width: 800px;
+        height: 600px;
+        overflow: hidden;
+      }
+
+      /* Use media queries to adjust the dimensions of the game canvas for smaller screens */
+      @media only screen and (max-width: 800px) {
+        #phaser canvas {
+          width: 100vw;
+          height: calc(100vw / 800 * 600);
+        }
+        /* Use a media query to adjust the dimensions of the game canvas if the resulting height is smaller than the screen height */
+        @media only screen and (max-height: calc(100vw / 800 * 600)) {
+          #phaser canvas {
+          width: calc(100vh / 600 * 800);
+          height: 100vh;
+        }
+      }
+      }
+    </style>
+  </head>
 <body>
-  <div style="width: 800px; height: 600px; overflow: hidden;">
-    <canvas id="game-canvas" width="800" height="600"></canvas>
-  </div>
+  <div id="phaser"></div>
   <script type="module" src="/src/story.ts"></script>
 </body>
 </html>
