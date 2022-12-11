@@ -1,23 +1,23 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser';
+
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
     super('preload');
   }
+
   preload() {
     this.loadAssets(this.cache.json.get('assets'));
     this.add.image(this.centerX(), this.centerY(), 'logo');
     this.createProgressbar(this.centerX(), this.centerY() + 200);
   }
-  create() { }
-
 
   centerX() {
     return +this.sys.game.config.width / 2;
   }
+
   centerY() {
     return +this.sys.game.config.height / 2;
   }
-  delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
   loadAssets(json: any) {
     Object.keys(json).forEach((group) => {
@@ -26,9 +26,16 @@ export default class PreloadScene extends Phaser.Scene {
       }, this);
     }, this);
   }
+
   loadIndividualAsset(json: any, group: string, key: string) {
     const value = json[group][key];
-    if (group === 'atlas' || group === 'unityAtlas' || group === 'bitmapFont' || group === 'spritesheet' || group === 'multiatlas') {
+    if (
+      group === 'atlas' ||
+      group === 'unityAtlas' ||
+      group === 'bitmapFont' ||
+      group === 'spritesheet' ||
+      group === 'multiatlas'
+    ) {
       // atlas:ƒ       (key, textureURL,  atlasURL,  textureXhrSettings, atlasXhrSettings)
       // unityAtlas:ƒ  (key, textureURL,  atlasURL,  textureXhrSettings, atlasXhrSettings)
       // bitmapFont ƒ  (key, textureURL,  xmlURL,    textureXhrSettings, xmlXhrSettings)
@@ -40,19 +47,13 @@ export default class PreloadScene extends Phaser.Scene {
       // opus, webm and ogg are way better than mp3
 
       if (Object.hasOwnProperty.call(value, 'opus') && this.sys.game.device.audio.opus) {
-        this.load[group](key, value['opus']);
-
-      }
-      else if (Object.hasOwnProperty.call(value, 'webm') && this.sys.game.device.audio.webm) {
-        this.load[group](key, value['webm']);
-
-      }
-      else if (Object.hasOwnProperty.call(value, 'ogg') && this.sys.game.device.audio.ogg) {
-        this.load[group](key, value['ogg']);
-
-      }
-      else if (Object.hasOwnProperty.call(value, 'wav') && this.sys.game.device.audio.wav) {
-        this.load[group](key, value['wav']);
+        this.load[group](key, value.opus);
+      } else if (Object.hasOwnProperty.call(value, 'webm') && this.sys.game.device.audio.webm) {
+        this.load[group](key, value.webm);
+      } else if (Object.hasOwnProperty.call(value, 'ogg') && this.sys.game.device.audio.ogg) {
+        this.load[group](key, value.ogg);
+      } else if (Object.hasOwnProperty.call(value, 'wav') && this.sys.game.device.audio.wav) {
+        this.load[group](key, value.wav);
       }
     } else if (group === 'html') {
       // html:ƒ (key, url, xhrSettings)
@@ -103,27 +104,28 @@ export default class PreloadScene extends Phaser.Scene {
   createProgressbar(x: number, y: number) {
     const width = 400;
     const height = 20;
-    let xStart = x - width / 2;
-    let yStart = y - height / 2;
+    const xStart = x - width / 2;
+    const yStart = y - height / 2;
     // border size
-    let borderOffset = 2;
-    let borderRect = new Phaser.Geom.Rectangle(
+    const borderOffset = 2;
+    const borderRect = new Phaser.Geom.Rectangle(
       xStart - borderOffset,
       yStart - borderOffset,
       width + borderOffset * 2,
-      height + borderOffset * 2);
+      height + borderOffset * 2,
+    );
 
-    let border = this.add.graphics({
+    const border = this.add.graphics({
       lineStyle: {
         width: 5,
-        color: 0xff0000
-      }
+        color: 0xff0000,
+      },
     });
     border.strokeRectShape(borderRect);
 
-    let progressbar = this.add.graphics();
+    const progressbar = this.add.graphics();
 
-    let updateProgressbar = (percentage: number) => {
+    const updateProgressbar = (percentage: number) => {
       progressbar.clear();
       progressbar.fillStyle(0xff5500, 1);
       progressbar.fillRect(xStart, yStart, percentage * width, height);
@@ -131,11 +133,13 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.on('progress', updateProgressbar);
 
-    this.load.once('complete', () => {
-
-      this.load.off('progress', updateProgressbar);
-      this.scene.start('title');
-
-    }, this);
+    this.load.once(
+      'complete',
+      () => {
+        this.load.off('progress', updateProgressbar);
+        this.scene.start('title');
+      },
+      this,
+    );
   }
 }

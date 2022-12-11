@@ -1,44 +1,53 @@
-type TextureName = "btnNormal" | "btnHover" | "btnPressed" | "btnDisabled";
+type TextureName = 'btnNormal' | 'btnHover' | 'btnPressed' | 'btnDisabled';
 export default class MyButton extends Phaser.GameObjects.Group {
   private spriteTL: Phaser.GameObjects.Sprite | undefined;
-  private spriteT: Phaser.GameObjects.Sprite | undefined;
-  private spriteTR: Phaser.GameObjects.Sprite | undefined;
-  private spriteML: Phaser.GameObjects.Sprite | undefined;
-  private spriteM: Phaser.GameObjects.Sprite | undefined;
-  private spriteMR: Phaser.GameObjects.Sprite | undefined;
-  private spriteBL: Phaser.GameObjects.Sprite | undefined;
-  private spriteB: Phaser.GameObjects.Sprite | undefined;
-  private spriteBR: Phaser.GameObjects.Sprite | undefined;
-  private _bounds: Phaser.Geom.Rectangle | undefined;
-  private _x: number = 0;
-  private _y: number = 0;
-  private _scaleX: number = 1;
-  private _scaleY: number = 1;
-  private _disabled: boolean = false;
-  public onClick: undefined | (() => void);
-  constructor(scene: Phaser.Scene) {
-    super(scene);
-  }
-  init(x: number, y: number, width: number, height: number, onClick: undefined | (() => void)) {
 
+  private spriteT: Phaser.GameObjects.Sprite | undefined;
+
+  private spriteTR: Phaser.GameObjects.Sprite | undefined;
+
+  private spriteML: Phaser.GameObjects.Sprite | undefined;
+
+  private spriteM: Phaser.GameObjects.Sprite | undefined;
+
+  private spriteMR: Phaser.GameObjects.Sprite | undefined;
+
+  private spriteBL: Phaser.GameObjects.Sprite | undefined;
+
+  private spriteB: Phaser.GameObjects.Sprite | undefined;
+
+  private spriteBR: Phaser.GameObjects.Sprite | undefined;
+
+  private _bounds: Phaser.Geom.Rectangle | undefined;
+
+  private _x = 0;
+
+  private _y = 0;
+
+  private _scaleX = 1;
+
+  private _scaleY = 1;
+
+  private _disabled = false;
+
+  public onClick: undefined | (() => void);
+
+  init(x: number, y: number, width: number, height: number, onClick: undefined | (() => void)) {
     this._x = x;
     this._y = y;
-    const screenCenterX = this.scene.cameras.main.worldView.x + this.scene.cameras.main.width / 2;
-    const screenCenterY = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2;
 
-    this.addFrames("btnNormal");
-    this.addFrames("btnHover");
-    this.addFrames("btnPressed");
-    this.addFrames("btnDisabled");
+    this.addFrames('btnNormal');
+    this.addFrames('btnHover');
+    this.addFrames('btnPressed');
+    this.addFrames('btnDisabled');
 
     this.calculateScales(width, height);
 
-    let scaleX = this._scaleX;
-    let scaleY = this._scaleY;
+    const scaleX = this._scaleX;
+    const scaleY = this._scaleY;
 
-
-    let midWidth = 294 * scaleX;
-    let midHeight = 44 * scaleY;
+    const midWidth = 294 * scaleX;
+    const midHeight = 44 * scaleY;
 
     this.spriteTL = this.scene.add.sprite(x + 0, y + 0, 'btnNormal', 'frmTL');
     this.spriteT = this.scene.add.sprite(x + 8, y + 0, 'btnNormal', 'frmT');
@@ -67,6 +76,7 @@ export default class MyButton extends Phaser.GameObjects.Group {
     // this.spriteTL.visible = false;
     this.onClick = onClick;
   }
+
   addFrames(textureName: TextureName) {
     const texture = this.scene.textures.get(textureName);
     texture.add('frmTL', 0, 0, 0, 8, 8);
@@ -81,48 +91,52 @@ export default class MyButton extends Phaser.GameObjects.Group {
     texture.add('frmB', 0, 8, 52, 294, 8);
     texture.add('frmBR', 0, 302, 52, 8, 8);
   }
-  setTexture(textureName: TextureName) {
-    this.spriteTL?.setTexture(textureName, 'frmTL')
-    this.spriteT?.setTexture(textureName, 'frmT')
-    this.spriteTR?.setTexture(textureName, 'frmTR')
-    this.spriteML?.setTexture(textureName, 'frmML')
-    this.spriteM?.setTexture(textureName, 'frmM')
-    this.spriteMR?.setTexture(textureName, 'frmMR')
-    this.spriteBL?.setTexture(textureName, 'frmBL')
-    this.spriteB?.setTexture(textureName, 'frmB')
-    this.spriteBR?.setTexture(textureName, 'frmBR')
-  }
-  private _lPressed = false;
-  preUpdate() {
 
+  setTexture(textureName: TextureName) {
+    this.spriteTL?.setTexture(textureName, 'frmTL');
+    this.spriteT?.setTexture(textureName, 'frmT');
+    this.spriteTR?.setTexture(textureName, 'frmTR');
+    this.spriteML?.setTexture(textureName, 'frmML');
+    this.spriteM?.setTexture(textureName, 'frmM');
+    this.spriteMR?.setTexture(textureName, 'frmMR');
+    this.spriteBL?.setTexture(textureName, 'frmBL');
+    this.spriteB?.setTexture(textureName, 'frmB');
+    this.spriteBR?.setTexture(textureName, 'frmBR');
+  }
+
+  private _lPressed = false;
+
+  preUpdate() {
+    if (!this._bounds) return;
     // Get the current cursor position
-    let pointer = this.scene.input.activePointer;
+    const pointer = this.scene.input.activePointer;
 
     // Check if the cursor is over the component
     if (this._disabled) {
       this._lPressed = false;
-      this.setTexture('btnDisabled')
-    } else if (this._bounds!.contains(pointer.x, pointer.y)) {
+      this.setTexture('btnDisabled');
+    } else if (this._bounds.contains(pointer.x, pointer.y)) {
       if (pointer.button === 0 && pointer.isDown) {
         this._lPressed = true;
-        this.setTexture('btnPressed')
-      }
-      else {
+        this.setTexture('btnPressed');
+      } else {
         if (this._lPressed && this.onClick) this.onClick();
         this._lPressed = false;
-        this.setTexture('btnHover')
+        this.setTexture('btnHover');
       }
     } else {
-      this.setTexture('btnNormal')
+      this.setTexture('btnNormal');
       this._lPressed = false;
     }
   }
+
   calculateScales(width: number, height: number) {
     this._scaleX = (width - 16) / (310 - 16);
     this._scaleY = (height - 16) / (60 - 16);
   }
+
   private _setScales(scaleX: number, scaleY: number) {
-    if (!this.spriteTL) throw new Error("Component not initialised!");
+    if (!this.spriteTL) throw new Error('Component not initialised!');
     this.spriteTL!.scaleX = 1;
     this.spriteT!.scaleX = scaleX;
     this.spriteTR!.scaleX = 1;
@@ -142,6 +156,5 @@ export default class MyButton extends Phaser.GameObjects.Group {
     this.spriteBL!.scaleY = 1;
     this.spriteB!.scaleY = 1;
     this.spriteBR!.scaleY = 1;
-
   }
 }

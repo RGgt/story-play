@@ -6,7 +6,7 @@ export default class SampleScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.path = "assets/images/";
+    this.load.path = 'assets/images/';
     this.load.image('background', 'frame_001.png');
   }
 

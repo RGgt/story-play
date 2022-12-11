@@ -4,14 +4,15 @@ import config from './config';
 import BootScene from './scenes/BootScene';
 import PreloadScene from './scenes/PreloadScene';
 import TitleScene from './scenes/TitleScene';
+
 type GameConfig = Phaser.Types.Core.GameConfig;
 
 class SimpleGame extends Phaser.Game {
-  constructor(config: GameConfig) {
-    const realConfig = Object.assign(config, { scene: [BootScene, PreloadScene, TitleScene] });
+  constructor(c: GameConfig) {
+    const realConfig = Object.assign(c, { scene: [BootScene, PreloadScene, TitleScene] });
     super(realConfig);
   }
 }
 window.addEventListener('load', () => {
-  let game: Phaser.Game = new SimpleGame(config);
+  const game: Phaser.Game = new SimpleGame(config);
 });
