@@ -6,7 +6,13 @@ export default class TitleScene extends Phaser.Scene {
   }
   preload() { }
   create() {
+    this.addBackgroundImage();
     this.create_v2();
+  }
+  addBackgroundImage() {
+    const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
+    const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
+    this.add.image(screenCenterX, screenCenterY, 'main');
   }
   create_v3() {
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
