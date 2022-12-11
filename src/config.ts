@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 
 export default {
   type: Phaser.AUTO,
-  parent: 'game',
   scale: {
     width: 800,
     height: 600,
