@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import MyButton from '../components/MyButton';
 import MyPanel from '../components/MyPanel';
+import MyPanel2 from '../components/MyPanel2';
 import TextBuilder from '../components/TextBuilder';
 
 export default class TitleScene extends Phaser.Scene {
@@ -16,6 +17,8 @@ export default class TitleScene extends Phaser.Scene {
     this.addBackgroundImage();
 
     this.addSamplePanel(400, 400);
+
+    this.addSamplePanel2(1100, 400);
 
     this._btnSetFullscreen = this.addSetFullscreenButton(100, 100);
     this._btnSetWindowed = this.addSetWindowedButton(300, 100);
@@ -111,6 +114,18 @@ export default class TitleScene extends Phaser.Scene {
 
   private createPanel(x: number, y: number) {
     const customComponent = new MyPanel(this);
+    customComponent.init(x, y, 600, 400);
+    this.add.existing(customComponent);
+    return customComponent;
+  }
+
+  addSamplePanel2(x: number, y: number): MyPanel2 {
+    const customComponent = this.createPanel2(x, y);
+    return customComponent;
+  }
+
+  private createPanel2(x: number, y: number) {
+    const customComponent = new MyPanel2(this);
     customComponent.init(x, y, 600, 400);
     this.add.existing(customComponent);
     return customComponent;
