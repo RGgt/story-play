@@ -1,27 +1,57 @@
 /* Define the dimensions of the game canvas */
 #phaser canvas {
-  width: 800px;
-  height: 600px;
+  width: 960px;
+  height: 540px;
 }
-/* Use a media query to adjust the dimensions of the game canvas if the resulting height is smaller than the screen height */
-@media only screen and (max-height: 600px) {
-  #phaser canvas {
-    width: calc(100vh / 600 * 800);
-    height: 100vh;
+
+@media only screen and not (display-mode: fullscreen) {
+  /* Use a media query to adjust the dimensions of the game canvas if the resulting height is smaller than the screen height */
+  @media (max-height: 540px) {
+    #phaser canvas {
+      width: calc(100vh / 540 * 960);
+      height: 100vh;
+    }
+  }
+  /* Use media queries to adjust the dimensions of the game canvas for smaller screens */
+  @media (max-width: 960px) {
+    #phaser canvas {
+      width: 100vw;
+      height: calc(100vw / 960 * 540);
+    }
+    /* Use a media query to adjust the dimensions of the game canvas if the resulting height is smaller than the screen height */
+    @media (max-height: calc(100vw / 960 * 540)) {
+      #phaser canvas {
+        width: calc(100vh / 540 * 960);
+        height: 100vh;
+      }
+    }
   }
 }
 
-/* Use media queries to adjust the dimensions of the game canvas for smaller screens */
-@media only screen and (max-width: 800px) {
+@media only screen and (display-mode: fullscreen) {
   #phaser canvas {
-    width: 100vw;
-    height: calc(100vw / 800 * 600);
+    width: 1920px;
+    height: 1080px;
   }
   /* Use a media query to adjust the dimensions of the game canvas if the resulting height is smaller than the screen height */
-  @media only screen and (max-height: calc(100vw / 800 * 600)) {
+  @media (max-height: 1080px) {
     #phaser canvas {
-      width: calc(100vh / 600 * 800);
+      width: calc(100vh / 1080 * 1920);
       height: 100vh;
+    }
+  }
+  /* Use media queries to adjust the dimensions of the game canvas for smaller screens */
+  @media (max-width: 1920px) {
+    #phaser canvas {
+      width: 100vw;
+      height: calc(100vw / 1920 * 1080);
+    }
+    /* Use a media query to adjust the dimensions of the game canvas if the resulting height is smaller than the screen height */
+    @media (max-height: calc(100vw / 1920 * 1080)) {
+      #phaser canvas {
+        width: calc(100vh / 1080 * 1920);
+        height: 100vh;
+      }
     }
   }
 }

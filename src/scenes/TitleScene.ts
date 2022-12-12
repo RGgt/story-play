@@ -9,6 +9,7 @@ export default class TitleScene extends Phaser.Scene {
   create() {
     this.addBackgroundImage();
     this.addButton();
+    this.addButton2();
   }
 
   addBackgroundImage() {
@@ -17,11 +18,23 @@ export default class TitleScene extends Phaser.Scene {
     this.add.image(screenCenterX, screenCenterY, 'main');
   }
 
+  isFullScreen = false;
+
   addButton() {
     const customComponent = new MyButton(this);
     const onClick = () => {
-      console.log('clicked!');
-      alert('you clicked it');
+      // console.log('clicked!');
+      // alert('you clicked it');
+      document.exitFullscreen();
+    };
+    customComponent.init(100, 400, 200, 75, onClick);
+    this.add.existing(customComponent);
+  }
+
+  addButton2() {
+    const customComponent = new MyButton(this);
+    const onClick = () => {
+      document.getElementById('phaser')!.requestFullscreen();
     };
     customComponent.init(100, 100, 200, 75, onClick);
     this.add.existing(customComponent);
