@@ -106,6 +106,10 @@ export default class MyButton extends Phaser.GameObjects.Group {
 
   private _lPressed = false;
 
+  setDisabled(disabled: boolean) {
+    this._disabled = disabled;
+  }
+
   preUpdate() {
     if (!this._bounds) return;
     // Get the current cursor position
@@ -156,5 +160,9 @@ export default class MyButton extends Phaser.GameObjects.Group {
     this.spriteBL!.scaleY = 1;
     this.spriteB!.scaleY = 1;
     this.spriteBR!.scaleY = 1;
+  }
+
+  getCenter() {
+    return new Phaser.Geom.Point(this._bounds!.centerX, this._bounds!.centerY);
   }
 }
