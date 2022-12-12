@@ -1,4 +1,4 @@
-type TextureName = 'pnlPanel';
+type TextureName = 'pnlPanel2';
 export default class MyPanel extends Phaser.GameObjects.Group {
   private spriteTL: Phaser.GameObjects.Sprite | undefined;
 
@@ -28,29 +28,72 @@ export default class MyPanel extends Phaser.GameObjects.Group {
 
   private _scaleY = 1;
 
+  private readonly TEXTURE_NAME = 'pnlPanel2';
+
+  private readonly TEXTURE_WIDTH = 681;
+
+  private readonly TEXTURE_HEIGHT = 422;
+
+  private readonly TEXTURE_CORNER_WIDTH = 41;
+
+  private readonly TEXTURE_CORNER_HEIGHT = 41;
+
   init(x: number, y: number, width: number, height: number) {
-    this.addFrames('pnlPanel');
+    this.addFrames(this.TEXTURE_NAME);
 
     this.calculateScales(width, height);
+
+    const textureWidthMinusTwoCorners = this.TEXTURE_WIDTH - 2 * this.TEXTURE_CORNER_WIDTH;
+    const textureHeightMinusTwoCorners = this.TEXTURE_HEIGHT - 2 * this.TEXTURE_CORNER_HEIGHT;
 
     const scaleX = this._scaleX;
     const scaleY = this._scaleY;
 
-    const midWidth = 294 * scaleX;
-    const midHeight = 44 * scaleY;
+    const midWidth = textureWidthMinusTwoCorners * scaleX;
+    const midHeight = textureHeightMinusTwoCorners * scaleY;
 
-    this.spriteTL = this.scene.add.sprite(x + 0, y + 0, 'pnlPanel', 'frmTL');
-    this.spriteT = this.scene.add.sprite(x + 8, y + 0, 'pnlPanel', 'frmT');
-    this.spriteTR = this.scene.add.sprite(x + 8 + midWidth, y + 0, 'pnlPanel', 'frmTR');
+    this.spriteTL = this.scene.add.sprite(x, y, this.TEXTURE_NAME, 'frmTL');
+    this.spriteT = this.scene.add.sprite(x + this.TEXTURE_CORNER_WIDTH, y, this.TEXTURE_NAME, 'frmT');
+    this.spriteTR = this.scene.add.sprite(x + this.TEXTURE_CORNER_WIDTH + midWidth, y, this.TEXTURE_NAME, 'frmTR');
 
-    this.spriteML = this.scene.add.sprite(x + 0 + 0, y + 0 + 8, 'pnlPanel', 'frmML');
-    this.spriteM = this.scene.add.sprite(x + 0 + 8, y + 0 + 8, 'pnlPanel', 'frmM');
-    this.spriteMR = this.scene.add.sprite(x + 0 + 8 + midWidth, y + 8, 'pnlPanel', 'frmMR');
+    this.spriteML = this.scene.add.sprite(x + 0, y + this.TEXTURE_CORNER_HEIGHT, this.TEXTURE_NAME, 'frmML');
+    this.spriteM = this.scene.add.sprite(
+      x + this.TEXTURE_CORNER_WIDTH,
+      y + this.TEXTURE_CORNER_HEIGHT,
+      this.TEXTURE_NAME,
+      'frmM',
+    );
+    this.spriteMR = this.scene.add.sprite(
+      x + this.TEXTURE_CORNER_WIDTH + midWidth,
+      y + this.TEXTURE_CORNER_HEIGHT,
+      this.TEXTURE_NAME,
+      'frmMR',
+    );
 
-    this.spriteBL = this.scene.add.sprite(x + 0 + 0, y + 0 + midHeight + 8, 'pnlPanel', 'frmBL');
-    this.spriteB = this.scene.add.sprite(x + 0 + 8, y + 0 + midHeight + 8, 'pnlPanel', 'frmB');
-    this.spriteBR = this.scene.add.sprite(x + 0 + 8 + midWidth, y + 0 + midHeight + 8, 'pnlPanel', 'frmBR');
-    this._bounds = new Phaser.Geom.Rectangle(x, y, midWidth + 16, midHeight + 16);
+    this.spriteBL = this.scene.add.sprite(
+      x + 0,
+      y + midHeight + this.TEXTURE_CORNER_HEIGHT,
+      this.TEXTURE_NAME,
+      'frmBL',
+    );
+    this.spriteB = this.scene.add.sprite(
+      x + this.TEXTURE_CORNER_WIDTH,
+      y + midHeight + this.TEXTURE_CORNER_HEIGHT,
+      this.TEXTURE_NAME,
+      'frmB',
+    );
+    this.spriteBR = this.scene.add.sprite(
+      x + this.TEXTURE_CORNER_WIDTH + midWidth,
+      y + midHeight + this.TEXTURE_CORNER_HEIGHT,
+      this.TEXTURE_NAME,
+      'frmBR',
+    );
+    this._bounds = new Phaser.Geom.Rectangle(
+      x,
+      y,
+      midWidth + 2 * this.TEXTURE_CORNER_WIDTH,
+      midHeight + 2 * this.TEXTURE_CORNER_HEIGHT,
+    );
     this.spriteTL.setOrigin(0, 0);
     this.spriteT.setOrigin(0, 0);
     this.spriteTR.setOrigin(0, 0);
@@ -65,18 +108,50 @@ export default class MyPanel extends Phaser.GameObjects.Group {
   }
 
   addFrames(textureName: TextureName) {
+    const textureWidthMinusTwoCorners = this.TEXTURE_WIDTH - 2 * this.TEXTURE_CORNER_WIDTH;
+    const textureWidthMinusOneCorner = this.TEXTURE_WIDTH - this.TEXTURE_CORNER_WIDTH;
+    const textureHeightMinusTwoCorners = this.TEXTURE_HEIGHT - 2 * this.TEXTURE_CORNER_HEIGHT;
+    const textureHeightMinusOneCorner = this.TEXTURE_HEIGHT - this.TEXTURE_CORNER_HEIGHT;
     const texture = this.scene.textures.get(textureName);
-    texture.add('frmTL', 0, 0, 0, 8, 8);
-    texture.add('frmT', 0, 8, 0, 294, 8);
-    texture.add('frmTR', 0, 302, 0, 8, 8);
+    texture.add('frmTL', 0, 0, 0, this.TEXTURE_CORNER_WIDTH, this.TEXTURE_CORNER_HEIGHT);
+    texture.add('frmT', 0, this.TEXTURE_CORNER_HEIGHT, 0, textureWidthMinusTwoCorners, this.TEXTURE_CORNER_HEIGHT);
+    texture.add('frmTR', 0, textureWidthMinusOneCorner, 0, this.TEXTURE_CORNER_WIDTH, this.TEXTURE_CORNER_HEIGHT);
 
-    texture.add('frmML', 0, 0, 8, 8, 44);
-    texture.add('frmM', 0, 8, 8, 294, 44);
-    texture.add('frmMR', 0, 302, 8, 8, 44);
+    texture.add('frmML', 0, 0, this.TEXTURE_CORNER_HEIGHT, this.TEXTURE_CORNER_WIDTH, textureHeightMinusTwoCorners);
+    texture.add(
+      'frmM',
+      0,
+      this.TEXTURE_CORNER_WIDTH,
+      this.TEXTURE_CORNER_HEIGHT,
+      textureWidthMinusTwoCorners,
+      textureHeightMinusTwoCorners,
+    );
+    texture.add(
+      'frmMR',
+      0,
+      textureWidthMinusOneCorner,
+      this.TEXTURE_CORNER_HEIGHT,
+      this.TEXTURE_CORNER_WIDTH,
+      textureHeightMinusTwoCorners,
+    );
 
-    texture.add('frmBL', 0, 0, 52, 8, 8);
-    texture.add('frmB', 0, 8, 52, 294, 8);
-    texture.add('frmBR', 0, 302, 52, 8, 8);
+    texture.add('frmBL', 0, 0, textureHeightMinusOneCorner, this.TEXTURE_CORNER_WIDTH, this.TEXTURE_CORNER_HEIGHT);
+    texture.add(
+      'frmB',
+      0,
+      this.TEXTURE_CORNER_WIDTH,
+      textureHeightMinusOneCorner,
+      textureWidthMinusTwoCorners,
+      this.TEXTURE_CORNER_HEIGHT,
+    );
+    texture.add(
+      'frmBR',
+      0,
+      textureWidthMinusOneCorner,
+      textureHeightMinusOneCorner,
+      this.TEXTURE_CORNER_WIDTH,
+      this.TEXTURE_CORNER_HEIGHT,
+    );
   }
 
   setTexture(textureName: TextureName) {
@@ -92,34 +167,46 @@ export default class MyPanel extends Phaser.GameObjects.Group {
   }
 
   calculateScales(width: number, height: number) {
-    this._scaleX = (width - 16) / (310 - 16);
-    this._scaleY = (height - 16) / (60 - 16);
+    this._scaleX = (width - this.TEXTURE_CORNER_WIDTH) / (this.TEXTURE_WIDTH - this.TEXTURE_CORNER_WIDTH);
+    this._scaleY = (height - 2 * this.TEXTURE_CORNER_HEIGHT) / (this.TEXTURE_HEIGHT - 2 * this.TEXTURE_CORNER_HEIGHT);
   }
 
   private _setScales(scaleX: number, scaleY: number) {
-    if (!this.spriteTL) throw new Error('Component not initialised!');
-    this.spriteTL!.scaleX = 1;
-    this.spriteT!.scaleX = scaleX;
-    this.spriteTR!.scaleX = 1;
-    this.spriteML!.scaleX = 1;
-    this.spriteM!.scaleX = scaleX;
-    this.spriteMR!.scaleX = 1;
-    this.spriteBL!.scaleX = 1;
-    this.spriteB!.scaleX = scaleX;
-    this.spriteBR!.scaleX = 1;
+    if (
+      !this.spriteTL ||
+      !this.spriteT ||
+      !this.spriteTR ||
+      !this.spriteML ||
+      !this.spriteM ||
+      !this.spriteMR ||
+      !this.spriteBL ||
+      !this.spriteB ||
+      !this.spriteBR
+    )
+      throw new Error('Component not initialised!');
+    this.spriteTL.scaleX = 1;
+    this.spriteT.scaleX = scaleX;
+    this.spriteTR.scaleX = 1;
+    this.spriteML.scaleX = 1;
+    this.spriteM.scaleX = scaleX;
+    this.spriteMR.scaleX = 1;
+    this.spriteBL.scaleX = 1;
+    this.spriteB.scaleX = scaleX;
+    this.spriteBR.scaleX = 1;
 
-    this.spriteTL!.scaleY = 1;
-    this.spriteT!.scaleY = 1;
-    this.spriteTR!.scaleY = 1;
-    this.spriteML!.scaleY = scaleY;
-    this.spriteM!.scaleY = scaleY;
-    this.spriteMR!.scaleY = scaleY;
-    this.spriteBL!.scaleY = 1;
-    this.spriteB!.scaleY = 1;
-    this.spriteBR!.scaleY = 1;
+    this.spriteTL.scaleY = 1;
+    this.spriteT.scaleY = 1;
+    this.spriteTR.scaleY = 1;
+    this.spriteML.scaleY = scaleY;
+    this.spriteM.scaleY = scaleY;
+    this.spriteMR.scaleY = scaleY;
+    this.spriteBL.scaleY = 1;
+    this.spriteB.scaleY = 1;
+    this.spriteBR.scaleY = 1;
   }
 
   getCenter() {
-    return new Phaser.Geom.Point(this._bounds!.centerX, this._bounds!.centerY);
+    if (!this._bounds) throw new Error('Component not initialised!');
+    return new Phaser.Geom.Point(this._bounds.centerX, this._bounds.centerY);
   }
 }

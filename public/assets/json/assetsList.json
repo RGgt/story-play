@@ -6,7 +6,8 @@
     "btnHover": "assets/images/gui/hover.png",
     "btnPressed": "assets/images/gui/press.png",
     "btnDisabled": "assets/images/gui/disable.png",
-    "pnlPanel": "assets/images/gui/panel.png"
+    "pnlPanel": "assets/images/gui/panel.png",
+    "pnlPanel2": "assets/images/gui/panel2.png"
   },
   "svg": {
     "test": "assets/images/vite.svg"
