@@ -1,6 +1,12 @@
-type TextCoordType = 'TopLeft' | 'MiddleCenter';
+type TextCoordType = 'TopLeft' | 'MiddleCenter' | 'TopCenter' | 'TopRight';
 export default class TextBuilder {
-  static createTitleText(scene: Phaser.Scene, x: number, y: number, text: string | string[]): Phaser.GameObjects.Text {
+  static createTitleText(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    text: string | string[],
+    maxWidth: number,
+  ): Phaser.GameObjects.Text {
     // const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
     // const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
 
@@ -22,6 +28,7 @@ export default class TextBuilder {
       x,
       y,
       text,
+      maxWidth,
       SHADOW_COLOR,
       SHADOW_BLUR,
       SHADOW_OFFSET_X,
@@ -37,10 +44,136 @@ export default class TextBuilder {
     );
   }
 
-  static createButtonText(scene: Phaser.Scene, x: number, y: number, text: string | string[]): Phaser.GameObjects.Text {
-    // const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-    // const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
+  static createSubtitleTextAlignCenter(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    text: string | string[],
+    maxWidth: number,
+  ): Phaser.GameObjects.Text {
+    const SHADOW_COLOR = '#000000';
+    const SHADOW_BLUR = 4;
+    const SHADOW_OFFSET_X = 2;
+    const SHADOW_OFFSET_Y = 2;
+    const TEXT_SIZE = '36px';
+    const TEXT_FONT_FAMILY = 'MyDisplayFont';
+    const TEXT_COLOR = 'white';
+    const TEXT_BACKGROUND_COLOR = 'transparent';
+    const OUTLINE_THICKNESS = 8;
+    const OUTLINE_COLOR = 'black';
+    const ALIGNMENT = 'center';
+    const COORD_TYPE = 'TopCenter';
 
+    return TextBuilder.createCusomlyFormattedText(
+      scene,
+      x,
+      y,
+      text,
+      maxWidth,
+      SHADOW_COLOR,
+      SHADOW_BLUR,
+      SHADOW_OFFSET_X,
+      SHADOW_OFFSET_Y,
+      TEXT_SIZE,
+      TEXT_FONT_FAMILY,
+      TEXT_COLOR,
+      TEXT_BACKGROUND_COLOR,
+      OUTLINE_THICKNESS,
+      OUTLINE_COLOR,
+      ALIGNMENT,
+      COORD_TYPE,
+    );
+  }
+
+  static createSubtitleTextAlignRight(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    text: string | string[],
+    maxWidth: number,
+  ): Phaser.GameObjects.Text {
+    const SHADOW_COLOR = '#000000';
+    const SHADOW_BLUR = 4;
+    const SHADOW_OFFSET_X = 2;
+    const SHADOW_OFFSET_Y = 2;
+    const TEXT_SIZE = '36px';
+    const TEXT_FONT_FAMILY = 'MyDisplayFont';
+    const TEXT_COLOR = 'white';
+    const TEXT_BACKGROUND_COLOR = 'transparent';
+    const OUTLINE_THICKNESS = 8;
+    const OUTLINE_COLOR = 'black';
+    const ALIGNMENT = 'center';
+    const COORD_TYPE = 'TopRight';
+
+    return TextBuilder.createCusomlyFormattedText(
+      scene,
+      x,
+      y,
+      text,
+      maxWidth,
+      SHADOW_COLOR,
+      SHADOW_BLUR,
+      SHADOW_OFFSET_X,
+      SHADOW_OFFSET_Y,
+      TEXT_SIZE,
+      TEXT_FONT_FAMILY,
+      TEXT_COLOR,
+      TEXT_BACKGROUND_COLOR,
+      OUTLINE_THICKNESS,
+      OUTLINE_COLOR,
+      ALIGNMENT,
+      COORD_TYPE,
+    );
+  }
+
+  static createSubtitleTextAlignLeft(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    text: string | string[],
+    maxWidth: number,
+  ): Phaser.GameObjects.Text {
+    const SHADOW_COLOR = '#000000';
+    const SHADOW_BLUR = 4;
+    const SHADOW_OFFSET_X = 2;
+    const SHADOW_OFFSET_Y = 2;
+    const TEXT_SIZE = '36px';
+    const TEXT_FONT_FAMILY = 'MyDisplayFont';
+    const TEXT_COLOR = 'white';
+    const TEXT_BACKGROUND_COLOR = 'transparent';
+    const OUTLINE_THICKNESS = 8;
+    const OUTLINE_COLOR = 'black';
+    const ALIGNMENT = 'center';
+    const COORD_TYPE = 'TopLeft';
+
+    return TextBuilder.createCusomlyFormattedText(
+      scene,
+      x,
+      y,
+      text,
+      maxWidth,
+      SHADOW_COLOR,
+      SHADOW_BLUR,
+      SHADOW_OFFSET_X,
+      SHADOW_OFFSET_Y,
+      TEXT_SIZE,
+      TEXT_FONT_FAMILY,
+      TEXT_COLOR,
+      TEXT_BACKGROUND_COLOR,
+      OUTLINE_THICKNESS,
+      OUTLINE_COLOR,
+      ALIGNMENT,
+      COORD_TYPE,
+    );
+  }
+
+  static createButtonText(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    text: string | string[],
+    maxWidth: number,
+  ): Phaser.GameObjects.Text {
     const SHADOW_COLOR = '#000000';
     const SHADOW_BLUR = 0;
     const SHADOW_OFFSET_X = 0;
@@ -59,6 +192,7 @@ export default class TextBuilder {
       x,
       y,
       text,
+      maxWidth,
       SHADOW_COLOR,
       SHADOW_BLUR,
       SHADOW_OFFSET_X,
@@ -79,6 +213,7 @@ export default class TextBuilder {
     x: number,
     y: number,
     text: string | string[],
+    maxWidth: number,
     shadowColor: string,
     shadowBlur: number,
     shadowOffsetX: number,
@@ -113,7 +248,8 @@ export default class TextBuilder {
       stroke: true,
     };
     const textWrapping: Phaser.Types.GameObjects.Text.TextWordWrap = {
-      width: x * 2 - SHADOW_OFFSET_X * 2,
+      // width: x * 2 - SHADOW_OFFSET_X * 2,
+      width: maxWidth,
       useAdvancedWrap: true,
     };
     const textStyle: Phaser.Types.GameObjects.Text.TextStyle = {
@@ -134,6 +270,12 @@ export default class TextBuilder {
         break;
       case 'MiddleCenter':
         customComponent.setOrigin(0.5, 0.5);
+        break;
+      case 'TopCenter':
+        customComponent.setOrigin(0.5, 0.0);
+        break;
+      case 'TopRight':
+        customComponent.setOrigin(1, 0.0);
         break;
 
       default:

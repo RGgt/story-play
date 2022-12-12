@@ -20,7 +20,13 @@ export default class TitleScene extends Phaser.Scene {
 
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
     const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-    this.addGameTitleText('Love in the Coulds\r\nAbove Trinity', screenCenterX, screenCenterY);
+    const title = this.addGameTitleText('Love in the Coulds\r\nAbove Trinity', screenCenterX, screenCenterY);
+    const pos = title.getBottomCenter();
+    const s1 = this.addGameSubtitleTextCenter('A story by AbyssalEros', pos.x, pos.y + 20);
+    const posS1 = s1.getBottomCenter();
+    const s2 = this.addGameSubtitleTextRight('Illustration by Grabiobot', 1920 - 20, posS1.y + 20);
+    const posS2 = s2.getBottomCenter();
+    const s3 = this.addGameSubtitleTextLeft('Managed by FarraTriss', 20, posS2.y + 20);
   }
 
   addBackgroundImage() {
@@ -63,13 +69,31 @@ export default class TitleScene extends Phaser.Scene {
 
   private addButtonText(btton: MyButton, text: string) {
     const center = btton.getCenter();
-    const customComponent = TextBuilder.createButtonText(this, center.x, center.y, text);
+    const customComponent = TextBuilder.createButtonText(this, center.x, center.y, text, 1920);
     this.add.existing(customComponent);
     return customComponent;
   }
 
   addGameTitleText(text: string, x: number, y: number) {
-    const customComponent = TextBuilder.createTitleText(this, x, y, text);
+    const customComponent = TextBuilder.createTitleText(this, x, y, text, 1920);
+    this.add.existing(customComponent);
+    return customComponent;
+  }
+
+  addGameSubtitleTextCenter(text: string, x: number, y: number) {
+    const customComponent = TextBuilder.createSubtitleTextAlignCenter(this, x, y, text, 1920);
+    this.add.existing(customComponent);
+    return customComponent;
+  }
+
+  addGameSubtitleTextRight(text: string, x: number, y: number) {
+    const customComponent = TextBuilder.createSubtitleTextAlignRight(this, x, y, text, 1920);
+    this.add.existing(customComponent);
+    return customComponent;
+  }
+
+  addGameSubtitleTextLeft(text: string, x: number, y: number) {
+    const customComponent = TextBuilder.createSubtitleTextAlignLeft(this, x, y, text, 1920);
     this.add.existing(customComponent);
     return customComponent;
   }
