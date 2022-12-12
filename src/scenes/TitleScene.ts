@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import MyButton from '../components/MyButton';
+import MyPanel from '../components/MyPanel';
 import TextBuilder from '../components/TextBuilder';
 
 export default class TitleScene extends Phaser.Scene {
@@ -14,6 +15,8 @@ export default class TitleScene extends Phaser.Scene {
   create() {
     this.addBackgroundImage();
 
+    this.addSamplePanel(400, 400);
+
     this._btnSetFullscreen = this.addSetFullscreenButton(100, 100);
     this._btnSetWindowed = this.addSetWindowedButton(300, 100);
     this._btnSetWindowed.setDisabled(true);
@@ -21,10 +24,13 @@ export default class TitleScene extends Phaser.Scene {
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
     const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
     const title = this.addGameTitleText('Love in the Coulds\r\nAbove Trinity', screenCenterX, screenCenterY);
+
     const pos = title.getBottomCenter();
     const s1 = this.addGameSubtitleTextCenter('A story by AbyssalEros', pos.x, pos.y + 20);
+
     const posS1 = s1.getBottomCenter();
     const s2 = this.addGameSubtitleTextRight('Illustration by Grabiobot', 1920 - 20, posS1.y + 20);
+
     const posS2 = s2.getBottomCenter();
     const s3 = this.addGameSubtitleTextLeft('Managed by FarraTriss', 20, posS2.y + 20);
   }
@@ -94,6 +100,18 @@ export default class TitleScene extends Phaser.Scene {
 
   addGameSubtitleTextLeft(text: string, x: number, y: number) {
     const customComponent = TextBuilder.createSubtitleTextAlignLeft(this, x, y, text, 1920);
+    this.add.existing(customComponent);
+    return customComponent;
+  }
+
+  addSamplePanel(x: number, y: number): MyPanel {
+    const customComponent = this.createPanel(x, y);
+    return customComponent;
+  }
+
+  private createPanel(x: number, y: number) {
+    const customComponent = new MyPanel(this);
+    customComponent.init(x, y, 600, 400);
     this.add.existing(customComponent);
     return customComponent;
   }
