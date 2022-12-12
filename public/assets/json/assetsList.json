@@ -2,10 +2,10 @@
   "image": {
     "main": "assets/images/frame_001.png",
     "beta": "assets/images/MET_DP18371_001.jpg",
-    "btnNormal": "assets/images/normal.png",
-    "btnHover": "assets/images/hover.png",
-    "btnPressed": "assets/images/press.png",
-    "btnDisabled": "assets/images/disable.png"
+    "btnNormal": "assets/images/gui/normal.png",
+    "btnHover": "assets/images/gui/hover.png",
+    "btnPressed": "assets/images/gui/press.png",
+    "btnDisabled": "assets/images/gui/disable.png"
   },
   "svg": {
     "test": "assets/images/vite.svg"
