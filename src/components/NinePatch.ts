@@ -1,7 +1,6 @@
 import NinePatchData from './NinePatchData';
 
-// type TextureName = 'pnlPanel2';
-export default class MyPanel extends Phaser.GameObjects.Group {
+export default class NinePatch extends Phaser.GameObjects.Group {
   private spriteTL: Phaser.GameObjects.Sprite | undefined;
 
   private spriteT: Phaser.GameObjects.Sprite | undefined;
