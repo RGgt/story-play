@@ -164,14 +164,14 @@ export default class TitleScene extends Phaser.Scene {
       const dialog = document.getElementById('favDialog') as HTMLDialogElement;
       const cancelButton = document.getElementById('cancel') as HTMLButtonElement;
       const confirmButton = document.getElementById('confirm') as HTMLButtonElement;
-      const animalsComboBox = document.getElementById('favAnimal') as HTMLSelectElement;
+      const languagesComboBox = document.getElementById('favLanguage') as HTMLSelectElement;
       cancelButton.addEventListener('click', () => {
-        dialog.close('animalNotChosen');
+        dialog.close('languageNotChosen');
         this.scene.resume();
       });
       confirmButton.addEventListener('click', (event) => {
         event.preventDefault();
-        dialog.close(animalsComboBox.value);
+        dialog.close(languagesComboBox.value);
         this.scene.resume();
       });
       this.scene.pause();
