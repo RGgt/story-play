@@ -22,7 +22,7 @@ export default class TitleScene extends Phaser.Scene {
 
     this._btnSetFullscreen = this.addSetFullscreenButton(100, 100);
     this._btnSetWindowed = this.addSetWindowedButton(300, 100);
-    this.addOpenModalButton(100, 200);
+    this.addOpenModalButton(100, 150);
     this._btnSetWindowed.setDisabled(true);
 
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
@@ -80,6 +80,7 @@ export default class TitleScene extends Phaser.Scene {
       dialog.showModal();
     };
     const customComponent = this.createButton(x, y, onClick);
+    customComponent.setDepth(100);
     this.addButtonText(customComponent, 'Open Modal');
     return customComponent;
   }
