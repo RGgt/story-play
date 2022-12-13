@@ -7,7 +7,15 @@
     "btnPressed": "assets/images/gui/press.png",
     "btnDisabled": "assets/images/gui/disable.png",
     "pnlPanel": "assets/images/gui/panel.png",
-    "pnlPanel2": "assets/images/gui/panel2.png"
+    "pnlPanel2": "assets/images/gui/panel2.png",
+    "frame_1_08_10": "assets/images/frame_1_08_10.jpg",
+    "frame_1_08_11": "assets/images/frame_1_08_11.jpg",
+    "frame_1_08_12": "assets/images/frame_1_08_12.jpg",
+    "frame_1_08_13": "assets/images/frame_1_08_13.jpg",
+    "frame_1_08_14": "assets/images/frame_1_08_14.jpg",
+    "frame_1_08_15": "assets/images/frame_1_08_15.jpg",
+    "frame_1_08_16": "assets/images/frame_1_08_16.jpg",
+    "frame_1_08_17": "assets/images/frame_1_08_17.jpg"
   },
   "svg": {
     "test": "assets/images/vite.svg"
