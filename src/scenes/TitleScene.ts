@@ -22,6 +22,7 @@ export default class TitleScene extends Phaser.Scene {
 
     this._btnSetFullscreen = this.addSetFullscreenButton(100, 100);
     this._btnSetWindowed = this.addSetWindowedButton(300, 100);
+    this.addOpenModalButton(100, 200);
     this._btnSetWindowed.setDisabled(true);
 
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
@@ -56,6 +57,30 @@ export default class TitleScene extends Phaser.Scene {
     };
     const customComponent = this.createButton(x, y, onClick);
     this.addButtonText(customComponent, 'Fullscreen');
+    return customComponent;
+  }
+
+  addOpenModalButton(x: number, y: number): MyButton {
+    const onClick = () => {
+      // Create the modal window
+      const dialog = document.getElementById('favDialog') as HTMLDialogElement;
+      const cancelButton = document.getElementById('cancel') as HTMLButtonElement;
+      const confirmButton = document.getElementById('confirm') as HTMLButtonElement;
+      const animalsComboBox = document.getElementById('favAnimal') as HTMLSelectElement;
+      cancelButton.addEventListener('click', () => {
+        dialog.close('animalNotChosen');
+        this.scene.resume();
+      });
+      confirmButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        dialog.close(animalsComboBox.value);
+        this.scene.resume();
+      });
+      this.scene.pause();
+      dialog.showModal();
+    };
+    const customComponent = this.createButton(x, y, onClick);
+    this.addButtonText(customComponent, 'Open Modal');
     return customComponent;
   }
 
