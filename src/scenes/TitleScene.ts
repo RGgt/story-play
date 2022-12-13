@@ -97,7 +97,8 @@ export default class TitleScene extends Phaser.Scene {
 
   private createButton(x: number, y: number, onClick: undefined | (() => void)) {
     const customComponent = new MyButton(this);
-    customComponent.init(x, y, 200, 75, onClick);
+    customComponent.init(x, y, 200, 75);
+    customComponent.onClick = onClick;
     this.add.existing(customComponent);
     return customComponent;
   }

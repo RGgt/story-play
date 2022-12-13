@@ -19,15 +19,15 @@ export default class NinePatch extends Phaser.GameObjects.Group {
 
   private spriteBR: Phaser.GameObjects.Sprite | undefined;
 
-  private _bounds: Phaser.Geom.Rectangle | undefined;
+  protected _bounds: Phaser.Geom.Rectangle | undefined;
 
-  private _x = 0;
+  protected _x = 0;
 
-  private _y = 0;
+  protected _y = 0;
 
-  private _scaleX = 1;
+  protected _scaleX = 1;
 
-  private _scaleY = 1;
+  protected _scaleY = 1;
 
   constructor(public readonly data: NinePatchData, scene: Phaser.Scene) {
     super(scene);
