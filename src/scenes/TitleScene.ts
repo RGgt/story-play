@@ -33,16 +33,16 @@ export default class TitleScene extends Phaser.Scene {
 
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
     const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-    const title = this.addGameTitleText('Love in the Coulds\r\nAbove Trinity', screenCenterX, screenCenterY);
+    const title = this.addGameTitleText('Story Title\r\non Two Lines', screenCenterX, screenCenterY);
 
     const pos = title.getBottomCenter();
-    const s1 = this.addGameSubtitleTextCenter('A story by AbyssalEros', pos.x, pos.y + 20);
+    const s1 = this.addGameSubtitleTextCenter('A story by Author', pos.x, pos.y + 20);
 
     const posS1 = s1.getBottomCenter();
-    const s2 = this.addGameSubtitleTextRight('Illustration by Grabiobot', 1920 - 20, posS1.y + 20);
+    const s2 = this.addGameSubtitleTextRight('Illustration by Illustrator', 1920 - 20, posS1.y + 20);
 
     const posS2 = s2.getBottomCenter();
-    const s3 = this.addGameSubtitleTextLeft('Managed by FarraTriss', 20, posS2.y + 20);
+    const s3 = this.addGameSubtitleTextLeft('Managed by Manager', 20, posS2.y + 20);
   }
 
   private _testImage: Phaser.GameObjects.Image | undefined;
