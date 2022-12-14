@@ -1,10 +1,37 @@
+/*Fonts */
 @font-face {
-  font-family: 'MyDisplayFont';
-  src: url('assets/fonts/NotoSansDisplay-Black.ttf');
+  font-family: 'DisplayBoldFont';
+  src: url('../fonts/NotoSansDisplay-Black.ttf');
 }
+
 @font-face {
-  font-family: 'MyMonoFont';
-  src: url('assets/fonts/NotoMono-Regular.ttf');
+  font-family: 'DisplayFont';
+  src: url('../fonts/NotoSansDisplay-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'SansBoldFont';
+  src: url('../fonts/NotoSans-Black.ttf');
+}
+
+@font-face {
+  font-family: 'SansFont';
+  src: url('../fonts/NotoSans-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'SerifBoldFont';
+  src: url('../fonts/NotoSerif-Black.ttf');
+}
+
+@font-face {
+  font-family: 'SerifFont';
+  src: url('../fonts/NotoSerif-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'MonoFont';
+  src: url('../fonts/NotoMono-Regular.ttf');
 }
 /* Define the dimensions of the game canvas */
 #phaser canvas {

@@ -15,7 +15,7 @@ export default class TextBuilder {
     const SHADOW_OFFSET_X = 4;
     const SHADOW_OFFSET_Y = 4;
     const TEXT_SIZE = '72px';
-    const TEXT_FONT_FAMILY = 'MyDisplayFont';
+    const TEXT_FONT_FAMILY = 'DisplayFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
     const OUTLINE_THICKNESS = 8;
@@ -56,7 +56,7 @@ export default class TextBuilder {
     const SHADOW_OFFSET_X = 2;
     const SHADOW_OFFSET_Y = 2;
     const TEXT_SIZE = '36px';
-    const TEXT_FONT_FAMILY = 'MyDisplayFont';
+    const TEXT_FONT_FAMILY = 'DisplayFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
     const OUTLINE_THICKNESS = 8;
@@ -97,12 +97,12 @@ export default class TextBuilder {
     const SHADOW_OFFSET_X = 2;
     const SHADOW_OFFSET_Y = 2;
     const TEXT_SIZE = '36px';
-    const TEXT_FONT_FAMILY = 'MyDisplayFont';
+    const TEXT_FONT_FAMILY = 'MonoFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
     const OUTLINE_THICKNESS = 8;
     const OUTLINE_COLOR = 'black';
-    const ALIGNMENT = 'center';
+    const ALIGNMENT = 'right';
     const COORD_TYPE = 'TopRight';
 
     return TextBuilder.createCusomlyFormattedText(
@@ -138,12 +138,12 @@ export default class TextBuilder {
     const SHADOW_OFFSET_X = 2;
     const SHADOW_OFFSET_Y = 2;
     const TEXT_SIZE = '36px';
-    const TEXT_FONT_FAMILY = 'MyDisplayFont';
+    const TEXT_FONT_FAMILY = 'SerifFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
     const OUTLINE_THICKNESS = 8;
     const OUTLINE_COLOR = 'black';
-    const ALIGNMENT = 'center';
+    const ALIGNMENT = 'left';
     const COORD_TYPE = 'TopLeft';
 
     return TextBuilder.createCusomlyFormattedText(
@@ -179,7 +179,7 @@ export default class TextBuilder {
     const SHADOW_OFFSET_X = 0;
     const SHADOW_OFFSET_Y = 0;
     const TEXT_SIZE = '24px';
-    const TEXT_FONT_FAMILY = 'MyDisplayFont';
+    const TEXT_FONT_FAMILY = 'SerifBoldFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
     const OUTLINE_THICKNESS = 2;

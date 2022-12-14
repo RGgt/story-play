@@ -33,16 +33,24 @@ export default class TitleScene extends Phaser.Scene {
 
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
     const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-    const title = this.addGameTitleText('Story Title\r\non Two Lines', screenCenterX, screenCenterY);
+    const title = this.addGameTitleText(
+      'Story Title\r\nThe quick brown fox\r\njumps over the lazy dog',
+      screenCenterX,
+      screenCenterY,
+    );
 
     const pos = title.getBottomCenter();
-    const s1 = this.addGameSubtitleTextCenter('A story by Author', pos.x, pos.y + 20);
+    const s1 = this.addGameSubtitleTextCenter(
+      'A story by Author\r\nThe quick brown fox jumps over the lazy dog',
+      pos.x,
+      pos.y + 20,
+    );
 
     const posS1 = s1.getBottomCenter();
-    const s2 = this.addGameSubtitleTextRight('Illustration by Illustrator', 1920 - 20, posS1.y + 20);
+    const s2 = this.addGameSubtitleTextRight('The quick brown fox\r\njumps over the lazy dog', 1920 - 20, posS1.y + 20);
 
     const posS2 = s2.getBottomCenter();
-    const s3 = this.addGameSubtitleTextLeft('Managed by Manager', 20, posS2.y + 20);
+    const s3 = this.addGameSubtitleTextLeft('The quick brown fox\r\njumps over the lazy dog', 20, posS2.y + 20);
   }
 
   private _testImage: Phaser.GameObjects.Image | undefined;
@@ -77,7 +85,7 @@ export default class TitleScene extends Phaser.Scene {
     };
     const customComponent = this.createButton(x, y, onClick);
     customComponent.setDepth(100);
-    this.addButtonText(customComponent, 'Add background');
+    this.addButtonText(customComponent, 'Add bkg');
     return customComponent;
   }
 
@@ -89,7 +97,7 @@ export default class TitleScene extends Phaser.Scene {
     };
     const customComponent = this.createButton(x, y, onClick);
     customComponent.setDepth(100);
-    this.addButtonText(customComponent, 'Add pulsing bkg');
+    this.addButtonText(customComponent, 'Add puls bkg');
     return customComponent;
   }
 
@@ -117,7 +125,7 @@ export default class TitleScene extends Phaser.Scene {
     };
     const customComponent = this.createButton(x, y, onClick);
     customComponent.setDepth(100);
-    this.addButtonText(customComponent, 'Add animated bkg');
+    this.addButtonText(customComponent, 'Add anim bkg');
     return customComponent;
   }
 
