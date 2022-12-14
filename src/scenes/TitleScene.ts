@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import MyAutoAdvancer from '../components/MyAutoAdvancer';
 import MyButton from '../components/MyButton';
 import MyPanel from '../components/MyPanel';
 import MyPanel2 from '../components/MyPanel2';
@@ -63,6 +64,8 @@ export default class TitleScene extends Phaser.Scene {
     this._testNarrationText = this.addNarrationText(
       'The quick brown fox jumps over the lazy dog urabitur non pulvinar ipsum. Duis sit amet dolor velit. Nulla facilisi. Donec quis ornare metus. Integer sit amet sem luctus, imperdiet risus id, accumsan mauris. Nullam nunc lorem, malesuada eget ante sit amet, lacinia maximus leo. Vestibulum tincidunt lacinia sem, aliquam accumsan nisi tristique in. ',
     );
+
+    this.addAutoAdvancer();
   }
 
   update(time: number, delta: number): void {
@@ -87,6 +90,8 @@ export default class TitleScene extends Phaser.Scene {
   private _testNarrationText: Phaser.GameObjects.Text | undefined;
 
   private _testNarrationRectangle: Phaser.GameObjects.Rectangle | undefined;
+
+  private _testAutoAdvancer: MyAutoAdvancer | undefined;
 
   cleanupBackground() {
     if (this._testImage) this._testImage.destroy();
@@ -233,6 +238,18 @@ export default class TitleScene extends Phaser.Scene {
     customComponent.init(x, y, 200, 75);
     customComponent.onClick = onClick;
     this.add.existing(customComponent);
+    return customComponent;
+  }
+
+  addAutoAdvancer(): MyAutoAdvancer {
+    const onClick = () => {
+      this._testAutoAdvancer?.destroy();
+      alert('First click unlocks the screen.\r\nNow you can explore.');
+    };
+    const customComponent = new MyAutoAdvancer(this);
+    customComponent.onClick = onClick;
+    this.add.existing(customComponent);
+    this._testAutoAdvancer = customComponent;
     return customComponent;
   }
 
