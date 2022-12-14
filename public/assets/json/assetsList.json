@@ -22,7 +22,7 @@
   },
   "audio": {
     "music": {
-      "wav": "assets/audio/andrew_sitkov__romantic_pop__dream_on_looped.wav"
+      "wav": "assets/audio/music.wav"
     }
   }
 }
