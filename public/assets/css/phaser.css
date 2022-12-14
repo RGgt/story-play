@@ -9,13 +9,13 @@
 
 /* Define the dimensions of the game canvas */
 #phaser canvas {
-  width: 960px;
-  height: 540px;
+  width: 100vw;
+  height: 100vh;
 }
 
-@media screen and not (display-mode: fullscreen) {
+/* @media screen and not (display-mode: fullscreen) {
   #phaser canvas {
     width: 100vw;
     height: calc(100vw / 960 * 540);
   }
-}
+} */
