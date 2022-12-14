@@ -9,12 +9,40 @@
 
 /* Define the dimensions of the game canvas */
 #phaser canvas {
-  width: 100vw;
-  height: 56.25vw; /* height:width ratio = 9/16 = .5625  */
-  background: pink;
-  max-height: 100vh;
-  max-width: 177.78vh; /* 16/9 = 1.778 */
-  margin: auto;
-  left: 0;
-  right: 0; /* horizontal center */
+  width: 960px;
+  height: 540px;
+}
+@media not (display-mode: fullscreen) {
+  @media not ((min-width: 960px) and (min-height: 540px)) {
+    #phaser canvas {
+      width: 100vw;
+      height: 56.25vw; /* height:width ratio = 9/16 = .5625  */
+      background: pink;
+      max-height: 100vh;
+      max-width: 177.78vh; /* 16/9 = 1.778 */
+      margin: auto;
+      left: 0;
+      right: 0; /* horizontal center */
+    }
+  }
+}
+@media only screen and (display-mode: fullscreen) {
+  @media not ((min-width: 1920px) and (min-height: 1080px)) {
+    #phaser canvas {
+      width: 1920px;
+      height: 1080px;
+    }
+  }
+  @media (min-width: 1920px) and (min-height: 1080px) {
+    #phaser canvas {
+      width: 100vw;
+      height: 56.25vw; /* height:width ratio = 9/16 = .5625  */
+      background: pink;
+      max-height: 100vh;
+      max-width: 177.78vh; /* 16/9 = 1.778 */
+      margin: auto;
+      left: 0;
+      right: 0; /* horizontal center */
+    }
+  }
 }
