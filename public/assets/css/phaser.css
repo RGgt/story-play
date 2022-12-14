@@ -10,5 +10,5 @@
 /* Define the dimensions of the game canvas */
 #phaser canvas {
   width: 960px;
-  height: 300px;
+  height: calc(90vh - 120px), -webkit-calc(90vh - 20px);
 }
