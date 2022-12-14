@@ -10,7 +10,7 @@
 /* Define the dimensions of the game canvas */
 #phaser canvas {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vw / 960 * 540);
 }
 
 /* @media screen and not (display-mode: fullscreen) {
