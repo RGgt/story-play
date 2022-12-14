@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'MyDisplayFont';
+  src: url('assets/fonts/NotoSansDisplay-Black.ttf');
+}
+@font-face {
+  font-family: 'MyMonoFont';
+  src: url('assets/fonts/NotoMono-Regular.ttf');
+}
 /* Define the dimensions of the game canvas */
 #phaser canvas {
   width: 94px;
