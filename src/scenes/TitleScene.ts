@@ -6,6 +6,8 @@ import TextBuilder from '../components/TextBuilder';
 import BackgroundsFactory from '../factories/BackgroundsFactory';
 
 export default class TitleScene extends Phaser.Scene {
+  static readonly CURSOR = 'url(/assets/images/gui/cursor.cur), auto';
+
   _btnSetFullscreen: MyButton | undefined;
 
   _btnSetWindowed: MyButton | undefined;
@@ -15,6 +17,7 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create() {
+    this.game.canvas.style.cursor = TitleScene.CURSOR;
     // this.addBackgroundImage();
     // this.addBackgroundImagePulsing();
     // this.addBackgroundImageAnimation();
