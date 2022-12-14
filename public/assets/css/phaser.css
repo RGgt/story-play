@@ -13,7 +13,7 @@
   height: 540px;
 }
 
-@media only screen and not (display-mode: fullscreen) {
+@media screen and not (display-mode: fullscreen) {
   #phaser canvas {
     width: 100vw;
     height: calc(100vw / 960 * 540);
