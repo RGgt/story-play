@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "build:githubPages": "tsc && vite build --base=/story-play/ --outDir=./githubPages",
     "preview": "vite preview"
