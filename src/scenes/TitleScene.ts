@@ -57,6 +57,9 @@ export default class TitleScene extends Phaser.Scene {
       1920 / 2,
       1080 / 2,
     );
+    this._testNarrationText = this.addNarrationText(
+      'The quick brown fox jumps over the lazy dog urabitur non pulvinar ipsum. Duis sit amet dolor velit. Nulla facilisi. Donec quis ornare metus. Integer sit amet sem luctus, imperdiet risus id, accumsan mauris. Nullam nunc lorem, malesuada eget ante sit amet, lacinia maximus leo. Vestibulum tincidunt lacinia sem, aliquam accumsan nisi tristique in. ',
+    );
   }
 
   update(time: number, delta: number): void {
@@ -77,6 +80,10 @@ export default class TitleScene extends Phaser.Scene {
   private _testAnimation: Phaser.Animations.Animation | false = false;
 
   private _testText: Phaser.GameObjects.Text | undefined;
+
+  private _testNarrationText: Phaser.GameObjects.Text | undefined;
+
+  private _testNarrationRectangle: Phaser.GameObjects.Rectangle | undefined;
 
   cleanupBackground() {
     if (this._testImage) this._testImage.destroy();
@@ -260,6 +267,17 @@ export default class TitleScene extends Phaser.Scene {
   addScrollingLetterText(text: string, x: number, y: number) {
     const customComponent = TextBuilder.createScrollingLetterText(this, x, y, text, 1920 * 0.7);
     customComponent.setScrollFactor(0, -1);
+    this.add.existing(customComponent);
+    return customComponent;
+  }
+
+  addNarrationText(text: string) {
+    const x = 100;
+    const y = 1080 - 250;
+    const customComponent = TextBuilder.addNarrationText(this, x, y, text, 1920 - 200);
+    customComponent.setScrollFactor(0, -1);
+    this._testNarrationRectangle = this.add.rectangle(0, y - 50, 1920, 250 + 50, 0x000000, 0.65);
+    this._testNarrationRectangle.setOrigin(0, 0);
     this.add.existing(customComponent);
     return customComponent;
   }
