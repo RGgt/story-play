@@ -13,7 +13,19 @@
   height: 540px;
 }
 @media not (display-mode: fullscreen) {
-  @media (max-width: 960px), (max-height: 540px) {
+  @media (max-height: 540px) {
+    #phaser canvas {
+      width: 100vw;
+      height: 56.25vw; /* height:width ratio = 9/16 = .5625  */
+      background: pink;
+      max-height: 100vh;
+      max-width: 177.78vh; /* 16/9 = 1.778 */
+      margin: auto;
+      left: 0;
+      right: 0; /* horizontal center */
+    }
+  }
+  @media (max-width: 960px) {
     #phaser canvas {
       width: 100vw;
       height: 56.25vw; /* height:width ratio = 9/16 = .5625  */
