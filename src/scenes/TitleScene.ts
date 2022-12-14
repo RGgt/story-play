@@ -51,6 +51,21 @@ export default class TitleScene extends Phaser.Scene {
 
     const posS2 = s2.getBottomCenter();
     const s3 = this.addGameSubtitleTextLeft('The quick brown fox\r\njumps over the lazy dog', 20, posS2.y + 20);
+
+    this._testText = this.addScrollingLetterText(
+      'The quick brown fox\r\njumps over the lazy dog\r\nurabitur non pulvinar ipsum. Duis sit amet dolor velit. Nulla facilisi. Donec quis ornare metus. Integer sit amet sem luctus, imperdiet risus id, accumsan mauris. Nullam nunc lorem, malesuada eget ante sit amet, lacinia maximus leo. Vestibulum tincidunt lacinia sem, aliquam accumsan nisi tristique in. Curabitur accumsan lacus nunc, vitae ultricies dui eleifend ut. Morbi eu consectetur mi, sed tincidunt dui. Sed sed velit sit amet ligula molestie fringilla. Suspendisse eget eros pretium, feugiat eros at, consequat nibh. Morbi ultricies dolor laoreet tristique lobortis.\r\nPraesent pellentesque augue non ultrices sagittis. Nullam tempus risus sed pretium pulvinar. Phasellus tincidunt dolor in velit viverra, non vulputate diam iaculis. Aenean ullamcorper fringilla enim, sit amet scelerisque quam egestas vel. Aliquam sit amet dictum mi. Praesent eget sem nisi. Nulla dui dolor, commodo eu mi sed, vestibulum vestibulum ligula.\r\nEtiam non viverra diam. Suspendisse non ex in lectus consectetur pharetra a eget eros. Integer cursus pharetra tincidunt. Mauris ut est nunc. Maecenas libero ex, pellentesque quis augue sed, mollis gravida augue. Nam semper eros sit amet felis scelerisque convallis. In hac habitasse platea dictumst. Nulla tincidunt eget lectus non fermentum. ',
+      1920 / 2,
+      1080 / 2,
+    );
+  }
+
+  update(time: number, delta: number): void {
+    if (this._testText && this._testText.scrollFactorY) {
+      this._testText.y += this._testText.scrollFactorY;
+      if (this._testText.height + this._testText.y < 0) {
+        this._testText.destroy();
+      }
+    }
   }
 
   private _testImage: Phaser.GameObjects.Image | undefined;
@@ -60,6 +75,8 @@ export default class TitleScene extends Phaser.Scene {
   private _testSprite: Phaser.GameObjects.Sprite | undefined;
 
   private _testAnimation: Phaser.Animations.Animation | false = false;
+
+  private _testText: Phaser.GameObjects.Text | undefined;
 
   cleanupBackground() {
     if (this._testImage) this._testImage.destroy();
@@ -236,6 +253,13 @@ export default class TitleScene extends Phaser.Scene {
 
   addGameSubtitleTextLeft(text: string, x: number, y: number) {
     const customComponent = TextBuilder.createSubtitleTextAlignLeft(this, x, y, text, 1920);
+    this.add.existing(customComponent);
+    return customComponent;
+  }
+
+  addScrollingLetterText(text: string, x: number, y: number) {
+    const customComponent = TextBuilder.createScrollingLetterText(this, x, y, text, 1920 * 0.7);
+    customComponent.setScrollFactor(0, -1);
     this.add.existing(customComponent);
     return customComponent;
   }
