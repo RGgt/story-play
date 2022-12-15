@@ -30,6 +30,10 @@ export default class StoryPlayScene extends Phaser.Scene {
 
   private _narrationRectangle: Phaser.GameObjects.Rectangle | undefined;
 
+  private _StoryTitle: Phaser.GameObjects.Text | undefined;
+
+  private _StorySubtitle_1: Phaser.GameObjects.Text | undefined;
+
   constructor() {
     super({ key: 'story-play' });
   }
@@ -38,7 +42,6 @@ export default class StoryPlayScene extends Phaser.Scene {
     // nothing
     this.storyFlowData = this.cache.json.get('story-flow') as StoryFlowData;
     this.translationData = this.cache.json.get('translation') as TranslationData;
-    console.log(this.translationData);
     if (!this.currentFrame) this.currentFrame = this.storyFlowData.startingFrame;
     const frameData = StoryPlayScene.getFrameData(this.storyFlowData, this.currentFrame);
     this.renderFrame(frameData);
@@ -77,6 +80,12 @@ export default class StoryPlayScene extends Phaser.Scene {
         break;
       case 'narration':
         this.renderNarration(componentData.data, index);
+        break;
+      case 'story-title':
+        this.renderStoryTitle(componentData.data, index);
+        break;
+      case 'story-subtitle-center':
+        this.renderStorySubtitleCenter(componentData.data, index);
         break;
       default:
         throw new Error('Invalid component code!');
@@ -220,13 +229,14 @@ export default class StoryPlayScene extends Phaser.Scene {
       // create new background below it
       // [this._backgroundImage] = BackgroundsFactory.createBackgroundImage(this, data);
       const strings: string[] = [];
-      const configDefault = { frames: strings, repeats: -1, frameRate: 8 };
+      const configDefault = { frames: strings, repeats: -1, frameRate: 8, yoyo: false };
       const newConfig = { ...configDefault, ...config };
       [this._backgroundSprite, this._backgroundAnimation] = BackgroundsFactory.createBackgroundAnimation(
         this,
         'main',
         newConfig,
       );
+      console.log(newConfig);
 
       this._backgroundSprite.setDepth(index * 10);
       // fade out the old background
@@ -247,7 +257,7 @@ export default class StoryPlayScene extends Phaser.Scene {
       });
     } else {
       const strings: string[] = [];
-      const configDefault = { frames: strings, repeats: -1, frameRate: 8 };
+      const configDefault = { frames: strings, repeats: -1, frameRate: 8, yoyo: false };
       const newConfig = { ...configDefault, ...config };
       [this._backgroundSprite, this._backgroundAnimation] = BackgroundsFactory.createBackgroundAnimation(
         this,
@@ -281,9 +291,7 @@ export default class StoryPlayScene extends Phaser.Scene {
     if (data == null) {
       return;
     }
-    if (!this.translationData) throw new Error('No translation data!');
-    let text = data;
-    if (data in this.translationData) text = this.translationData[data];
+    const text = this.getTranslation(data);
     const x = 100;
     const y = 1080 - 250;
     const customComponent = TextBuilder.addNarrationText(this, x, y, text, 1920 - 200);
@@ -294,5 +302,51 @@ export default class StoryPlayScene extends Phaser.Scene {
     this._narrationText = customComponent;
     this._narrationRectangle.setDepth(index * 10);
     this._narrationText.setDepth(index * 10 + 5);
+  }
+
+  getTranslation(data: string) {
+    if (!this.translationData) throw new Error('No translation data!');
+    let text = data;
+    if (data in this.translationData) text = this.translationData[data];
+    return text;
+  }
+
+  renderStoryTitle(data: string, index: number) {
+    if (data == null) {
+      this._StoryTitle?.destroy();
+      return;
+    }
+    if (this._StoryTitle) {
+      this._StoryTitle?.destroy();
+    }
+    const text = this.getTranslation(data);
+    const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
+    const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
+    const customComponent = TextBuilder.createTitleText(this, screenCenterX, screenCenterY, text, 1920);
+    this.add.existing(customComponent);
+    this._StoryTitle = customComponent;
+    this._StoryTitle.setDepth(index * 10);
+  }
+
+  renderStorySubtitleCenter(data: string, index: number) {
+    if (data == null) {
+      this._StorySubtitle_1?.destroy();
+      return;
+    }
+    if (this._StorySubtitle_1) {
+      this._StorySubtitle_1?.destroy();
+    }
+    const text = this.getTranslation(data);
+    const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
+    const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
+    const x = screenCenterX;
+    let y = screenCenterY;
+    if (this._StoryTitle) {
+      y = this._StoryTitle.getBottomCenter().y + 40;
+    }
+    const customComponent = TextBuilder.createSubtitleTextAlignCenter(this, x, y, text, 1920);
+    this.add.existing(customComponent);
+    this._StorySubtitle_1 = customComponent;
+    this._StorySubtitle_1.setDepth(index * 10);
   }
 }

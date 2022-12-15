@@ -153,7 +153,7 @@ export default class TitleScene extends Phaser.Scene {
         'frame_1_08_16',
         'frame_1_08_17',
       ];
-      const configDefault = { frames, repeats: -1, frameRate: 8 };
+      const configDefault = { frames, repeats: -1, frameRate: 8, yoyo: false };
       [this._testSprite, this._testAnimation] = BackgroundsFactory.createBackgroundAnimation(
         this,
         'main',
@@ -189,7 +189,7 @@ export default class TitleScene extends Phaser.Scene {
       'frame_1_08_16',
       'frame_1_08_17',
     ];
-    const configDefault = { frames, repeats: -1, frameRate: 8 };
+    const configDefault = { frames, repeats: -1, frameRate: 8, yoyo: false };
 
     BackgroundsFactory.createBackgroundAnimation(this, 'main', configDefault);
   }

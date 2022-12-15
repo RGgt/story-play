@@ -139,8 +139,8 @@ export default class PreloadScene extends Phaser.Scene {
       'complete',
       () => {
         this.load.off('progress', updateProgressbar);
-        this.scene.start('story-play');
-        // this.scene.start('title');
+        // this.scene.start('story-play');
+        this.scene.start('title');
       },
       this,
     );
