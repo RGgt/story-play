@@ -244,17 +244,19 @@ export default class TitleScene extends Phaser.Scene {
   addAutoAdvancer(): MyAutoAdvancer {
     const onClick = () => {
       this._testAutoAdvancer?.destroy();
-      const canvas = document.getElementsByTagName("canvas")[0];
-      canvas!.blur();
       alert('First click unlocks the screen.\r\nNow you can explore.');
-      canvas!.focus();
-      // console.log(canvas);
+      this.restoreFocusToGame();
     };
     const customComponent = new MyAutoAdvancer(this);
     customComponent.onClick = onClick;
     this.add.existing(customComponent);
     this._testAutoAdvancer = customComponent;
     return customComponent;
+  }
+
+  private restoreFocusToGame() {
+    const canvas = document.getElementsByTagName("canvas")[0];
+    canvas!.focus();
   }
 
   private addButtonText(btton: MyButton, text: string) {
