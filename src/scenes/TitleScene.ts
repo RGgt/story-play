@@ -208,16 +208,22 @@ export default class TitleScene extends Phaser.Scene {
       const languagesComboBox = document.getElementById('favLanguage') as HTMLSelectElement;
       cancelButton.addEventListener('click', () => {
         dialog.close('languageNotChosen');
+        dialog.classList.remove('dialog-visible');
+        dialog.classList.add('dialog-hidden');
         Utilities.restoreFocusToGame();
         this.scene.resume();
       });
       confirmButton.addEventListener('click', (event) => {
         event.preventDefault();
         dialog.close(languagesComboBox.value);
+        dialog.classList.remove('dialog-visible');
+        dialog.classList.add('dialog-hidden');
         Utilities.restoreFocusToGame();
         this.scene.resume();
       });
       this.scene.pause();
+      dialog.classList.add('dialog-visible');
+      dialog.classList.remove('dialog-hidden');
       dialog.showModal();
     };
     const customComponent = this.createButton(x, y, onClick);

@@ -33,6 +33,14 @@
   font-family: 'MonoFont';
   src: url('../fonts/NotoMono-Regular.ttf');
 }
+/* Dialog hidden by default on iPhone */
+.dialog-hidden {
+  display: none;
+}
+
+.dialog-visible {
+  display: initial;
+}
 /* Define the dimensions of the game canvas */
 #phaser canvas {
   width: 94px;
