@@ -236,7 +236,6 @@ export default class StoryPlayScene extends Phaser.Scene {
         'main',
         newConfig,
       );
-      console.log(newConfig);
 
       this._backgroundSprite.setDepth(index * 10);
       // fade out the old background
