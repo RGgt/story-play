@@ -43,6 +43,9 @@ export default class BackgroundsFactory {
       frameRate: config.frameRate,
       repeat: config.repeats,
     });
+    if (config.repeats < 0) {
+      (animation as Phaser.Animations.Animation).repeat = -1;
+    }
     sprite.play(name);
     return [sprite, animation];
   }
