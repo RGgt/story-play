@@ -1,0 +1,122 @@
+{
+  "startingFrame": "intro_001",
+  "endingFrame": "finish_001",
+  "frames": [
+    {
+      "code": "intro_001",
+      "components": [
+        {
+          "code": "background"
+        },
+        {
+          "code": "jumper",
+          "data": "intro_002"
+        },
+        {
+          "code": "narration",
+          "data": "It was our first Valentine's Day together, and I wanted to surprise Laura with a really impressive date."
+        }
+      ]
+    },
+    {
+      "code": "intro_002",
+      "components": [
+        {
+          "code": "background",
+          "data": "frame_1_05"
+        },
+        {
+          "code": "jumper",
+          "data": "intro_002b"
+        },
+        {
+          "code": "narration",
+          "data": "Therefore, I invited her to a special candlelight dinner."
+        }
+      ]
+    },
+    {
+      "code": "intro_002b",
+      "components": [
+        {
+          "code": "background"
+        },
+        {
+          "code": "narration"
+        },
+        {
+          "code": "jumper",
+          "data": "intro_003"
+        }
+      ]
+    },
+    {
+      "code": "intro_003",
+      "components": [
+        {
+          "code": "background-pulse",
+          "data": "frame_13_05",
+          "config": {
+            "repeats": 1,
+            "scale": 1.5,
+            "speed": 1000
+          }
+        },
+        {
+          "code": "jumper",
+          "data": "intro_003b"
+        },
+        {
+          "code": "narration",
+          "data": "Although I had told her it would be an upscale restaurant and we should dress appropriately, I had not told her that it was the 'Monte Vesuvio.'"
+        }
+      ]
+    },
+    {
+      "code": "intro_003b",
+      "components": [
+        {
+          "code": "background"
+        },
+        {
+          "code": "narration"
+        },
+        {
+          "code": "jumper",
+          "data": "intro_004"
+        }
+      ]
+    },
+    {
+      "code": "intro_004",
+      "components": [
+        {
+          "code": "background-animate",
+          "data": "frame_13_05",
+          "config": {
+            "frames": [
+              "frame_1_08_10",
+              "frame_1_08_11",
+              "frame_1_08_12",
+              "frame_1_08_13",
+              "frame_1_08_14",
+              "frame_1_08_15",
+              "frame_1_08_16",
+              "frame_1_08_17"
+            ],
+            "repeats": 0,
+            "frameRate": 12
+          }
+        },
+        {
+          "code": "jumper",
+          "data": "intro_001"
+        },
+        {
+          "code": "narration",
+          "data": "Although I had told her it would be an upscale restaurant and we should dress appropriately, I had not told her that it was the 'Monte Vesuvio.'"
+        }
+      ]
+    }
+  ]
+}

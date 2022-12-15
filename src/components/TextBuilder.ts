@@ -134,14 +134,14 @@ export default class TextBuilder {
     maxWidth: number,
   ): Phaser.GameObjects.Text {
     const SHADOW_COLOR = '#000000';
-    const SHADOW_BLUR = 4;
-    const SHADOW_OFFSET_X = 2;
-    const SHADOW_OFFSET_Y = 2;
+    const SHADOW_BLUR = 0;
+    const SHADOW_OFFSET_X = 0;
+    const SHADOW_OFFSET_Y = 0;
     const TEXT_SIZE = '36px';
     const TEXT_FONT_FAMILY = 'SerifFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
-    const OUTLINE_THICKNESS = 8;
+    const OUTLINE_THICKNESS = 6;
     const OUTLINE_COLOR = 'black';
     const ALIGNMENT = 'left';
     const COORD_TYPE = 'TopLeft';

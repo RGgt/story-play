@@ -19,6 +19,7 @@ export default class PreloadScene extends Phaser.Scene {
     return +this.sys.game.config.height / 2;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   loadAssets(json: any) {
     Object.keys(json).forEach((group) => {
       Object.keys(json[group]).forEach((key) => {
@@ -27,6 +28,7 @@ export default class PreloadScene extends Phaser.Scene {
     }, this);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   loadIndividualAsset(json: any, group: string, key: string) {
     const value = json[group][key];
     if (
@@ -137,6 +139,7 @@ export default class PreloadScene extends Phaser.Scene {
       'complete',
       () => {
         this.load.off('progress', updateProgressbar);
+        // this.scene.start('story-play');
         this.scene.start('title');
       },
       this,

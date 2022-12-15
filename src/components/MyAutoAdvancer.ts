@@ -7,7 +7,7 @@ export default class MyAutoAdvancer extends Phaser.GameObjects.Rectangle {
 
   constructor(scene: Phaser.Scene, x = 0, y = 0, width: number | undefined = 1920, height: number | undefined = 1080) {
     const fillColor = 0x00;
-    const fillAlpha = 0.8;
+    const fillAlpha = 0;
     super(scene, x, y, width, height, fillColor, fillAlpha);
     // this.setVisible(false);
     this.setInteractive({ cursor: 'url(/assets/images/gui/cursor.cur), pointer' });

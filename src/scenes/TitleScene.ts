@@ -31,6 +31,7 @@ export default class TitleScene extends Phaser.Scene {
     this._btnSetFullscreen = this.addSetFullscreenButton(100, 100);
     this._btnSetWindowed = this.addSetWindowedButton(300, 100);
     this.addOpenModalButton(100, 200);
+    this.addPlayButton(300, 320);
     this.setBackgroundImage(100, 320);
     this.setBackgroundImagePulsing(100, 420);
     this.setBackgroundImageAnimation(100, 520);
@@ -55,7 +56,7 @@ export default class TitleScene extends Phaser.Scene {
     const s2 = this.addGameSubtitleTextRight('The quick brown fox\r\njumps over the lazy dog', 1920 - 20, posS1.y + 20);
 
     const posS2 = s2.getBottomCenter();
-    const s3 = this.addGameSubtitleTextLeft('The quick brown fox\r\njumps over the lazy dog', 20, posS2.y + 20);
+    this.addGameSubtitleTextLeft('The quick brown fox\r\njumps over the lazy dog', 20, posS2.y + 20);
 
     this._testText = this.addScrollingLetterText(
       'The quick brown fox\r\njumps over the lazy dog\r\nurabitur non pulvinar ipsum. Duis sit amet dolor velit. Nulla facilisi. Donec quis ornare metus. Integer sit amet sem luctus, imperdiet risus id, accumsan mauris. Nullam nunc lorem, malesuada eget ante sit amet, lacinia maximus leo. Vestibulum tincidunt lacinia sem, aliquam accumsan nisi tristique in. Curabitur accumsan lacus nunc, vitae ultricies dui eleifend ut. Morbi eu consectetur mi, sed tincidunt dui. Sed sed velit sit amet ligula molestie fringilla. Suspendisse eget eros pretium, feugiat eros at, consequat nibh. Morbi ultricies dolor laoreet tristique lobortis.\r\nPraesent pellentesque augue non ultrices sagittis. Nullam tempus risus sed pretium pulvinar. Phasellus tincidunt dolor in velit viverra, non vulputate diam iaculis. Aenean ullamcorper fringilla enim, sit amet scelerisque quam egestas vel. Aliquam sit amet dictum mi. Praesent eget sem nisi. Nulla dui dolor, commodo eu mi sed, vestibulum vestibulum ligula.\r\nEtiam non viverra diam. Suspendisse non ex in lectus consectetur pharetra a eget eros. Integer cursus pharetra tincidunt. Mauris ut est nunc. Maecenas libero ex, pellentesque quis augue sed, mollis gravida augue. Nam semper eros sit amet felis scelerisque convallis. In hac habitasse platea dictumst. Nulla tincidunt eget lectus non fermentum. ',
@@ -69,7 +70,7 @@ export default class TitleScene extends Phaser.Scene {
     this.addAutoAdvancer();
   }
 
-  update(time: number, delta: number): void {
+  update(): void {
     if (this._testText && this._testText.scrollFactorY) {
       this._testText.y += this._testText.scrollFactorY;
       if (this._testText.height + this._testText.y < 0) {
@@ -78,7 +79,7 @@ export default class TitleScene extends Phaser.Scene {
     }
   }
 
-  private _testImage: Phaser.GameObjects.Image | undefined;
+  // private _testImage: Phaser.GameObjects.Image | undefined;
 
   private _testPulseTween: Phaser.Tweens.Tween | undefined;
 
@@ -95,7 +96,7 @@ export default class TitleScene extends Phaser.Scene {
   private _testAutoAdvancer: MyAutoAdvancer | undefined;
 
   cleanupBackground() {
-    if (this._testImage) this._testImage.destroy();
+    // if (this._testImage) this._testImage.destroy();
     if (this._testPulseTween) {
       this._testPulseTween.stop();
       this._testPulseTween.remove();
@@ -113,8 +114,8 @@ export default class TitleScene extends Phaser.Scene {
   setBackgroundImage(x: number, y: number): MyButton {
     const onClick = () => {
       this.cleanupBackground();
-      [this._testImage] = BackgroundsFactory.createBackgroundImage(this, 'main');
-      this._testImage.setDepth(-100);
+      [this._testSprite] = BackgroundsFactory.createBackgroundImage(this, 'main');
+      this._testSprite.setDepth(-100);
     };
     const customComponent = this.createButton(x, y, onClick);
     customComponent.setDepth(100);
@@ -125,8 +126,13 @@ export default class TitleScene extends Phaser.Scene {
   setBackgroundImagePulsing(x: number, y: number): MyButton {
     const onClick = () => {
       this.cleanupBackground();
-      [this._testImage, this._testPulseTween] = BackgroundsFactory.createBackgroundImagePulsing(this, 'main');
-      this._testImage.setDepth(-100);
+      const configDefault = { scale: 2.0, speed: 2200, repeats: -1, yoyo: true };
+      [this._testSprite, this._testPulseTween] = BackgroundsFactory.createBackgroundImagePulsing(
+        this,
+        'main',
+        configDefault,
+      );
+      this._testSprite.setDepth(-100);
     };
     const customComponent = this.createButton(x, y, onClick);
     customComponent.setDepth(100);
@@ -147,12 +153,11 @@ export default class TitleScene extends Phaser.Scene {
         'frame_1_08_16',
         'frame_1_08_17',
       ];
-      [this._testSprite, this._testAnimation] = BackgroundsFactory.createBackgroundImageAnimation(
+      const configDefault = { frames, repeats: -1, frameRate: 8 };
+      [this._testSprite, this._testAnimation] = BackgroundsFactory.createBackgroundAnimation(
         this,
         'main',
-        frames,
-        -1,
-        8,
+        configDefault,
       );
       this._testSprite.setDepth(-100);
     };
@@ -163,11 +168,14 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   addBackgroundImage() {
-    const [image] = BackgroundsFactory.createBackgroundImage(this, 'main');
+    [this._testSprite] = BackgroundsFactory.createBackgroundImage(this, 'main');
   }
 
   addBackgroundImagePulsing() {
-    const [image, pulseTween] = BackgroundsFactory.createBackgroundImagePulsing(this, 'main');
+    const configDefault = { scale: 2.0, speed: 2200, repeats: -1, yoyo: true };
+    const [image, pulseTween] = BackgroundsFactory.createBackgroundImagePulsing(this, 'main', configDefault);
+    this._testSprite = image;
+    this._testPulseTween = pulseTween;
   }
 
   addBackgroundImageAnimation() {
@@ -181,17 +189,19 @@ export default class TitleScene extends Phaser.Scene {
       'frame_1_08_16',
       'frame_1_08_17',
     ];
-    BackgroundsFactory.createBackgroundImageAnimation(this, 'main', frames, -1, 8);
+    const configDefault = { frames, repeats: -1, frameRate: 8 };
+
+    BackgroundsFactory.createBackgroundAnimation(this, 'main', configDefault);
   }
 
   updateEnabledButons(fullscren: boolean) {
-    this._btnSetWindowed!.setDisabled(!fullscren);
-    this._btnSetFullscreen!.setDisabled(fullscren);
+    this._btnSetWindowed?.setDisabled(!fullscren);
+    this._btnSetFullscreen?.setDisabled(fullscren);
   }
 
   addSetFullscreenButton(x: number, y: number): MyButton {
     const onClick = () => {
-      document.getElementById('phaser')!.requestFullscreen();
+      document.getElementById('phaser')?.requestFullscreen();
       this.updateEnabledButons(true);
     };
     const customComponent = this.createButton(x, y, onClick);
@@ -232,6 +242,16 @@ export default class TitleScene extends Phaser.Scene {
     return customComponent;
   }
 
+  addPlayButton(x: number, y: number): MyButton {
+    const onClick = () => {
+      this.scene.start('story-play');
+    };
+    const customComponent = this.createButton(x, y, onClick);
+    customComponent.setDepth(100);
+    this.addButtonText(customComponent, 'Play story');
+    return customComponent;
+  }
+
   addSetWindowedButton(x: number, y: number): MyButton {
     const onClick = () => {
       document.exitFullscreen();
@@ -253,6 +273,7 @@ export default class TitleScene extends Phaser.Scene {
   addAutoAdvancer(): MyAutoAdvancer {
     const onClick = () => {
       this._testAutoAdvancer?.destroy();
+      // eslint-disable-next-line no-alert
       alert('First click unlocks the screen.\r\nNow you can explore.');
       Utilities.restoreFocusToGame();
     };
