@@ -5,6 +5,7 @@ import MyPanel from '../components/MyPanel';
 import MyPanel2 from '../components/MyPanel2';
 import TextBuilder from '../components/TextBuilder';
 import BackgroundsFactory from '../factories/BackgroundsFactory';
+import Utilities from '../utilities';
 
 export default class TitleScene extends Phaser.Scene {
   static readonly CURSOR = 'url(/assets/images/gui/cursor.cur), auto';
@@ -207,11 +208,13 @@ export default class TitleScene extends Phaser.Scene {
       const languagesComboBox = document.getElementById('favLanguage') as HTMLSelectElement;
       cancelButton.addEventListener('click', () => {
         dialog.close('languageNotChosen');
+        Utilities.restoreFocusToGame();
         this.scene.resume();
       });
       confirmButton.addEventListener('click', (event) => {
         event.preventDefault();
         dialog.close(languagesComboBox.value);
+        Utilities.restoreFocusToGame();
         this.scene.resume();
       });
       this.scene.pause();
@@ -245,18 +248,13 @@ export default class TitleScene extends Phaser.Scene {
     const onClick = () => {
       this._testAutoAdvancer?.destroy();
       alert('First click unlocks the screen.\r\nNow you can explore.');
-      this.restoreFocusToGame();
+      Utilities.restoreFocusToGame();
     };
     const customComponent = new MyAutoAdvancer(this);
     customComponent.onClick = onClick;
     this.add.existing(customComponent);
     this._testAutoAdvancer = customComponent;
     return customComponent;
-  }
-
-  private restoreFocusToGame() {
-    const canvas = document.getElementsByTagName("canvas")[0];
-    canvas!.focus();
   }
 
   private addButtonText(btton: MyButton, text: string) {
