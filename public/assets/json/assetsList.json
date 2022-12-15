@@ -1,6 +1,7 @@
 {
   "json": {
-    "story-flow": "assets/json/story-flow.json"
+    "story-flow": "assets/json/story-flow.json",
+    "translation": "assets/json/translation-en-GB.json"
   },
   "image": {
     "main": "assets/images/frame_001.png",

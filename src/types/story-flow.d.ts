@@ -12,3 +12,6 @@ interface StoryFlowData {
   endingFrame: string;
   frames: FrameData[];
 }
+interface TranslationData {
+  [key: string]: string;
+}

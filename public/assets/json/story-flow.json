@@ -14,7 +14,7 @@
         },
         {
           "code": "narration",
-          "data": "It was our first Valentine's Day together, and I wanted to surprise Laura with a really impressive date."
+          "data": "txt_intro_001"
         }
       ]
     },
@@ -31,7 +31,7 @@
         },
         {
           "code": "narration",
-          "data": "Therefore, I invited her to a special candlelight dinner."
+          "data": "txt_intro_002"
         }
       ]
     },
@@ -42,7 +42,8 @@
           "code": "background"
         },
         {
-          "code": "narration"
+          "code": "narration",
+          "data": ""
         },
         {
           "code": "jumper",
@@ -68,7 +69,7 @@
         },
         {
           "code": "narration",
-          "data": "Although I had told her it would be an upscale restaurant and we should dress appropriately, I had not told her that it was the 'Monte Vesuvio.'"
+          "data": "txt_intro_003"
         }
       ]
     },
@@ -114,7 +115,7 @@
         },
         {
           "code": "narration",
-          "data": "Although I had told her it would be an upscale restaurant and we should dress appropriately, I had not told her that it was the 'Monte Vesuvio.'"
+          "data": "txt_intro_004"
         }
       ]
     }

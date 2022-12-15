@@ -6,6 +6,8 @@ import BackgroundsFactory from '../factories/BackgroundsFactory';
 export default class StoryPlayScene extends Phaser.Scene {
   public storyFlowData: StoryFlowData | undefined;
 
+  public translationData: TranslationData | undefined;
+
   public currentFrame: string | undefined;
 
   // private _backgroundImage: Phaser.GameObjects.Sprite | undefined;
@@ -35,6 +37,8 @@ export default class StoryPlayScene extends Phaser.Scene {
   create() {
     // nothing
     this.storyFlowData = this.cache.json.get('story-flow') as StoryFlowData;
+    this.translationData = this.cache.json.get('translation') as TranslationData;
+    console.log(this.translationData);
     if (!this.currentFrame) this.currentFrame = this.storyFlowData.startingFrame;
     const frameData = StoryPlayScene.getFrameData(this.storyFlowData, this.currentFrame);
     this.renderFrame(frameData);
@@ -277,9 +281,12 @@ export default class StoryPlayScene extends Phaser.Scene {
     if (data == null) {
       return;
     }
+    if (!this.translationData) throw new Error('No translation data!');
+    let text = data;
+    if (data in this.translationData) text = this.translationData[data];
     const x = 100;
     const y = 1080 - 250;
-    const customComponent = TextBuilder.addNarrationText(this, x, y, data, 1920 - 200);
+    const customComponent = TextBuilder.addNarrationText(this, x, y, text, 1920 - 200);
     customComponent.setScrollFactor(0, -1);
     this._narrationRectangle = this.add.rectangle(0, y - 50, 1920, 250 + 50, 0x000000, 0.65);
     this._narrationRectangle.setOrigin(0, 0);
