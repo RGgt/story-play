@@ -16,3 +16,6 @@ class SimpleGame extends Phaser.Game {
 window.addEventListener('load', () => {
   const game: Phaser.Game = new SimpleGame(config);
 });
+
+const dialog = document.getElementById('favDialog') as HTMLDialogElement;
+dialog.hidden = false;
