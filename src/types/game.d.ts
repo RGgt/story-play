@@ -1,8 +1,8 @@
 interface GameMemoryData {
-  gameScene: string = SPScenes.Experimental;
+  gameScene: string;
   currentFrame: string;
-  currentLanguage: string = 'en-GB';
-  framesHistory: string[] = [] as string[];
+  currentLanguage: string;
+  framesHistory: string[];
 }
 interface SPGame extends Phaser.Game {
   gameData: GameMemoryData | undefined;

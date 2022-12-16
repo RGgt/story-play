@@ -1,10 +1,7 @@
-import { on } from 'events';
 import Phaser from 'phaser';
 import MyAutoAdvancer from '../components/MyAutoAdvancer';
-import TextBuilder from '../components/TextBuilder';
 import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
-// import { SPScenes } from '../types/game';
 
 export default class StoryPlayScene extends Phaser.Scene {
   public storyFlowData: StoryFlowData | undefined;
@@ -46,17 +43,21 @@ export default class StoryPlayScene extends Phaser.Scene {
     this.storyFlowData = this.cache.json.get('story-flow') as StoryFlowData;
     this.translationData = this.cache.json.get('translation') as TranslationData;
     if (!this.currentFrame) this.currentFrame = this.storyFlowData.startingFrame;
-    const frameData = StoryPlayScene.getFrameData(this.storyFlowData, this.currentFrame);
-    this.renderFrame(frameData);
+    this.navigateForward(this.currentFrame);
 
     this.game.events.on('restart', () => {
       // do something with the data received from the event
-      console.log("restart requested");
       this.cleanup();
+      this.restartGame();
+    });
+  }
+
+  restartGame() {
+    if (this.storyFlowData) {
       this.currentFrame = this.storyFlowData.startingFrame;
       const frameData = StoryPlayScene.getFrameData(this.storyFlowData, this.currentFrame);
       this.renderFrame(frameData);
-    });
+    }
   }
 
   renderNewFrame(frame: string) {
@@ -276,8 +277,7 @@ export default class StoryPlayScene extends Phaser.Scene {
       return;
     }
     const onClick = () => {
-      this._AutoAdvancer?.destroy();
-      this.renderNewFrame(data);
+      this.navigateForward(data);
     };
     const openMenu = () => {
       this.game.scene.run(SPScenes.MainMenu);
@@ -285,8 +285,49 @@ export default class StoryPlayScene extends Phaser.Scene {
       this.game.scene.pause(this);
     };
 
-    this._AutoAdvancer = SceneFiller.PlaceJumperWithMenu(this, onClick, openMenu);
+    const onNavBack = () => {
+      this.navigateBack();
+    };
+
+    this._AutoAdvancer = SceneFiller.PlaceJumperWithMenuAndNavBack(this, onClick, openMenu, onNavBack);
     this._AutoAdvancer.setDepth(Number.MAX_SAFE_INTEGER);
+  }
+
+  navigateLoadFrameDirectly(frame: string) {
+    const { gameData } = this.game as SPGame;
+    if (gameData) {
+      gameData.framesHistory = [] as string[];
+    }
+    this.renderNewFrame(frame);
+  }
+
+  navigateForward(frame: string) {
+    const { gameData } = this.game as SPGame;
+    if (gameData) {
+      gameData.framesHistory.push(frame);
+    }
+    this._AutoAdvancer?.destroy();
+    this.renderNewFrame(frame);
+  }
+
+  navigateBack() {
+    const { gameData } = this.game as SPGame;
+    if (gameData) {
+      if (gameData.framesHistory.length > 1) {
+        gameData.framesHistory.pop();
+        // it's ok to pop it, as rendering will add it back
+        const frame = gameData.framesHistory[gameData.framesHistory.length - 1];
+        if (frame) {
+          this._AutoAdvancer?.destroy();
+          this.cleanup();
+          this.renderNewFrame(frame);
+        }
+      } else if (gameData.framesHistory.length === 1) {
+        const frame = gameData.framesHistory[0];
+        this.cleanup();
+        this.renderNewFrame(frame);
+      }
+    }
   }
 
   renderNarration(data: string, index: number) {

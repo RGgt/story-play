@@ -17,6 +17,12 @@ class SimpleGame extends Phaser.Game implements SPGame {
       scene: [BootScene, PreloadScene, TitleScene, StoryPlayScene, MainMenuScene],
     });
     super(realConfig);
+    this.gameData = {
+      gameScene: '',
+      currentFrame: '',
+      currentLanguage: 'en-GB',
+      framesHistory: [] as string[],
+    };
   }
 }
 window.addEventListener('load', () => {
