@@ -56,7 +56,13 @@ export default class StoryPlayScene extends Phaser.Scene {
     if (this.storyFlowData) {
       this.currentFrame = this.storyFlowData.startingFrame;
       const frameData = StoryPlayScene.getFrameData(this.storyFlowData, this.currentFrame);
-      this.renderFrame(frameData);
+
+      const { gameData } = this.game as SPGame;
+      if (gameData) {
+        gameData.framesHistory = [] as string[];
+      }
+      this.currentFrame = this.storyFlowData.startingFrame;
+      this.navigateForward(this.currentFrame);
     }
   }
 
