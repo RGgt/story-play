@@ -1,7 +1,8 @@
+import { on } from 'events';
 import Phaser from 'phaser';
 import MyAutoAdvancer from '../components/MyAutoAdvancer';
 import TextBuilder from '../components/TextBuilder';
-import BackgroundsFactory from '../factories/BackgroundsFactory';
+import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
 // import { SPScenes } from '../types/game';
 
@@ -47,6 +48,15 @@ export default class StoryPlayScene extends Phaser.Scene {
     if (!this.currentFrame) this.currentFrame = this.storyFlowData.startingFrame;
     const frameData = StoryPlayScene.getFrameData(this.storyFlowData, this.currentFrame);
     this.renderFrame(frameData);
+
+    this.game.events.on('restart', () => {
+      // do something with the data received from the event
+      console.log("restart requested");
+      this.cleanup();
+      this.currentFrame = this.storyFlowData.startingFrame;
+      const frameData = StoryPlayScene.getFrameData(this.storyFlowData, this.currentFrame);
+      this.renderFrame(frameData);
+    });
   }
 
   renderNewFrame(frame: string) {
@@ -118,7 +128,7 @@ export default class StoryPlayScene extends Phaser.Scene {
       this._backgroundSpriteOld = this._backgroundSprite;
       this._backgroundSpriteOld.setDepth(depthOld);
       // create new background below it
-      [this._backgroundSprite] = BackgroundsFactory.createBackgroundImage(this, data);
+      [this._backgroundSprite] = SceneFiller.PlaceBackgroundStatic(this, data);
       this._backgroundSprite.setDepth(index * 10);
       // fade out the old background
       this._backgroundFadeOutTween = this.tweens.add({
@@ -137,7 +147,7 @@ export default class StoryPlayScene extends Phaser.Scene {
         },
       });
     } else {
-      [this._backgroundSprite] = BackgroundsFactory.createBackgroundImage(this, data);
+      [this._backgroundSprite] = SceneFiller.PlaceBackgroundStatic(this, data);
       this._backgroundSprite.setDepth(index * 10);
     }
   }
@@ -166,14 +176,9 @@ export default class StoryPlayScene extends Phaser.Scene {
       this._backgroundSpriteOld = this._backgroundSprite;
       this._backgroundSpriteOld.setDepth(depthOld);
       // create new background below it
-      // [this._backgroundImage] = BackgroundsFactory.createBackgroundImage(this, data);
       const configDefault = { scale: 2.0, speed: 2200, repeats: -1, yoyo: true };
       const newConfig = { ...configDefault, ...config };
-      [this._backgroundSprite, this._backgroundPulseTween] = BackgroundsFactory.createBackgroundImagePulsing(
-        this,
-        data,
-        newConfig,
-      );
+      [this._backgroundSprite, this._backgroundPulseTween] = SceneFiller.PlaceBackgroundPulsing(this, data, newConfig);
 
       this._backgroundSprite.setDepth(index * 10);
       // fade out the old background
@@ -195,11 +200,7 @@ export default class StoryPlayScene extends Phaser.Scene {
     } else {
       const configDefault = { scale: 2.0, speed: 2200, repeats: -1, yoyo: true };
       const newConfig = { ...configDefault, ...config };
-      [this._backgroundSprite, this._backgroundPulseTween] = BackgroundsFactory.createBackgroundImagePulsing(
-        this,
-        data,
-        newConfig,
-      );
+      [this._backgroundSprite, this._backgroundPulseTween] = SceneFiller.PlaceBackgroundPulsing(this, data, newConfig);
 
       this._backgroundSprite.setDepth(index * 10);
     }
@@ -229,11 +230,10 @@ export default class StoryPlayScene extends Phaser.Scene {
       this._backgroundSpriteOld = this._backgroundSprite;
       this._backgroundSpriteOld.setDepth(depthOld);
       // create new background below it
-      // [this._backgroundImage] = BackgroundsFactory.createBackgroundImage(this, data);
       const strings: string[] = [];
       const configDefault = { frames: strings, repeats: -1, frameRate: 8, yoyo: false };
       const newConfig = { ...configDefault, ...config };
-      [this._backgroundSprite, this._backgroundAnimation] = BackgroundsFactory.createBackgroundAnimation(
+      [this._backgroundSprite, this._backgroundAnimation] = SceneFiller.PlaceBackgroundAnimdated(
         this,
         'main',
         newConfig,
@@ -260,7 +260,7 @@ export default class StoryPlayScene extends Phaser.Scene {
       const strings: string[] = [];
       const configDefault = { frames: strings, repeats: -1, frameRate: 8, yoyo: false };
       const newConfig = { ...configDefault, ...config };
-      [this._backgroundSprite, this._backgroundAnimation] = BackgroundsFactory.createBackgroundAnimation(
+      [this._backgroundSprite, this._backgroundAnimation] = SceneFiller.PlaceBackgroundAnimdated(
         this,
         'main',
         newConfig,
@@ -279,13 +279,13 @@ export default class StoryPlayScene extends Phaser.Scene {
       this._AutoAdvancer?.destroy();
       this.renderNewFrame(data);
     };
-    // const onClick = () => {
-    //   this.game.scene.start('mainmenu');
-    // };
-    const customComponent = new MyAutoAdvancer(this);
-    customComponent.onClick = onClick;
-    this.add.existing(customComponent);
-    this._AutoAdvancer = customComponent;
+    const openMenu = () => {
+      this.game.scene.run(SPScenes.MainMenu);
+      this.game.scene.getScene(SPScenes.MainMenu).data.set('callerScene', SPScenes.StoryPlay);
+      this.game.scene.pause(this);
+    };
+
+    this._AutoAdvancer = SceneFiller.PlaceJumperWithMenu(this, onClick, openMenu);
     this._AutoAdvancer.setDepth(Number.MAX_SAFE_INTEGER);
   }
 
@@ -296,13 +296,8 @@ export default class StoryPlayScene extends Phaser.Scene {
       return;
     }
     const text = this.getTranslation(data);
-    const x = 100;
-    const y = 1080 - 250;
-    const customComponent = TextBuilder.addNarrationText(this, x, y, text, 1920 - 200);
-    customComponent.setScrollFactor(0, -1);
-    this._narrationRectangle = this.add.rectangle(0, y - 50, 1920, 250 + 50, 0x000000, 0.65);
-    this._narrationRectangle.setOrigin(0, 0);
-    this.add.existing(customComponent);
+    const [customComponent, rectangle] = SceneFiller.PlaceNarrationText(this, text);
+    this._narrationRectangle = rectangle;
     this._narrationText = customComponent;
     this._narrationRectangle.setDepth(index * 10);
     this._narrationText.setDepth(index * 10 + 5);
@@ -324,11 +319,7 @@ export default class StoryPlayScene extends Phaser.Scene {
       this._StoryTitle?.destroy();
     }
     const text = this.getTranslation(data);
-    const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-    const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-    const customComponent = TextBuilder.createTitleText(this, screenCenterX, screenCenterY, text, 1920);
-    this.add.existing(customComponent);
-    this._StoryTitle = customComponent;
+    this._StoryTitle = SceneFiller.PlaceGameTitleText(this, text);
     this._StoryTitle.setDepth(index * 10);
   }
 
@@ -341,16 +332,24 @@ export default class StoryPlayScene extends Phaser.Scene {
       this._StorySubtitle_1?.destroy();
     }
     const text = this.getTranslation(data);
-    const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
     const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-    const x = screenCenterX;
     let y = screenCenterY;
     if (this._StoryTitle) {
       y = this._StoryTitle.getBottomCenter().y + 40;
     }
-    const customComponent = TextBuilder.createSubtitleTextAlignCenter(this, x, y, text, 1920);
-    this.add.existing(customComponent);
+    const customComponent = SceneFiller.PlaceGameSubtitleCenterText(this, text, y);
     this._StorySubtitle_1 = customComponent;
     this._StorySubtitle_1.setDepth(index * 10);
+  }
+
+  cleanup() {
+    this._backgroundFadeOutTween?.remove();
+    this._backgroundSpriteOld?.destroy();
+    this._backgroundSprite?.destroy();
+    this._backgroundPulseTween?.remove();
+    this._AutoAdvancer?.destroy();
+    this._StorySubtitle_1?.destroy();
+    this._StoryTitle?.destroy();
+    this._narrationText?.destroy();
   }
 }

@@ -6,7 +6,8 @@
       "code": "foreward",
       "components": [
         {
-          "code": "background"
+          "code": "background",
+          "data": "click_areas"
         },
         {
           "code": "jumper",

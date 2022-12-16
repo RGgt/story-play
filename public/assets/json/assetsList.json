@@ -5,6 +5,7 @@
   },
   "image": {
     "main": "assets/images/frame_001.png",
+    "click_areas": "assets/images/click_areas.png",
     "frame_1_01": "assets/images/frame_1_01.jpg",
     "frame_1_05": "assets/images/frame_1_05.jpg",
     "frame_13_05": "assets/images/frame_13_05.jpg",

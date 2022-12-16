@@ -236,4 +236,9 @@ export default class NinePatch extends Phaser.GameObjects.Group {
     if (!this._bounds) throw new Error('Component not initialised!');
     return new Phaser.Geom.Point(this._bounds.centerX, this._bounds.centerY);
   }
+
+  getBound() {
+    if (!this._bounds) return undefined;
+    return new Phaser.Geom.Rectangle(this._bounds.x, this._bounds.y, this._bounds.width, this._bounds.height);
+  }
 }

@@ -10,7 +10,7 @@ import TitleScene from './scenes/TitleScene';
 type GameConfig = Phaser.Types.Core.GameConfig;
 
 class SimpleGame extends Phaser.Game implements SPGame {
-  mySharedData: any;
+  public gameData: GameMemoryData | undefined;
 
   constructor(c: GameConfig) {
     const realConfig = Object.assign(c, {

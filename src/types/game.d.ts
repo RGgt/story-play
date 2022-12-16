@@ -5,5 +5,5 @@ interface GameMemoryData {
   framesHistory: string[] = [] as string[];
 }
 interface SPGame extends Phaser.Game {
-  mySharedData: GameMemoryData;
+  gameData: GameMemoryData | undefined;
 }

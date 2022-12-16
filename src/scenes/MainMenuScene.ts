@@ -4,85 +4,87 @@ import MyButton from '../components/MyButton';
 import MyPanel from '../components/MyPanel';
 import MyPanel2 from '../components/MyPanel2';
 import TextBuilder from '../components/TextBuilder';
+import AspectConstants from '../factories/AspectConstants';
+import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
 
 export default class MainMenuScene extends Phaser.Scene {
   constructor() {
     super(SPScenes.MainMenu);
-  }
-
-  preload() {
-    // nothing yet
+    this.events = new Phaser.Events.EventEmitter();
   }
 
   create() {
-    const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-    const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-    const image = this.add.sprite(screenCenterX, screenCenterY, 'main');
-    const width = 600;
-    const height = 800;
-    this.renderJumper();
-    this.addSamplePanel(width, height);
-    this.addResumeButton(screenCenterX - width / 2 + 50, screenCenterY - height / 2 + 50);
-  }
-
-  addSamplePanel(width: number, height: number): MyPanel {
-    const customComponent = this.createPanel(width, height);
-    return customComponent;
-  }
-
-  private createPanel(width: number, height: number) {
-    const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-    const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-    const customComponent = new MyPanel2(this);
-    customComponent.init(screenCenterX - width / 2, screenCenterY - height / 2, width, height);
-    this.add.existing(customComponent);
-    return customComponent;
-  }
-
-  private _AutoAdvancer: MyAutoAdvancer | undefined;
-
-  renderJumper() {
-    const onClick = () => {
-      // this._AutoAdvancer?.destroy();
+    // this.renderJumper();
+    const shape = SceneFiller.PlaceDialogBackground(this).getBound();
+    if (!shape) {
       this.restoreSceneBellow();
-    };
-    const customComponent = new MyAutoAdvancer(this);
-    customComponent.onClick = onClick;
-    this.add.existing(customComponent);
-    this._AutoAdvancer = customComponent;
-    this._AutoAdvancer.setDepth(Number.MAX_SAFE_INTEGER);
+      return;
+    }
+    let top = shape.top + AspectConstants.DIALOG_PADDING_V;
+    const [b1, t1] = SceneFiller.PlaceDialogButton(this, top, 'Resume', () => {
+      // FIX: not working
+      this.restoreSceneBellow();
+    });
+    top = b1.getBound()!.bottom + AspectConstants.DIALOG_PADDING_V;
+    const [b2, t2] = SceneFiller.PlaceDialogButton(this, top, '(Re)start Story', () => {
+      // FIX: not working
+      this.restartStoryPlay();
+    });
+    top = b2.getBound()!.bottom + AspectConstants.DIALOG_SPACING_V;
+    const [b3, t3] = SceneFiller.PlaceDialogButton(
+      this,
+      top,
+      'Save',
+      () => {
+        // this.restoreSceneBellow();
+      },
+      true,
+    );
+    top = b3.getBound()!.bottom + AspectConstants.DIALOG_SPACING_V;
+    const [b4, t4] = SceneFiller.PlaceDialogButton(
+      this,
+      top,
+      'Load',
+      () => {
+        // this.restoreSceneBellow();
+      },
+      true,
+    );
+    top = b4.getBound()!.bottom + AspectConstants.DIALOG_SPACING_V;
+    const [b5, t5] = SceneFiller.PlaceDialogButton(this, top, 'More ...', () => {
+      // this.restoreSceneBellow();
+    });
+    top = b5.getBound()!.bottom + AspectConstants.DIALOG_SPACING_V;
+    const [b6, t6] = SceneFiller.PlaceDialogButton(this, top, 'Quit to home screen', () => {
+      // GOOD
+      this.restartExperimental();
+    });
   }
 
   restoreSceneBellow() {
     const callerScene = this.data.get('callerScene');
     if (!callerScene) return;
-    console.log('callerScene', callerScene);
-    this.game.scene.run(callerScene);
+    this.game.scene.resume(callerScene);
     this.game.scene.sleep(SPScenes.MainMenu);
   }
 
-  addResumeButton(x: number, y: number): MyButton {
-    const onClick = () => {
-      this.restoreSceneBellow();
-    };
-    const customComponent = this.createButton(x, y, onClick);
-    this.addButtonText(customComponent, 'Resume');
-    return customComponent;
+  restartExperimental() {
+    const callerScene = this.data.get('callerScene');
+    if (!callerScene) return;
+    this.game.scene.stop(callerScene);
+    this.game.scene.stop(SPScenes.Experimental);
+    this.game.scene.run(SPScenes.Experimental);
+    this.game.scene.sleep(SPScenes.MainMenu);
   }
 
-  private createButton(x: number, y: number, onClick: undefined | (() => void)) {
-    const customComponent = new MyButton(this);
-    customComponent.init(x, y, 500, 120);
-    customComponent.onClick = onClick;
-    this.add.existing(customComponent);
-    return customComponent;
-  }
-
-  private addButtonText(btton: MyButton, text: string) {
-    const center = btton.getCenter();
-    const customComponent = TextBuilder.createButtonText(this, center.x, center.y, text, 1920);
-    this.add.existing(customComponent);
-    return customComponent;
+  restartStoryPlay() {
+    const callerScene = this.data.get('callerScene');
+    if (!callerScene) return;
+    this.game.scene.stop(callerScene);
+    this.game.scene.stop(SPScenes.StoryPlay);
+    this.game.scene.run(SPScenes.StoryPlay);
+    this.game.events.emit('restart');
+    this.game.scene.sleep(SPScenes.MainMenu);
   }
 }

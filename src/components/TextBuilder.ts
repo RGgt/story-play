@@ -7,14 +7,11 @@ export default class TextBuilder {
     text: string | string[],
     maxWidth: number,
   ): Phaser.GameObjects.Text {
-    // const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-    // const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-
     const SHADOW_COLOR = '#000000';
     const SHADOW_BLUR = 4;
     const SHADOW_OFFSET_X = 4;
     const SHADOW_OFFSET_Y = 4;
-    const TEXT_SIZE = '120px';
+    const TEXT_SIZE = '100px';
     const TEXT_FONT_FAMILY = 'SerifFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
@@ -55,7 +52,7 @@ export default class TextBuilder {
     const SHADOW_BLUR = 4;
     const SHADOW_OFFSET_X = 2;
     const SHADOW_OFFSET_Y = 2;
-    const TEXT_SIZE = '48px';
+    const TEXT_SIZE = '36px';
     const TEXT_FONT_FAMILY = 'SerifFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
@@ -97,7 +94,7 @@ export default class TextBuilder {
     const SHADOW_OFFSET_X = 2;
     const SHADOW_OFFSET_Y = 2;
     const TEXT_SIZE = '36px';
-    const TEXT_FONT_FAMILY = 'MonoFont';
+    const TEXT_FONT_FAMILY = 'SerifFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
     const OUTLINE_THICKNESS = 8;
@@ -126,7 +123,7 @@ export default class TextBuilder {
     );
   }
 
-  static addNarrationText(
+  static createNarrationText(
     scene: Phaser.Scene,
     x: number,
     y: number,
@@ -175,14 +172,14 @@ export default class TextBuilder {
     maxWidth: number,
   ): Phaser.GameObjects.Text {
     const SHADOW_COLOR = '#000000';
-    const SHADOW_BLUR = 4;
-    const SHADOW_OFFSET_X = 2;
-    const SHADOW_OFFSET_Y = 2;
+    const SHADOW_BLUR = 0;
+    const SHADOW_OFFSET_X = 0;
+    const SHADOW_OFFSET_Y = 0;
     const TEXT_SIZE = '36px';
     const TEXT_FONT_FAMILY = 'SerifFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
-    const OUTLINE_THICKNESS = 8;
+    const OUTLINE_THICKNESS = 6;
     const OUTLINE_COLOR = 'black';
     const ALIGNMENT = 'center';
     const COORD_TYPE = 'TopCenter';
@@ -209,47 +206,6 @@ export default class TextBuilder {
   }
 
   static createSubtitleTextAlignLeft(
-    scene: Phaser.Scene,
-    x: number,
-    y: number,
-    text: string | string[],
-    maxWidth: number,
-  ): Phaser.GameObjects.Text {
-    const SHADOW_COLOR = '#000000';
-    const SHADOW_BLUR = 4;
-    const SHADOW_OFFSET_X = 2;
-    const SHADOW_OFFSET_Y = 2;
-    const TEXT_SIZE = '36px';
-    const TEXT_FONT_FAMILY = 'SerifFont';
-    const TEXT_COLOR = 'white';
-    const TEXT_BACKGROUND_COLOR = 'transparent';
-    const OUTLINE_THICKNESS = 8;
-    const OUTLINE_COLOR = 'black';
-    const ALIGNMENT = 'left';
-    const COORD_TYPE = 'TopLeft';
-
-    return TextBuilder.createCusomlyFormattedText(
-      scene,
-      x,
-      y,
-      text,
-      maxWidth,
-      SHADOW_COLOR,
-      SHADOW_BLUR,
-      SHADOW_OFFSET_X,
-      SHADOW_OFFSET_Y,
-      TEXT_SIZE,
-      TEXT_FONT_FAMILY,
-      TEXT_COLOR,
-      TEXT_BACKGROUND_COLOR,
-      OUTLINE_THICKNESS,
-      OUTLINE_COLOR,
-      ALIGNMENT,
-      COORD_TYPE,
-    );
-  }
-
-  static createNarration(
     scene: Phaser.Scene,
     x: number,
     y: number,

@@ -1,5 +1,11 @@
+import AspectConstants from '../factories/AspectConstants';
+
 export default class MyAutoAdvancer extends Phaser.GameObjects.Rectangle {
   public onClick: undefined | (() => void);
+
+  public onShowMenu: undefined | (() => void);
+
+  public onNavBack: undefined | (() => void);
 
   private _bounds = new Phaser.Geom.Rectangle(0, 0, 1920, 1080);
 
@@ -25,12 +31,26 @@ export default class MyAutoAdvancer extends Phaser.GameObjects.Rectangle {
         this._lPressed = true;
       } else {
         if (this._lPressed && this.onClick) {
-          this.onClick();
+          this.reactToClick(pointer.x, pointer.y);
         }
         this._lPressed = false;
       }
     } else {
       this._lPressed = false;
+    }
+  }
+
+  reactToClick(x: number, y: number) {
+    if (x > 1920 - AspectConstants.HIDDEN_MENU_BUTTON_WIDTH && y < AspectConstants.HIDDEN_MENU_BUTTON_HEIGHT) {
+      if (this.onShowMenu) this.onShowMenu();
+      // click on hidden menu button
+    } else if (x < AspectConstants.HIDDEN_NAV_BACK_WIDTH) {
+      // click on hidden nav-back
+      if (this.onNavBack) this.onNavBack();
+    } else {
+      // click in the main area
+      // eslint-disable-next-line no-lonely-if
+      if (this.onClick) this.onClick();
     }
   }
 }

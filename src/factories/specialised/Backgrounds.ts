@@ -1,4 +1,4 @@
-export default class BackgroundsFactory {
+export default class Backgrounds {
   public static createBackgroundImage(scene: Phaser.Scene, name: string): [Phaser.GameObjects.Sprite] {
     const screenCenterX = scene.cameras.main.worldView.x + scene.cameras.main.width / 2;
     const screenCenterY = scene.cameras.main.worldView.y + scene.cameras.main.height / 2;
