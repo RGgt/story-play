@@ -1,6 +1,7 @@
 {
   "foreword_01": "This is a story-like slideshow that feature some important components and behaviors that I want in my games.\r\n\r\n\r\nWhat do you see here is NOT a story, but a test ground for my code! Click anywhere to continue exploring.",
   "story_title": "A Story About a Beautiful\r\nDate",
+  "narration_on_story_title": "Did you notice the green and orange rectangles in the previous screen?\r\nClicking on the left part of the screen, where the green rectangle was, will navigate back to previous frame.\r\n\r\nClicking on the top right corner, wher the orange reactangle was, will open the game's menu. Play with these!",
   "story_subtitle_1": "- A story by Author -",
   "story_subtitle_2": "- Illustrated by Illustrator1 and Illustrator2 -",
   "story_subtitle_3": "- Translated into English by Translator -",

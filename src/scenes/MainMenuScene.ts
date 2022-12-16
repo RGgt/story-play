@@ -52,11 +52,17 @@ export default class MainMenuScene extends Phaser.Scene {
       true,
     );
     top = b4.getBound()!.bottom + AspectConstants.DIALOG_SPACING_V;
-    const [b5, t5] = SceneFiller.PlaceDialogButton(this, top, 'More ...', () => {
-      // this.restoreSceneBellow();
-    });
+    const [b5, t5] = SceneFiller.PlaceDialogButton(
+      this,
+      top,
+      'More ...',
+      () => {
+        // this.restoreSceneBellow();
+      },
+      true,
+    );
     top = b5.getBound()!.bottom + AspectConstants.DIALOG_SPACING_V;
-    const [b6, t6] = SceneFiller.PlaceDialogButton(this, top, 'Quit to home screen', () => {
+    const [b6, t6] = SceneFiller.PlaceDialogButton(this, top, 'Jump to Home Screen', () => {
       // GOOD
       this.restartExperimental();
     });
