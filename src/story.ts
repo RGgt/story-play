@@ -2,15 +2,20 @@ import Phaser from 'phaser';
 import config from './config';
 // import SampleScene from './SampleScene';
 import BootScene from './scenes/BootScene';
+import MainMenuScene from './scenes/MainMenuScene';
 import PreloadScene from './scenes/PreloadScene';
 import StoryPlayScene from './scenes/StoryPlayScene';
 import TitleScene from './scenes/TitleScene';
 
 type GameConfig = Phaser.Types.Core.GameConfig;
 
-class SimpleGame extends Phaser.Game {
+class SimpleGame extends Phaser.Game implements SPGame {
+  mySharedData: any;
+
   constructor(c: GameConfig) {
-    const realConfig = Object.assign(c, { scene: [BootScene, PreloadScene, TitleScene, StoryPlayScene] });
+    const realConfig = Object.assign(c, {
+      scene: [BootScene, PreloadScene, TitleScene, StoryPlayScene, MainMenuScene],
+    });
     super(realConfig);
   }
 }

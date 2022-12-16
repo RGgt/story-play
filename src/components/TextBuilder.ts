@@ -301,8 +301,8 @@ export default class TextBuilder {
     const SHADOW_BLUR = 0;
     const SHADOW_OFFSET_X = 0;
     const SHADOW_OFFSET_Y = 0;
-    const TEXT_SIZE = '24px';
-    const TEXT_FONT_FAMILY = 'SerifBoldFont';
+    const TEXT_SIZE = '36px';
+    const TEXT_FONT_FAMILY = 'SerifFont';
     const TEXT_COLOR = 'white';
     const TEXT_BACKGROUND_COLOR = 'transparent';
     const OUTLINE_THICKNESS = 2;

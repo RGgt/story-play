@@ -5,6 +5,7 @@ import MyPanel from '../components/MyPanel';
 import MyPanel2 from '../components/MyPanel2';
 import TextBuilder from '../components/TextBuilder';
 import BackgroundsFactory from '../factories/BackgroundsFactory';
+import { SPScenes } from '../types/enums';
 import Utilities from '../utilities';
 
 export default class TitleScene extends Phaser.Scene {
@@ -15,7 +16,7 @@ export default class TitleScene extends Phaser.Scene {
   _btnSetWindowed: MyButton | undefined;
 
   constructor() {
-    super('title');
+    super(SPScenes.Experimental);
   }
 
   create() {
@@ -29,9 +30,9 @@ export default class TitleScene extends Phaser.Scene {
     this.addSamplePanel2(1100, 400);
 
     this._btnSetFullscreen = this.addSetFullscreenButton(100, 100);
-    this._btnSetWindowed = this.addSetWindowedButton(300, 100);
+    this._btnSetWindowed = this.addSetWindowedButton(420, 100);
     this.addOpenModalButton(100, 200);
-    this.addPlayButton(300, 320);
+    this.addPlayButton(420, 320);
     this.setBackgroundImage(100, 320);
     this.setBackgroundImagePulsing(100, 420);
     this.setBackgroundImageAnimation(100, 520);
@@ -264,7 +265,7 @@ export default class TitleScene extends Phaser.Scene {
 
   private createButton(x: number, y: number, onClick: undefined | (() => void)) {
     const customComponent = new MyButton(this);
-    customComponent.init(x, y, 200, 75);
+    customComponent.init(x, y, 300, 75);
     customComponent.onClick = onClick;
     this.add.existing(customComponent);
     return customComponent;
@@ -272,10 +273,11 @@ export default class TitleScene extends Phaser.Scene {
 
   addAutoAdvancer(): MyAutoAdvancer {
     const onClick = () => {
-      this._testAutoAdvancer?.destroy();
-      // eslint-disable-next-line no-alert
-      alert('First click unlocks the screen.\r\nNow you can explore.');
-      Utilities.restoreFocusToGame();
+      // this._testAutoAdvancer?.destroy();
+      // // eslint-disable-next-line no-alert
+      // alert('First click unlocks the screen.\r\nNow you can explore.');
+      // Utilities.restoreFocusToGame();
+      this.onOpenMainMenu();
     };
     const customComponent = new MyAutoAdvancer(this);
     customComponent.onClick = onClick;
@@ -355,5 +357,11 @@ export default class TitleScene extends Phaser.Scene {
     customComponent.init(x, y, 600, 400);
     this.add.existing(customComponent);
     return customComponent;
+  }
+
+  private onOpenMainMenu() {
+    this.game.scene.start(SPScenes.MainMenu);
+    this.game.scene.getScene(SPScenes.MainMenu).data.set('callerScene', SPScenes.Experimental);
+    this.game.scene.sleep(this);
   }
 }

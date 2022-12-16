@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import MyAutoAdvancer from '../components/MyAutoAdvancer';
 import TextBuilder from '../components/TextBuilder';
 import BackgroundsFactory from '../factories/BackgroundsFactory';
+import { SPScenes } from '../types/enums';
+// import { SPScenes } from '../types/game';
 
 export default class StoryPlayScene extends Phaser.Scene {
   public storyFlowData: StoryFlowData | undefined;
@@ -35,7 +37,7 @@ export default class StoryPlayScene extends Phaser.Scene {
   private _StorySubtitle_1: Phaser.GameObjects.Text | undefined;
 
   constructor() {
-    super({ key: 'story-play' });
+    super({ key: SPScenes.StoryPlay });
   }
 
   create() {
@@ -277,6 +279,9 @@ export default class StoryPlayScene extends Phaser.Scene {
       this._AutoAdvancer?.destroy();
       this.renderNewFrame(data);
     };
+    // const onClick = () => {
+    //   this.game.scene.start('mainmenu');
+    // };
     const customComponent = new MyAutoAdvancer(this);
     customComponent.onClick = onClick;
     this.add.existing(customComponent);

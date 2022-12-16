@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
+import { SPScenes } from '../types/enums';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
-    super('boot');
+    super(SPScenes.Boot);
   }
 
   preload() {
@@ -11,6 +12,6 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start('preload');
+    this.scene.start(SPScenes.Loader);
   }
 }

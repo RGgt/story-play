@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
+import { SPScenes } from '../types/enums';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
-    super('preload');
+    super(SPScenes.Loader);
   }
 
   preload() {
@@ -139,10 +140,15 @@ export default class PreloadScene extends Phaser.Scene {
       'complete',
       () => {
         this.load.off('progress', updateProgressbar);
-        // this.scene.start('story-play');
-        this.scene.start('title');
+        this.openNextScene();
       },
       this,
     );
+  }
+
+  openNextScene() {
+    const sceneToLoad = SPScenes.Experimental;
+    // const sceneToLoad = SPScenes.StoryPlay;
+    this.scene.start(sceneToLoad);
   }
 }
