@@ -4,6 +4,7 @@ import AspectConstants from '../factories/AspectConstants';
 import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
 import Utilities from '../utilities';
+import GuiOverGame from './GuiOverGame';
 
 export default class TitleScene extends Phaser.Scene {
   static readonly CURSOR = 'url(/assets/images/gui/cursor.cur), auto';
@@ -65,7 +66,7 @@ export default class TitleScene extends Phaser.Scene {
       const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
       this._screenshotSprite = this.add.sprite(screenCenterX, screenCenterY, textureName);
       this._screenshotSprite.setOrigin(0.0);
-      this._screenshotSprite.setPosition(0, 1080 * (1 - TitleScene._screenshotScaleFactor))
+      this._screenshotSprite.setPosition(0, 1080 * (1 - TitleScene._screenshotScaleFactor));
     });
     image.src = base64DataUrl;
   };
@@ -130,6 +131,11 @@ export default class TitleScene extends Phaser.Scene {
     this.game.scene.run(SPScenes.MainMenu);
     this.game.scene.getScene(SPScenes.MainMenu).data.set('callerScene', SPScenes.Experimental);
     this.game.scene.pause(this);
+    // this.game.scene.run(SPScenes.GuiOverGame);
+    // const guiOverGame = this.game.scene.getScene(SPScenes.GuiOverGame) as GuiOverGame;
+    // guiOverGame.data.set('callerScene', SPScenes.Experimental);
+    // guiOverGame.showModal('main-menu');
+    // this.game.scene.pause(this);
   };
 
   openNewStory = () => {
