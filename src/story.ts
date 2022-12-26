@@ -29,3 +29,6 @@ window.addEventListener('load', () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const game: Phaser.Game = new SimpleGame(config);
 });
+
+const dialog = document.getElementById('favDialog') as HTMLDialogElement;
+dialog.hidden = false;
