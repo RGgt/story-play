@@ -18,6 +18,10 @@ export default class TitleScene extends Phaser.Scene {
 
   private _btnSetWindowed: MyButton | undefined;
 
+  private _screenshotSprite: Phaser.GameObjects.Sprite | undefined;
+
+  private static _screenshotScaleFactor = 0.25;
+
   constructor() {
     super(SPScenes.Experimental);
   }
@@ -30,6 +34,70 @@ export default class TitleScene extends Phaser.Scene {
   setWindowed = () => {
     document.exitFullscreen();
     this.updateEnabledButons(false);
+  };
+
+  // is something like: `data:image/png;base64,${base64Data}`
+  private base64ToSprite = (base64DataUrl: string) => {
+    // /////////////////////////////////////////////////
+    // Alternative using addBase64:
+    //
+    // this.textures.once('addtexture', function () {
+    //   this.add.image(400, 300, textureName);
+    // }, this);
+    // this.textures.addBase64(textureName, dataURL);
+    // /////////////////////////////////////////////////
+    const textureName = 'screenshot';
+    const image = new Image();
+    image.crossOrigin = 'anonymous';
+    image.addEventListener('error', (e: ErrorEvent) => {
+      console.log(`Error: ${e} || ${e.target}`, e, this);
+    });
+
+    image.addEventListener('load', () => {
+      if (this._screenshotSprite) {
+        this._screenshotSprite.destroy();
+        this.textures.remove(textureName);
+      }
+      this.textures.remove(textureName);
+      this.textures.addImage(textureName, image);
+
+      const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
+      const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
+      this._screenshotSprite = this.add.sprite(screenCenterX, screenCenterY, textureName);
+      this._screenshotSprite.setOrigin(0.0);
+      this._screenshotSprite.setPosition(0, 1080 * (1 - TitleScene._screenshotScaleFactor))
+    });
+    image.src = base64DataUrl;
+  };
+
+  private static screenshotToBase64 = (screenshot: HTMLImageElement, targetWidth: number, targetHeight: number) => {
+    const scaledDownCanvas = document.createElement('canvas') as HTMLCanvasElement;
+    scaledDownCanvas.width = targetWidth;
+    scaledDownCanvas.height = targetHeight;
+    const context = scaledDownCanvas.getContext('2d') as CanvasRenderingContext2D;
+    context.drawImage(
+      screenshot,
+      0,
+      0,
+      screenshot.width,
+      screenshot.height,
+      0,
+      0,
+      scaledDownCanvas.width,
+      scaledDownCanvas.height,
+    );
+
+    return scaledDownCanvas.toDataURL();
+  };
+
+
+  setTakeScreenshot = () => {
+    this.game.renderer.snapshot((snapshot) => {
+      const targetWidth = 1920 * TitleScene._screenshotScaleFactor;
+      const targetHeight = 1080 * TitleScene._screenshotScaleFactor;
+      const dataURL = TitleScene.screenshotToBase64(snapshot as HTMLImageElement, targetWidth, targetHeight);
+      this.base64ToSprite(dataURL);
+    });
   };
 
   openHtmlModal = () => {
@@ -128,6 +196,7 @@ export default class TitleScene extends Phaser.Scene {
     this._btnSetFullscreen = b;
     [b, t] = SceneFiller.PlaceTestButton(this, 520, 100, 'Windowed', this.setWindowed, true);
     this._btnSetWindowed = b;
+    SceneFiller.PlaceTestButton(this, 940, 100, 'Screenshot', this.setTakeScreenshot, false);
     SceneFiller.PlaceTestButton(this, 100, 200, 'Open Modal', this.openHtmlModal);
     SceneFiller.PlaceTestButton(this, 520, 200, 'Open Menu', this.openMenu);
     SceneFiller.PlaceTestButton(this, 940, 200, 'Play Story', this.openNewStory);
