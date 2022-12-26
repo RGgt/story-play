@@ -90,7 +90,6 @@ export default class TitleScene extends Phaser.Scene {
     return scaledDownCanvas.toDataURL();
   };
 
-
   setTakeScreenshot = () => {
     this.game.renderer.snapshot((snapshot) => {
       const targetWidth = 1920 * TitleScene._screenshotScaleFactor;
