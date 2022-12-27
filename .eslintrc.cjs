@@ -23,6 +23,7 @@ module.exports = {
     'no-useless-return': 0,
     'import/prefer-default-export': 0,
     'no-underscore-dangle': 0,
-    'prettier/prettier': 'error',
+    'prettier/prettier': 'warn',
+    'max-len': ['warn', { code: 120, ignoreUrls: true }],
   },
 };
