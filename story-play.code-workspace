@@ -14,8 +14,8 @@
 		"editor.tabSize": 2,
 		"files.insertFinalNewline": true,
 		"files.exclude": {
-			"**/node_modules/": true,
-			"LICENSE": true,
+			// "**/node_modules/": true,
+			// "LICENSE": true,
 		},
 		"editor.formatOnSave": true,
 		"editor.fontSize": 12,
