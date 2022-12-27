@@ -18,6 +18,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
+  ignorePatterns: ['**/packages/*/lib/*.js'],
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     'no-useless-return': 0,

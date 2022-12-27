@@ -21,6 +21,7 @@
   },
   "include": [
     "src",
+    "packages",
     ".eslintrc.cjs",
     ".prettierrc.cjs",
     "vite.config.ts"

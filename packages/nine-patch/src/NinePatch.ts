@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 import NinePatchData from './NinePatchData';
 
 export default class NinePatch extends Phaser.GameObjects.Group {

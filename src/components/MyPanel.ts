@@ -1,5 +1,6 @@
-import NinePatch from './NinePatch';
-import NinePatchData from './NinePatchData';
+// import NinePatch from './NinePatch';
+// import NinePatchData from './NinePatchData';
+import { NinePatch, NinePatchData } from '@rggt/nine-patch';
 
 export default class MyPanel extends NinePatch {
   constructor(scene: Phaser.Scene) {

@@ -1,5 +1,8 @@
-import NinePatch from './NinePatch';
-import NinePatchData from './NinePatchData';
+// import NinePatchData from '@rggt/nine-patch/src/NinePatchData';
+// import { NinePatch, NinePatchData } from '@rggt/nine-patch';
+import { NinePatch, NinePatchData } from '@rggt/nine-patch';
+// import NinePatch from './NinePatch';
+// import NinePatchData from './NinePatchData';
 
 export default class MyButton extends NinePatch {
   private _disabled = false;
