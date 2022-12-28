@@ -21,10 +21,14 @@
   },
   "include": [
     "src",
-    "packages",
+    "packages/**/src/index.d.ts",
+    "packages/**/src/index.ts",
     ".eslintrc.cjs",
     ".prettierrc.cjs",
     "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ],
   "references": [
     {
