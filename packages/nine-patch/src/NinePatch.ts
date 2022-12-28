@@ -110,10 +110,10 @@ export default class NinePatch extends Phaser.GameObjects.Group {
     this.spriteB.setOrigin(0, 0);
     this.spriteBR.setOrigin(0, 0);
 
-    this._setScales(scaleX, scaleY);
+    this.setScales(scaleX, scaleY);
   }
 
-  addFrames(textureName: string) {
+  protected addFrames(textureName: string) {
     const textureWidthMinusTwoCorners = this.data.textureWidth - 2 * this.data.textureCornerHeight;
     const textureWidthMinusOneCorner = this.data.textureWidth - this.data.textureCornerWidth;
     const textureHeightMinusTwoCorners = this.data.textureHeight - 2 * this.data.textureCornerHeight;
@@ -181,7 +181,7 @@ export default class NinePatch extends Phaser.GameObjects.Group {
     );
   }
 
-  setTexture(textureName: string) {
+  protected setTexture(textureName: string) {
     this.spriteTL?.setTexture(textureName, 'frmTL');
     this.spriteT?.setTexture(textureName, 'frmT');
     this.spriteTR?.setTexture(textureName, 'frmTR');
@@ -193,13 +193,13 @@ export default class NinePatch extends Phaser.GameObjects.Group {
     this.spriteBR?.setTexture(textureName, 'frmBR');
   }
 
-  calculateScales(width: number, height: number) {
+  protected calculateScales(width: number, height: number) {
     this._scaleX = (width - this.data.textureCornerWidth) / (this.data.textureWidth - this.data.textureCornerWidth);
     this._scaleY =
       (height - 2 * this.data.textureCornerHeight) / (this.data.textureHeight - 2 * this.data.textureCornerHeight);
   }
 
-  private _setScales(scaleX: number, scaleY: number) {
+  private setScales(scaleX: number, scaleY: number) {
     if (
       !this.spriteTL ||
       !this.spriteT ||
@@ -233,13 +233,33 @@ export default class NinePatch extends Phaser.GameObjects.Group {
     this.spriteBR.scaleY = 1;
   }
 
-  getCenter() {
+  public getCenter() {
     if (!this._bounds) throw new Error('Component not initialised!');
     return new Phaser.Geom.Point(this._bounds.centerX, this._bounds.centerY);
   }
 
-  getBound() {
+  public getBound() {
     if (!this._bounds) return new Phaser.Geom.Rectangle(0, 0, 0, 0);
     return new Phaser.Geom.Rectangle(this._bounds.x, this._bounds.y, this._bounds.width, this._bounds.height);
+  }
+
+  public getLeft() {
+    if (!this._bounds) return 0;
+    return this._bounds.x;
+  }
+
+  public getRight() {
+    if (!this._bounds) return 0;
+    return this._bounds.x + this._bounds.width;
+  }
+
+  public getTop() {
+    if (!this._bounds) return 0;
+    return this._bounds.y;
+  }
+
+  public getBottom() {
+    if (!this._bounds) return 0;
+    return this._bounds.y + this._bounds.height;
   }
 }
