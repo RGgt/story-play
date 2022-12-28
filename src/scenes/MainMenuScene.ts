@@ -1,10 +1,12 @@
 import Phaser from 'phaser';
-import MyAutoAdvancer from '../components/MyAutoAdvancer';
-import MyButton from '../components/MyButton';
-import MyPanel from '../components/MyPanel';
-import MyPanel2 from '../components/MyPanel2';
-import TextBuilder from '../components/TextBuilder';
-import AspectConstants from '../factories/AspectConstants';
+import { TextBuilder, AspectConstants, AutoAdvancers, Backgrounds, Buttons, Dialogs } from '@rggt/gui-elements';
+
+// import MyAutoAdvancer from '../components/MyAutoAdvancer';
+// import MyButton from '../components/MyButton';
+// import MyPanel from '../components/MyPanel';
+// import MyPanel2 from '../components/MyPanel2';
+// import TextBuilder from '../components/TextBuilder';
+// import AspectConstants from '../factories/AspectConstants';
 import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
 

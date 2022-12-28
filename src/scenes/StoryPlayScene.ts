@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import MyAutoAdvancer from '../components/MyAutoAdvancer';
+import { MyAutoAdvancer } from '@rggt/gui-elements';
+// import MyAutoAdvancer from '../components/MyAutoAdvancer';
 import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
 

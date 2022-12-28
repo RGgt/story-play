@@ -1,9 +1,11 @@
-import TextBuilder from '../components/TextBuilder';
-import AspectConstants from './AspectConstants';
-import AutoAdvancers from './specialised/AutoAdvancers';
-import Backgrounds from './specialised/Backgrounds';
-import Buttons from './specialised/Buttons';
-import Dialogs from './specialised/Dialogs';
+import { TextBuilder, AspectConstants, AutoAdvancers, Backgrounds, Buttons, Dialogs } from '@rggt/gui-elements';
+
+// import TextBuilder from '../components/TextBuilder';
+// import AspectConstants from './AspectConstants';
+// import AutoAdvancers from './specialised/AutoAdvancers';
+// import Backgrounds from './specialised/Backgrounds';
+// import Buttons from './specialised/Buttons';
+// import Dialogs from './specialised/Dialogs';
 
 export default class SceneFiller {
   public static PlaceTestButton(

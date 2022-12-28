@@ -1,0 +1,35 @@
+{
+  "name": "@rggt/gui-elements",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "RGgt <rggt.inbox@gmail.com>",
+  "homepage": "https://github.com/RGgt/story-play/tree/main/packages/gui-elements#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "typings": "src/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "src/index.d.ts"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RGgt/story-play.git"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "test": "node ./__tests__/@rggt/gui-elements.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/RGgt/story-play/issues"
+  },
+  "dependencies": {
+    "@rggt/nine-patch": "^0.0.0"
+  }
+}
