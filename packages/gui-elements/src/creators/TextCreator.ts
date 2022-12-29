@@ -14,13 +14,7 @@ export type TextStyle = {
   coords: TextCoordType;
 };
 class TextCreator {
-  public static createTitleText(
-    scene: Phaser.Scene,
-    x: number,
-    y: number,
-    text: string | string[],
-    maxWidth: number,
-  ): Phaser.GameObjects.Text {
+  public static createTitleText(scene: Phaser.Scene, x: number, y: number, text: string | string[], maxWidth: number) {
     const style: TextStyle = {
       shadowColor: '#000000',
       shadowBlur: 4,
@@ -44,7 +38,7 @@ class TextCreator {
     y: number,
     text: string | string[],
     maxWidth: number,
-  ): Phaser.GameObjects.Text {
+  ) {
     const style: TextStyle = {
       shadowColor: '#000000',
       shadowBlur: 4,
@@ -68,7 +62,7 @@ class TextCreator {
     y: number,
     text: string | string[],
     maxWidth: number,
-  ): Phaser.GameObjects.Text {
+  ) {
     const style: TextStyle = {
       shadowColor: '#000000',
       shadowBlur: 4,
@@ -92,7 +86,7 @@ class TextCreator {
     y: number,
     text: string | string[],
     maxWidth: number,
-  ): Phaser.GameObjects.Text {
+  ) {
     return TextCreator.createNarrationTextColored(scene, x, y, text, 'white', maxWidth);
   }
 
@@ -103,7 +97,7 @@ class TextCreator {
     text: string | string[],
     textColor: string,
     maxWidth: number,
-  ): Phaser.GameObjects.Text {
+  ) {
     const style: TextStyle = {
       shadowColor: '#000000',
       shadowBlur: 0,
@@ -127,7 +121,7 @@ class TextCreator {
     y: number,
     text: string | string[],
     maxWidth: number,
-  ): Phaser.GameObjects.Text {
+  ) {
     const style: TextStyle = {
       shadowColor: '#000000',
       shadowBlur: 0,
@@ -151,7 +145,7 @@ class TextCreator {
     y: number,
     text: string | string[],
     maxWidth: number,
-  ): Phaser.GameObjects.Text {
+  ) {
     const style: TextStyle = {
       shadowColor: '#000000',
       shadowBlur: 4,
@@ -169,13 +163,7 @@ class TextCreator {
     return TextCreator.createText(scene, x, y, text, maxWidth, style);
   }
 
-  public static createButtonText(
-    scene: Phaser.Scene,
-    x: number,
-    y: number,
-    text: string | string[],
-    maxWidth: number,
-  ): Phaser.GameObjects.Text {
+  public static createButtonText(scene: Phaser.Scene, x: number, y: number, text: string | string[], maxWidth: number) {
     const style: TextStyle = {
       shadowColor: '#000000',
       shadowBlur: 0,
@@ -200,7 +188,7 @@ class TextCreator {
     text: string | string[],
     maxWidth: number,
     style: TextStyle,
-  ): Phaser.GameObjects.Text {
+  ) {
     const textShadow: Phaser.Types.GameObjects.Text.TextShadow = {
       offsetX: style.shadowOffsetX,
       offsetY: style.shadowOffsetY,
