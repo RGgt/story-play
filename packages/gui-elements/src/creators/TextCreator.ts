@@ -93,6 +93,17 @@ class TextCreator {
     text: string | string[],
     maxWidth: number,
   ): Phaser.GameObjects.Text {
+    return TextCreator.createNarrationTextColored(scene, x, y, text, 'white', maxWidth);
+  }
+
+  public static createNarrationTextColored(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    text: string | string[],
+    textColor: string,
+    maxWidth: number,
+  ): Phaser.GameObjects.Text {
     const style: TextStyle = {
       shadowColor: '#000000',
       shadowBlur: 0,
@@ -100,7 +111,7 @@ class TextCreator {
       shadowOffsetY: 0,
       textSize: '36px',
       textFontFamily: 'SerifFont',
-      textColor: 'white',
+      textColor,
       textBackgroundColor: 'transparent',
       outlineTickness: 6,
       outlineColor: 'black',
