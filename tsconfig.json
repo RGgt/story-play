@@ -23,6 +23,7 @@
     "src",
     "packages/**/src/index.d.ts",
     "packages/**/src/index.ts",
+    "packages/**/src/**/*.ts",
     ".eslintrc.cjs",
     ".prettierrc.cjs",
     "vite.config.ts"
