@@ -2,6 +2,8 @@
 
 > TODO: description
 
+Phaser has a lot of power and customization
+
 ## Usage
 
 ```
