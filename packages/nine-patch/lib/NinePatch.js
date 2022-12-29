@@ -52,7 +52,7 @@ export default class NinePatch extends Phaser.GameObjects.Group {
         this.spriteBL.setOrigin(0, 0);
         this.spriteB.setOrigin(0, 0);
         this.spriteBR.setOrigin(0, 0);
-        this._setScales(scaleX, scaleY);
+        this.setScales(scaleX, scaleY);
     }
     addFrames(textureName) {
         const textureWidthMinusTwoCorners = this.data.textureWidth - 2 * this.data.textureCornerHeight;
@@ -86,7 +86,7 @@ export default class NinePatch extends Phaser.GameObjects.Group {
         this._scaleY =
             (height - 2 * this.data.textureCornerHeight) / (this.data.textureHeight - 2 * this.data.textureCornerHeight);
     }
-    _setScales(scaleX, scaleY) {
+    setScales(scaleX, scaleY) {
         if (!this.spriteTL ||
             !this.spriteT ||
             !this.spriteTR ||
@@ -125,5 +125,25 @@ export default class NinePatch extends Phaser.GameObjects.Group {
         if (!this._bounds)
             return new Phaser.Geom.Rectangle(0, 0, 0, 0);
         return new Phaser.Geom.Rectangle(this._bounds.x, this._bounds.y, this._bounds.width, this._bounds.height);
+    }
+    getLeft() {
+        if (!this._bounds)
+            return 0;
+        return this._bounds.x;
+    }
+    getRight() {
+        if (!this._bounds)
+            return 0;
+        return this._bounds.x + this._bounds.width;
+    }
+    getTop() {
+        if (!this._bounds)
+            return 0;
+        return this._bounds.y;
+    }
+    getBottom() {
+        if (!this._bounds)
+            return 0;
+        return this._bounds.y + this._bounds.height;
     }
 }
