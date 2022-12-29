@@ -1,6 +1,7 @@
 // import Phaser from 'phaser';
 import MyButton from '../../components/MyButton';
-import TextBuilder from '../../components/TextBuilder';
+import { TextCreator } from '../../creators/TextCreator';
+// import TextBuilder from '../../components/TextBuilder';
 export default class Buttons {
     static addGenericButton(scene, x, y, width, height, text, onClick, disabled) {
         const customComponent = Buttons.createButton(scene, x, y, width, height, onClick);
@@ -17,7 +18,7 @@ export default class Buttons {
     }
     static addButtonText(scene, button, text, maxWidth) {
         const center = button.getCenter();
-        const customComponent = TextBuilder.createButtonText(scene, center.x, center.y, text, maxWidth);
+        const customComponent = TextCreator.createButtonText(scene, center.x, center.y, text, maxWidth);
         scene.add.existing(customComponent);
         return customComponent;
     }

@@ -51,6 +51,9 @@ class TextCreator {
         return TextCreator.createText(scene, x, y, text, maxWidth, style);
     }
     static createNarrationText(scene, x, y, text, maxWidth) {
+        return TextCreator.createNarrationTextColored(scene, x, y, text, 'white', maxWidth);
+    }
+    static createNarrationTextColored(scene, x, y, text, textColor, maxWidth) {
         const style = {
             shadowColor: '#000000',
             shadowBlur: 0,
@@ -58,7 +61,7 @@ class TextCreator {
             shadowOffsetY: 0,
             textSize: '36px',
             textFontFamily: 'SerifFont',
-            textColor: 'white',
+            textColor,
             textBackgroundColor: 'transparent',
             outlineTickness: 6,
             outlineColor: 'black',

@@ -1,16 +1,16 @@
-export default class Backgrounds {
-  public static createBackgroundImage(scene: Phaser.Scene, name: string): [Phaser.GameObjects.Sprite] {
+export default class BackgroundCreator {
+  public static createBackgroundImage(scene: Phaser.Scene, name: string) {
     const screenCenterX = scene.cameras.main.worldView.x + scene.cameras.main.width / 2;
     const screenCenterY = scene.cameras.main.worldView.y + scene.cameras.main.height / 2;
-    const image = scene.add.sprite(screenCenterX, screenCenterY, name);
-    return [image];
+    const sprite = scene.add.sprite(screenCenterX, screenCenterY, name);
+    return { sprite };
   }
 
   public static createBackgroundImagePulsing(
     scene: Phaser.Scene,
     name: string,
     config: { scale: number; speed: number; repeats: number; yoyo: boolean },
-  ): [Phaser.GameObjects.Sprite, Phaser.Tweens.Tween] {
+  ) {
     const screenCenterX = scene.cameras.main.worldView.x + scene.cameras.main.width / 2;
     const screenCenterY = scene.cameras.main.worldView.y + scene.cameras.main.height / 2;
     const sprite = scene.add.sprite(screenCenterX, screenCenterY, name);
@@ -23,14 +23,14 @@ export default class Backgrounds {
       yoyo: config.yoyo, // make the animation go back and forth
       repeat: config.repeats, // repeat indefinitely
     });
-    return [sprite, pulseTween];
+    return { sprite, pulseTween };
   }
 
   public static createBackgroundAnimation(
     scene: Phaser.Scene,
     name: string,
     config: { frames: string[]; repeats: number; frameRate: number },
-  ): [Phaser.GameObjects.Sprite, false | Phaser.Animations.Animation] {
+  ) {
     const screenCenterX = scene.cameras.main.worldView.x + scene.cameras.main.width / 2;
     const screenCenterY = scene.cameras.main.worldView.y + scene.cameras.main.height / 2;
     const sprite = scene.add.sprite(screenCenterX, screenCenterY, name);
@@ -47,6 +47,7 @@ export default class Backgrounds {
       (animation as Phaser.Animations.Animation).repeat = -1;
     }
     sprite.play(name);
-    return [sprite, animation];
+    return { sprite, animation };
   }
 }
+

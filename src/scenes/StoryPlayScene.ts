@@ -136,7 +136,7 @@ export default class StoryPlayScene extends Phaser.Scene {
       this._backgroundSpriteOld = this._backgroundSprite;
       this._backgroundSpriteOld.setDepth(depthOld);
       // create new background below it
-      [this._backgroundSprite] = SceneFiller.PlaceBackgroundStatic(this, data);
+      ({ sprite: this._backgroundSprite } = SceneFiller.PlaceBackgroundStatic(this, data));
       this._backgroundSprite.setDepth(index * 10);
       // fade out the old background
       this._backgroundFadeOutTween = this.tweens.add({
@@ -155,7 +155,7 @@ export default class StoryPlayScene extends Phaser.Scene {
         },
       });
     } else {
-      [this._backgroundSprite] = SceneFiller.PlaceBackgroundStatic(this, data);
+      ({ sprite: this._backgroundSprite } = SceneFiller.PlaceBackgroundStatic(this, data));
       this._backgroundSprite.setDepth(index * 10);
     }
   }
@@ -186,7 +186,12 @@ export default class StoryPlayScene extends Phaser.Scene {
       // create new background below it
       const configDefault = { scale: 2.0, speed: 2200, repeats: -1, yoyo: true };
       const newConfig = { ...configDefault, ...config };
-      [this._backgroundSprite, this._backgroundPulseTween] = SceneFiller.PlaceBackgroundPulsing(this, data, newConfig);
+
+      ({ sprite: this._backgroundSprite, pulseTween: this._backgroundPulseTween } = SceneFiller.PlaceBackgroundPulsing(
+        this,
+        data,
+        newConfig,
+      ));
 
       this._backgroundSprite.setDepth(index * 10);
       // fade out the old background
@@ -208,7 +213,11 @@ export default class StoryPlayScene extends Phaser.Scene {
     } else {
       const configDefault = { scale: 2.0, speed: 2200, repeats: -1, yoyo: true };
       const newConfig = { ...configDefault, ...config };
-      [this._backgroundSprite, this._backgroundPulseTween] = SceneFiller.PlaceBackgroundPulsing(this, data, newConfig);
+      ({ sprite: this._backgroundSprite, pulseTween: this._backgroundPulseTween } = SceneFiller.PlaceBackgroundPulsing(
+        this,
+        data,
+        newConfig,
+      ));
 
       this._backgroundSprite.setDepth(index * 10);
     }
@@ -241,11 +250,11 @@ export default class StoryPlayScene extends Phaser.Scene {
       const strings: string[] = [];
       const configDefault = { frames: strings, repeats: -1, frameRate: 8, yoyo: false };
       const newConfig = { ...configDefault, ...config };
-      [this._backgroundSprite, this._backgroundAnimation] = SceneFiller.PlaceBackgroundAnimdated(
+      ({ sprite: this._backgroundSprite, animation: this._backgroundAnimation } = SceneFiller.PlaceBackgroundAnimdated(
         this,
         'main',
         newConfig,
-      );
+      ));
 
       this._backgroundSprite.setDepth(index * 10);
       // fade out the old background
@@ -268,11 +277,11 @@ export default class StoryPlayScene extends Phaser.Scene {
       const strings: string[] = [];
       const configDefault = { frames: strings, repeats: -1, frameRate: 8, yoyo: false };
       const newConfig = { ...configDefault, ...config };
-      [this._backgroundSprite, this._backgroundAnimation] = SceneFiller.PlaceBackgroundAnimdated(
+      ({ sprite: this._backgroundSprite, animation: this._backgroundAnimation } = SceneFiller.PlaceBackgroundAnimdated(
         this,
         'main',
         newConfig,
-      );
+      ));
 
       this._backgroundSprite.setDepth(index * 10);
     }

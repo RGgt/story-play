@@ -1,4 +1,4 @@
-import { TextCreator, AspectConstants, AutoAdvancers, Backgrounds, Buttons, Dialogs } from '@rggt/gui-elements';
+import { TextCreator, AspectConstants, AutoAdvancers, BackgroundCreator, Buttons, Dialogs } from '@rggt/gui-elements';
 
 // import TextBuilder from '../components/TextBuilder';
 // import AspectConstants from './AspectConstants';
@@ -45,7 +45,7 @@ export default class SceneFiller {
   }
 
   public static PlaceBackgroundStatic(scene: Phaser.Scene, name: string) {
-    return Backgrounds.createBackgroundImage(scene, name);
+    return BackgroundCreator.createBackgroundImage(scene, name);
   }
 
   public static PlaceBackgroundPulsing(
@@ -53,7 +53,7 @@ export default class SceneFiller {
     name: string,
     config: { scale: number; speed: number; repeats: number; yoyo: boolean },
   ) {
-    return Backgrounds.createBackgroundImagePulsing(scene, name, config);
+    return BackgroundCreator.createBackgroundImagePulsing(scene, name, config);
   }
 
   public static PlaceBackgroundAnimdated(
@@ -61,7 +61,7 @@ export default class SceneFiller {
     name: string,
     config: { frames: string[]; repeats: number; frameRate: number },
   ) {
-    return Backgrounds.createBackgroundAnimation(scene, name, config);
+    return BackgroundCreator.createBackgroundAnimation(scene, name, config);
   }
 
   public static PlaceGameTitleText(scene: Phaser.Scene, text: string) {

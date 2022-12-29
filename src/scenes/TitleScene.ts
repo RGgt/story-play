@@ -166,14 +166,18 @@ export default class TitleScene extends Phaser.Scene {
 
   backgroundAsStatic = () => {
     this.cleanupBackground();
-    [this._testSprite] = SceneFiller.PlaceBackgroundStatic(this, 'main');
+    ({ sprite: this._testSprite } = SceneFiller.PlaceBackgroundStatic(this, 'main'));
     this._testSprite.setDepth(-100);
   };
 
   backgroundAsPulsing = () => {
     this.cleanupBackground();
     const configDefault = { scale: 2.0, speed: 2200, repeats: -1, yoyo: true };
-    [this._testSprite, this._testPulseTween] = SceneFiller.PlaceBackgroundPulsing(this, 'main', configDefault);
+    ({ sprite: this._testSprite, pulseTween: this._testPulseTween } = SceneFiller.PlaceBackgroundPulsing(
+      this,
+      'main',
+      configDefault,
+    ));
     this._testSprite.setDepth(-100);
   };
 
@@ -190,7 +194,7 @@ export default class TitleScene extends Phaser.Scene {
       'frame_1_08_17',
     ];
     const configDefault = { frames, repeats: -1, frameRate: 8, yoyo: false };
-    [this._testSprite] = SceneFiller.PlaceBackgroundAnimdated(this, 'main', configDefault);
+    ({ sprite: this._testSprite } = SceneFiller.PlaceBackgroundAnimdated(this, 'main', configDefault));
     this._testSprite.setDepth(-100);
   };
 
