@@ -7,4 +7,4 @@ export { default as MyAutoAdvancer } from './components/MyAutoAdvancer';
 export { default as MyButton } from './components/MyButton';
 export { default as MyPanel } from './components/MyPanel';
 export { default as MyPanel2 } from './components/MyPanel2';
-export { default as TextBuilder } from './components/TextBuilder';
+export * from './creators/TextCreator';

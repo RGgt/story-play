@@ -1,4 +1,4 @@
-import { TextBuilder, AspectConstants, AutoAdvancers, Backgrounds, Buttons, Dialogs } from '@rggt/gui-elements';
+import { TextCreator, AspectConstants, AutoAdvancers, Backgrounds, Buttons, Dialogs } from '@rggt/gui-elements';
 
 // import TextBuilder from '../components/TextBuilder';
 // import AspectConstants from './AspectConstants';
@@ -67,20 +67,20 @@ export default class SceneFiller {
   public static PlaceGameTitleText(scene: Phaser.Scene, text: string) {
     const screenCenterX = scene.cameras.main.worldView.x + scene.cameras.main.width / 2;
     const screenCenterY = scene.cameras.main.worldView.y + scene.cameras.main.height / 2;
-    const customComponent = TextBuilder.createTitleText(scene, screenCenterX, screenCenterY, text, 1920);
+    const customComponent = TextCreator.createTitleText(scene, screenCenterX, screenCenterY, text, 1920);
     scene.add.existing(customComponent);
     return customComponent;
   }
 
   public static PlaceGameSubtitleCenterText(scene: Phaser.Scene, text: string, y: number) {
     const screenCenterX = scene.cameras.main.worldView.x + scene.cameras.main.width / 2;
-    const customComponent = TextBuilder.createSubtitleTextAlignCenter(scene, screenCenterX, y, text, 1920);
+    const customComponent = TextCreator.createSubtitleTextAlignCenter(scene, screenCenterX, y, text, 1920);
     scene.add.existing(customComponent);
     return customComponent;
   }
 
   public static PlaceGameSubtitleRightText(scene: Phaser.Scene, text: string, y: number) {
-    const customComponent = TextBuilder.createSubtitleTextAlignRight(
+    const customComponent = TextCreator.createSubtitleTextAlignRight(
       scene,
       1920 - AspectConstants.SCREEN_PADDING_H,
       y,
@@ -92,7 +92,7 @@ export default class SceneFiller {
   }
 
   public static PlaceGameSubtitleLeftText(scene: Phaser.Scene, text: string, y: number) {
-    const customComponent = TextBuilder.createSubtitleTextAlignLeft(
+    const customComponent = TextCreator.createSubtitleTextAlignLeft(
       scene,
       AspectConstants.SCREEN_PADDING_H,
       y,
@@ -104,14 +104,14 @@ export default class SceneFiller {
   }
 
   public static PlaceScrollingLetterText(scene: Phaser.Scene, text: string, x: number, y: number, width: number) {
-    const customComponent = TextBuilder.createScrollingLetterText(scene, x, y, text, width);
+    const customComponent = TextCreator.createScrollingLetterText(scene, x, y, text, width);
     customComponent.setScrollFactor(0, -1);
     scene.add.existing(customComponent);
     return customComponent;
   }
 
   public static PlaceScrollingGenericsText(scene: Phaser.Scene, text: string, y: number) {
-    const customComponent = TextBuilder.createScrollingLetterText(scene, 1920 / 2, y, text, 1920 * 0.7);
+    const customComponent = TextCreator.createScrollingLetterText(scene, 1920 / 2, y, text, 1920 * 0.7);
     customComponent.setScrollFactor(0, -1);
     scene.add.existing(customComponent);
     return customComponent;
@@ -123,7 +123,7 @@ export default class SceneFiller {
   ): [Phaser.GameObjects.Text, Phaser.GameObjects.Rectangle] {
     const x = 100;
     const y = 1080 - 250;
-    const customComponent = TextBuilder.createNarrationText(scene, x, y, text, 1920 - 200);
+    const customComponent = TextCreator.createNarrationText(scene, x, y, text, 1920 - 200);
     customComponent.setScrollFactor(0, -1);
     const rectangle = scene.add.rectangle(0, y - 50, 1920, 250 + 50, 0x000000, 0.65);
     rectangle.setOrigin(0, 0);

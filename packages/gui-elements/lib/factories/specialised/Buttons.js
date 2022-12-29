@@ -1,3 +1,4 @@
+// import Phaser from 'phaser';
 import MyButton from '../../components/MyButton';
 import TextBuilder from '../../components/TextBuilder';
 export default class Buttons {

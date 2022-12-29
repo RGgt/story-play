@@ -30,6 +30,7 @@
     "url": "https://github.com/RGgt/story-play/issues"
   },
   "dependencies": {
-    "@rggt/nine-patch": "^0.0.0"
+    "@rggt/nine-patch": "^0.0.0",
+    "phaser": "^3.55.2"
   }
 }
