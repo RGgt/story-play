@@ -1,4 +1,4 @@
-export default class BackgroundCreator {
+class BackgroundCreator {
   public static createBackgroundImage(scene: Phaser.Scene, name: string) {
     const screenCenterX = scene.cameras.main.worldView.x + scene.cameras.main.width / 2;
     const screenCenterY = scene.cameras.main.worldView.y + scene.cameras.main.height / 2;
@@ -50,4 +50,4 @@ export default class BackgroundCreator {
     return { sprite, animation };
   }
 }
-
+export { BackgroundCreator };
