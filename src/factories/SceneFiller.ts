@@ -1,11 +1,5 @@
-import { TextCreator, AspectConstants, AutoAdvancers, BackgroundCreator, Buttons, Dialogs } from '@rggt/gui-elements';
-
-// import TextBuilder from '../components/TextBuilder';
-// import AspectConstants from './AspectConstants';
-// import AutoAdvancers from './specialised/AutoAdvancers';
-// import Backgrounds from './specialised/Backgrounds';
-// import Buttons from './specialised/Buttons';
-// import Dialogs from './specialised/Dialogs';
+import { TextCreator, AspectConstants, BackgroundCreator, Buttons, Dialogs } from '@rggt/gui-elements';
+import { FrameNavigatorCreator } from '@rggt/gui-elements/src/creators/FrameNavigatorCreator';
 
 export default class SceneFiller {
   public static PlaceTestButton(
@@ -132,7 +126,7 @@ export default class SceneFiller {
   }
 
   public static PlaceJumperSimple(scene: Phaser.Scene, onClick: undefined | (() => void)) {
-    const customComponent = AutoAdvancers.createJumperSimple(scene, onClick, onClick, onClick);
+    const customComponent = FrameNavigatorCreator.createFrameNavigatorBfm(scene, onClick, onClick, onClick);
     scene.add.existing(customComponent);
     return customComponent;
   }
@@ -142,7 +136,7 @@ export default class SceneFiller {
     onClick: undefined | (() => void),
     onShowMenu: undefined | (() => void),
   ) {
-    const customComponent = AutoAdvancers.createJumperSimple(scene, onClick, onShowMenu, onClick);
+    const customComponent = FrameNavigatorCreator.createFrameNavigatorBfm(scene, onClick, onShowMenu, onClick);
     scene.add.existing(customComponent);
     return customComponent;
   }
@@ -153,7 +147,7 @@ export default class SceneFiller {
     onShowMenu: undefined | (() => void),
     onNavBack: undefined | (() => void),
   ) {
-    const customComponent = AutoAdvancers.createJumperSimple(scene, onClick, onShowMenu, onNavBack);
+    const customComponent = FrameNavigatorCreator.createFrameNavigatorBfm(scene, onClick, onShowMenu, onNavBack);
     scene.add.existing(customComponent);
     return customComponent;
   }

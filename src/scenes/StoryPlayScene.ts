@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { MyAutoAdvancer } from '@rggt/gui-elements';
+import { Perimeter } from '@rggt/gui-elements';
 // import MyAutoAdvancer from '../components/MyAutoAdvancer';
 import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
@@ -25,7 +25,7 @@ export default class StoryPlayScene extends Phaser.Scene {
 
   // private _backgroundPSprite: Phaser.GameObjects.Sprite | undefined;
 
-  private _AutoAdvancer: MyAutoAdvancer | undefined;
+  private _frameNavigator: Perimeter | undefined;
 
   private _narrationText: Phaser.GameObjects.Text | undefined;
 
@@ -289,7 +289,7 @@ export default class StoryPlayScene extends Phaser.Scene {
 
   renderJumper(data: string) {
     if (data == null) {
-      this._AutoAdvancer?.destroy();
+      this._frameNavigator?.destroy();
       return;
     }
     const onClick = () => {
@@ -305,8 +305,8 @@ export default class StoryPlayScene extends Phaser.Scene {
       this.navigateBack();
     };
 
-    this._AutoAdvancer = SceneFiller.PlaceJumperWithMenuAndNavBack(this, onClick, openMenu, onNavBack);
-    this._AutoAdvancer.setDepth(Number.MAX_SAFE_INTEGER);
+    this._frameNavigator = SceneFiller.PlaceJumperWithMenuAndNavBack(this, onClick, openMenu, onNavBack);
+    this._frameNavigator.setDepth(Number.MAX_SAFE_INTEGER);
   }
 
   navigateLoadFrameDirectly(frame: string) {
@@ -322,7 +322,7 @@ export default class StoryPlayScene extends Phaser.Scene {
     if (gameData) {
       gameData.framesHistory.push(frame);
     }
-    this._AutoAdvancer?.destroy();
+    this._frameNavigator?.destroy();
     this.renderNewFrame(frame);
   }
 
@@ -334,7 +334,7 @@ export default class StoryPlayScene extends Phaser.Scene {
         // it's ok to pop it, as rendering will add it back
         const frame = gameData.framesHistory[gameData.framesHistory.length - 1];
         if (frame) {
-          this._AutoAdvancer?.destroy();
+          this._frameNavigator?.destroy();
           this.cleanup();
           this.renderNewFrame(frame);
         }
@@ -404,7 +404,7 @@ export default class StoryPlayScene extends Phaser.Scene {
     this._backgroundSpriteOld?.destroy();
     this._backgroundSprite?.destroy();
     this._backgroundPulseTween?.remove();
-    this._AutoAdvancer?.destroy();
+    this._frameNavigator?.destroy();
     this._StorySubtitle_1?.destroy();
     this._StoryTitle?.destroy();
     this._narrationText?.destroy();
