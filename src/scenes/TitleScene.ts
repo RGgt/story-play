@@ -1,8 +1,6 @@
 import Phaser from 'phaser';
-import { MyButton, AspectConstants } from '@rggt/gui-elements';
+import { Button, AspectConstants } from '@rggt/gui-elements';
 
-// import MyButton from '../components/MyButton';
-// import AspectConstants from '../factories/AspectConstants';
 import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
 import Utilities from '../utilities';
@@ -17,9 +15,9 @@ export default class TitleScene extends Phaser.Scene {
 
   private _testText: Phaser.GameObjects.Text | undefined;
 
-  private _btnSetFullscreen: MyButton | undefined;
+  private _btnSetFullscreen: Button | undefined;
 
-  private _btnSetWindowed: MyButton | undefined;
+  private _btnSetWindowed: Button | undefined;
 
   private _screenshotSprite: Phaser.GameObjects.Sprite | undefined;
 
@@ -232,10 +230,11 @@ export default class TitleScene extends Phaser.Scene {
 
     SceneFiller.PlaceTestDialogBackground(this, 100, 400, 1720, 400);
 
-    let [b, t] = SceneFiller.PlaceTestButton(this, 100, 100, 'Fullscreen', this.setFullscreen, false);
-    this._btnSetFullscreen = b;
-    [b, t] = SceneFiller.PlaceTestButton(this, 520, 100, 'Windowed', this.setWindowed, true);
-    this._btnSetWindowed = b;
+    let btnDetail: { button: Button; text: Phaser.GameObjects.Text };
+    btnDetail = SceneFiller.PlaceTestButton(this, 100, 100, 'Fullscreen', this.setFullscreen, false);
+    this._btnSetFullscreen = btnDetail.button;
+    btnDetail = SceneFiller.PlaceTestButton(this, 520, 100, 'Windowed', this.setWindowed, true);
+    this._btnSetWindowed = btnDetail.button;
     SceneFiller.PlaceTestButton(this, 940, 100, 'Screenshot', this.setTakeScreenshot, false);
     SceneFiller.PlaceTestButton(this, 100, 200, 'Open Modal', this.openHtmlModal);
     SceneFiller.PlaceTestButton(this, 520, 200, 'Open Menu', this.openMenu);

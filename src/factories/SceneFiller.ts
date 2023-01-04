@@ -1,6 +1,11 @@
-import { TextCreator, AspectConstants, BackgroundCreator, Buttons } from '@rggt/gui-elements';
-import { BoxCreator } from '@rggt/gui-elements/src/creators/BoxCreator';
-import { FrameNavigatorCreator } from '@rggt/gui-elements/src/creators/FrameNavigatorCreator';
+import {
+  TextCreator,
+  AspectConstants,
+  BackgroundCreator,
+  BoxCreator,
+  ButtonCreator,
+  FrameNavigatorCreator,
+} from '@rggt/gui-elements';
 
 export default class SceneFiller {
   public static PlaceTestButton(
@@ -13,7 +18,7 @@ export default class SceneFiller {
   ) {
     const width = AspectConstants.TEST_BUTTON_WIDTH;
     const height = AspectConstants.TEST_BUTTON_HEIGHT;
-    return Buttons.addGenericButton(scene, x, y, width, height, text, onClick, disabled);
+    return ButtonCreator.addSimpleButton(scene, x, y, width, height, text, onClick, disabled);
   }
 
   public static PlaceTestDialogBackground(scene: Phaser.Scene, x: number, y: number, width: number, height: number) {
@@ -30,7 +35,7 @@ export default class SceneFiller {
     const width = AspectConstants.DIALOG_WIDTH - 2 * AspectConstants.DIALOG_PADDING_H;
     const height = AspectConstants.DIALOG_BUTTON_HEIGHT;
     const screenCenterX = scene.cameras.main.worldView.x + scene.cameras.main.width / 2;
-    return Buttons.addGenericButton(scene, screenCenterX - width / 2, y, width, height, text, onClick, disabled);
+    return ButtonCreator.addSimpleButton(scene, screenCenterX - width / 2, y, width, height, text, onClick, disabled);
   }
 
   public static PlaceDialogBackground(scene: Phaser.Scene) {

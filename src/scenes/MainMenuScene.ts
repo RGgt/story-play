@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { AspectConstants } from '@rggt/gui-elements';
+import { AspectConstants, Button } from '@rggt/gui-elements';
 
 import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
@@ -18,17 +18,18 @@ export default class MainMenuScene extends Phaser.Scene {
       return;
     }
     let top = shape.top + AspectConstants.DIALOG_PADDING_V;
-    const [b1, t1] = SceneFiller.PlaceDialogButton(this, top, 'Resume', () => {
+    let btnDetail: { button: Button; text: Phaser.GameObjects.Text };
+    btnDetail = SceneFiller.PlaceDialogButton(this, top, 'Resume', () => {
       // FIX: not working
       this.restoreSceneBellow();
     });
-    top = b1.getBound().bottom + AspectConstants.DIALOG_PADDING_V;
-    const [b2, t2] = SceneFiller.PlaceDialogButton(this, top, '(Re)start Story', () => {
+    top = btnDetail.button.getBound().bottom + AspectConstants.DIALOG_PADDING_V;
+    btnDetail = SceneFiller.PlaceDialogButton(this, top, '(Re)start Story', () => {
       // FIX: not working
       this.restartStoryPlay();
     });
-    top = b2.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
-    const [b3, t3] = SceneFiller.PlaceDialogButton(
+    top = btnDetail.button.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
+    btnDetail = SceneFiller.PlaceDialogButton(
       this,
       top,
       'Save',
@@ -37,8 +38,8 @@ export default class MainMenuScene extends Phaser.Scene {
       },
       true,
     );
-    top = b3.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
-    const [b4, t4] = SceneFiller.PlaceDialogButton(
+    top = btnDetail.button.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
+    btnDetail = SceneFiller.PlaceDialogButton(
       this,
       top,
       'Load',
@@ -47,8 +48,8 @@ export default class MainMenuScene extends Phaser.Scene {
       },
       true,
     );
-    top = b4.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
-    const [b5, t5] = SceneFiller.PlaceDialogButton(
+    top = btnDetail.button.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
+    btnDetail = SceneFiller.PlaceDialogButton(
       this,
       top,
       'More ...',
@@ -57,8 +58,8 @@ export default class MainMenuScene extends Phaser.Scene {
       },
       true,
     );
-    top = b5.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
-    const [b6, t6] = SceneFiller.PlaceDialogButton(this, top, 'Jump to Home Screen', () => {
+    top = btnDetail.button.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
+    btnDetail = SceneFiller.PlaceDialogButton(this, top, 'Jump to Home Screen', () => {
       // GOOD
       this.restartExperimental();
     });

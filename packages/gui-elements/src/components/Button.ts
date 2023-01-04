@@ -1,6 +1,6 @@
 import { NinePatch, NinePatchData } from '@rggt/nine-patch';
 
-export default class MyButton extends NinePatch {
+export default class Button extends NinePatch {
   private _disabled = false;
 
   public onClick: undefined | (() => void);

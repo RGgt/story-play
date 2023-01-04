@@ -1,10 +1,8 @@
-// import Phaser from 'phaser';
-import MyButton from '../../components/MyButton';
-import { TextCreator } from '../../creators/TextCreator';
-// import TextBuilder from '../../components/TextBuilder';
+import Button from '../components/Button';
+import { TextCreator } from './TextCreator';
 
-export default class Buttons {
-  public static addGenericButton(
+class ButtonCreator {
+  public static addSimpleButton(
     scene: Phaser.Scene,
     x: number,
     y: number,
@@ -13,11 +11,11 @@ export default class Buttons {
     text: string,
     onClick: undefined | (() => void),
     disabled: boolean,
-  ): [MyButton, Phaser.GameObjects.Text] {
-    const customComponent = Buttons.createButton(scene, x, y, width, height, onClick);
+  ): { button: Button; text: Phaser.GameObjects.Text } {
+    const customComponent = ButtonCreator.createButton(scene, x, y, width, height, onClick);
     customComponent.setDisabled(disabled);
     const textObject = this.addButtonText(scene, customComponent, text, width);
-    return [customComponent, textObject];
+    return { button: customComponent, text: textObject };
   }
 
   private static createButton(
@@ -28,17 +26,18 @@ export default class Buttons {
     height: number,
     onClick: undefined | (() => void),
   ) {
-    const customComponent = new MyButton(scene);
+    const customComponent = new Button(scene);
     customComponent.init(x, y, width, height);
     customComponent.onClick = onClick;
     scene.add.existing(customComponent);
     return customComponent;
   }
 
-  private static addButtonText(scene: Phaser.Scene, button: MyButton, text: string, maxWidth: number) {
+  private static addButtonText(scene: Phaser.Scene, button: Button, text: string, maxWidth: number) {
     const center = button.getCenter();
     const customComponent = TextCreator.createButtonText(scene, center.x, center.y, text, maxWidth);
     scene.add.existing(customComponent);
     return customComponent;
   }
 }
+export { ButtonCreator };
