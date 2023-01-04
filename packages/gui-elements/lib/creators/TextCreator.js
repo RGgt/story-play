@@ -71,7 +71,6 @@ class TextCreator {
         return TextCreator.createText(scene, x, y, text, maxWidth, style);
     }
     static createScrollingLetterText(scene, x, y, text, maxWidth) {
-        console.log("createScrollingLetterText");
         const style = {
             shadowColor: '#000000',
             shadowBlur: 0,
@@ -123,7 +122,6 @@ class TextCreator {
         return TextCreator.createText(scene, x, y, text, maxWidth, style);
     }
     static createText(scene, x, y, text, maxWidth, style) {
-        console.log("createText");
         const textShadow = {
             offsetX: style.shadowOffsetX,
             offsetY: style.shadowOffsetY,
@@ -148,8 +146,6 @@ class TextCreator {
             align: style.alignment,
         };
         const customComponent = new Phaser.GameObjects.Text(scene, x, y, text, textStyle);
-        // const customComponent = new ClippedText(scene, x, y, text, textStyle);
-        console.log("text created");
         switch (style.coords) {
             case 'TopLeft':
                 customComponent.setOrigin(0.0, 0.0);

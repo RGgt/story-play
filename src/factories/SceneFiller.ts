@@ -1,4 +1,5 @@
-import { TextCreator, AspectConstants, BackgroundCreator, Buttons, Dialogs } from '@rggt/gui-elements';
+import { TextCreator, AspectConstants, BackgroundCreator, Buttons } from '@rggt/gui-elements';
+import { BoxCreator } from '@rggt/gui-elements/src/creators/BoxCreator';
 import { FrameNavigatorCreator } from '@rggt/gui-elements/src/creators/FrameNavigatorCreator';
 
 export default class SceneFiller {
@@ -16,7 +17,7 @@ export default class SceneFiller {
   }
 
   public static PlaceTestDialogBackground(scene: Phaser.Scene, x: number, y: number, width: number, height: number) {
-    return Dialogs.addBackgroundPanel2(scene, x, y, width, height);
+    return BoxCreator.createPanelBox(scene, x, y, width, height);
   }
 
   public static PlaceDialogButton(
@@ -35,7 +36,7 @@ export default class SceneFiller {
   public static PlaceDialogBackground(scene: Phaser.Scene) {
     const width = AspectConstants.DIALOG_WIDTH;
     const height = AspectConstants.DIALOG_HEIGHT;
-    return Dialogs.addBackgroundPanel(scene, width, height);
+    return BoxCreator.createCentralPanelBox(scene, width, height);
   }
 
   public static PlaceBackgroundStatic(scene: Phaser.Scene, name: string) {

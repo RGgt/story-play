@@ -2,9 +2,9 @@
 // import NinePatchData from './NinePatchData';
 import { NinePatch, NinePatchData } from '@rggt/nine-patch';
 
-export default class MyPanel2 extends NinePatch {
+export default class PanelBox extends NinePatch {
   constructor(scene: Phaser.Scene) {
-    const data = new NinePatchData('pnlPanel', undefined, 310, 60, 8, 8);
+    const data = new NinePatchData('panel', undefined, 310, 60, 8, 8);
     super(data, scene);
   }
 }
