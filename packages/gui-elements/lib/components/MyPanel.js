@@ -7,3 +7,4 @@ export default class MyPanel extends NinePatch {
         super(data, scene);
     }
 }
+//# sourceMappingURL=MyPanel.js.map

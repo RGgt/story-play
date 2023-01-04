@@ -53,3 +53,4 @@ export default class MyAutoAdvancer extends Phaser.GameObjects.Rectangle {
         }
     }
 }
+//# sourceMappingURL=MyAutoAdvancer.js.map

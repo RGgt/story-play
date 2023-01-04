@@ -38,3 +38,4 @@ export default class MyButton extends NinePatch {
         }
     }
 }
+//# sourceMappingURL=MyButton.js.map

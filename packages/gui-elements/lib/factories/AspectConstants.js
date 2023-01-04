@@ -16,3 +16,4 @@ export default class AspectConstants {
     static HIDDEN_MENU_BUTTON_HEIGHT = 400;
     static HIDDEN_NAV_BACK_WIDTH = 400;
 }
+//# sourceMappingURL=AspectConstants.js.map

@@ -10,3 +10,6 @@ DELETED/
 
 # GitHub Pages
 githubPages/
+
+dist/
+packages/*/lib/

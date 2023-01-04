@@ -198,7 +198,36 @@ export default class TitleScene extends Phaser.Scene {
     this._testSprite.setDepth(-100);
   };
 
+  createAMask() {
+    // this mask will be like the # sign and move with the cursor
+    const shape = this.make.graphics({});
+
+    //  Create a hash shape Graphics object
+    shape.fillStyle(0xffffff);
+
+    //  You have to begin a path for a Geometry mask to work
+    shape.beginPath();
+
+    shape.fillRect(50, 0, 50, 300);
+    shape.fillRect(175, 0, 50, 300);
+    shape.fillRect(0, 75, 275, 50);
+    shape.fillRect(0, 200, 275, 50);
+
+    const mask = shape.createGeometryMask();
+    this.input.on('pointermove', (pointer: { x: number; y: number }) => {
+      shape.x = pointer.x - 140;
+      shape.y = pointer.y - 140;
+    });
+
+    // sample usage
+    const image1 = this.add.image(0, 0, 'frame_1_08_10').setOrigin(0);
+    image1.setMask(mask);
+
+  }
+
   create() {
+    this.createAMask();
+
     this.game.canvas.style.cursor = TitleScene.CURSOR;
 
     SceneFiller.PlaceTestDialogBackground(this, 100, 400, 1720, 400);

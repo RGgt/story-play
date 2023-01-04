@@ -19,3 +19,4 @@ export default class Dialogs {
         return customComponent;
     }
 }
+//# sourceMappingURL=Dialogs.js.map

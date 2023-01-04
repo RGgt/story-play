@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  test
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/phaser.css" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <title>Story-Play</title>
+    <script type="module" crossorigin src="/assets/index.03fb2c74.js"></script>
+  </head>
+  <body>
+    <div id="phaser"></div>
+    <!-- Simple pop-up dialog box, containing a form -->
+    <dialog id="favDialog" class="dialog-hidden">
+      <form method="dialog">
+        <p>
+          <label for="favLanguage">Game language:</label>
+          <select id="favLanguage" name="favLanguage">
+            <option></option>
+            <option>English</option>
+            <option>German</option>
+            <option>Romanian</option>
+          </select>
+        </p>
+        <div>
+          <button id="cancel" type="reset">Cancel</button>
+          <button id="confirm" type="submit">Confirm</button>
+        </div>
+      </form>
+    </dialog>
+
+    
+  </body>
 </html>

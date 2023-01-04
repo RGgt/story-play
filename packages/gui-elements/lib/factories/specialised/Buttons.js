@@ -23,3 +23,4 @@ export default class Buttons {
         return customComponent;
     }
 }
+//# sourceMappingURL=Buttons.js.map

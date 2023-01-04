@@ -8,4 +8,5 @@ export { default as MyButton } from './components/MyButton';
 export { default as MyPanel } from './components/MyPanel';
 export { default as MyPanel2 } from './components/MyPanel2';
 export * from './creators/TextCreator';
-export { default as BackgroundCreator } from './creators/BackgroundCreator';
+export { BackgroundCreator } from './creators/BackgroundCreator';
+//# sourceMappingURL=index.js.map
