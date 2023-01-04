@@ -13,3 +13,4 @@ githubPages/
 
 dist/
 packages/*/lib/
+lerna-debug.log

@@ -1,5 +1,5 @@
-import { Perimeter } from '../components/Perimeter';
-import AspectConstants from '../factories/AspectConstants';
+import { Perimeter } from '@rggt/gui-elements';
+import AspectConstants from '../AspectConstants';
 
 class FrameNavigatorCreator {
   public static createFrameNavigatorBfm(

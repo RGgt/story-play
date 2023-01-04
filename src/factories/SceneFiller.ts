@@ -1,11 +1,5 @@
-import {
-  TextCreator,
-  AspectConstants,
-  BackgroundCreator,
-  BoxCreator,
-  ButtonCreator,
-  FrameNavigatorCreator,
-} from '@rggt/gui-elements';
+import { TextCreator, BackgroundCreator, BoxCreator, ButtonCreator } from '@rggt/gui-elements';
+import { AspectConstants, FrameNavigatorCreator } from '@rggt/gui-custom-elements';
 
 export default class SceneFiller {
   public static PlaceTestButton(
