@@ -9,6 +9,7 @@ class Perimeter extends Phaser.GameObjects.Rectangle {
     const fillColor = 0x00;
     const fillAlpha = 0;
     super(scene, x, y, width, height, fillColor, fillAlpha);
+    this._bounds = new Phaser.Geom.Rectangle(x, y, width, height);
     this.setInteractive({ cursor: 'url(/assets/images/gui/cursor.cur), pointer' });
     this.setOrigin(0, 0);
   }
