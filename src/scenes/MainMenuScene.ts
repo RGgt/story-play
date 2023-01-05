@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { Button } from '@rggt/gui-elements';
-import { AspectConstants } from '@rggt/gui-custom-elements';
+import { AspectConstants, MainMenu, MainMenuOptions } from '@rggt/gui-custom-elements';
 
 import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
@@ -12,58 +12,20 @@ export default class MainMenuScene extends Phaser.Scene {
   }
 
   create() {
-    // this.renderJumper();
-    const shape = SceneFiller.PlaceDialogBackground(this).getBound();
-    if (!shape) {
-      this.restoreSceneBellow();
-      return;
-    }
-    let top = shape.top + AspectConstants.DIALOG_PADDING_V;
-    let btnDetail: { button: Button; text: Phaser.GameObjects.Text };
-    btnDetail = SceneFiller.PlaceDialogButton(this, top, 'Resume', () => {
-      // FIX: not working
-      this.restoreSceneBellow();
-    });
-    top = btnDetail.button.getBound().bottom + AspectConstants.DIALOG_PADDING_V;
-    btnDetail = SceneFiller.PlaceDialogButton(this, top, '(Re)start Story', () => {
-      // FIX: not working
-      this.restartStoryPlay();
-    });
-    top = btnDetail.button.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
-    btnDetail = SceneFiller.PlaceDialogButton(
-      this,
-      top,
-      'Save',
-      () => {
-        // this.restoreSceneBellow();
-      },
-      true,
-    );
-    top = btnDetail.button.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
-    btnDetail = SceneFiller.PlaceDialogButton(
-      this,
-      top,
-      'Load',
-      () => {
-        // this.restoreSceneBellow();
-      },
-      true,
-    );
-    top = btnDetail.button.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
-    btnDetail = SceneFiller.PlaceDialogButton(
-      this,
-      top,
-      'More ...',
-      () => {
-        // this.restoreSceneBellow();
-      },
-      true,
-    );
-    top = btnDetail.button.getBound().bottom + AspectConstants.DIALOG_SPACING_V;
-    btnDetail = SceneFiller.PlaceDialogButton(this, top, 'Jump to Home Screen', () => {
-      // GOOD
-      this.restartExperimental();
-    });
+    const options: MainMenuOptions = {
+      onBtnResume_Click: this.restoreSceneBellow.bind(this),
+      btnBtn_1_Text: '(Re)Start Story',
+      onBtn_1_Click: this.restartStoryPlay.bind(this),
+      btnBtn_2_Text: 'Save',
+      onBtn_2_Click: undefined,
+      btnBtn_3_Text: 'Load',
+      onBtn_3_Click: undefined,
+      btnBtn_4_Text: 'More ...',
+      onBtn_4_Click: undefined,
+      btnBtn_5_Text: 'Jump to Home Screen',
+      onBtn_5_Click: this.restartExperimental.bind(this),
+    };
+    MainMenu.createMainMenuDialog(this, options);
   }
 
   restoreSceneBellow() {
