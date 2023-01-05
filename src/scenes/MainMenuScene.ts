@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import { AspectConstants, Button } from '@rggt/gui-elements';
+import { Button } from '@rggt/gui-elements';
+import { AspectConstants } from '@rggt/gui-custom-elements';
 
 import SceneFiller from '../factories/SceneFiller';
 import { SPScenes } from '../types/enums';
