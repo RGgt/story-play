@@ -4,6 +4,7 @@ import config from './config';
 import BootScene from './scenes/BootScene';
 import MainMenuScene from './scenes/MainMenuScene';
 import PreloadScene from './scenes/PreloadScene';
+import SaveScene from './scenes/SaveScene';
 import StoryPlayScene from './scenes/StoryPlayScene';
 import TitleScene from './scenes/TitleScene';
 
@@ -14,7 +15,7 @@ class SimpleGame extends Phaser.Game implements SPGame {
 
   constructor(c: GameConfig) {
     const realConfig = Object.assign(c, {
-      scene: [BootScene, PreloadScene, TitleScene, StoryPlayScene, MainMenuScene],
+      scene: [BootScene, PreloadScene, TitleScene, StoryPlayScene, MainMenuScene, SaveScene],
     });
     super(realConfig);
     this.gameData = {

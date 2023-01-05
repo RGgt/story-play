@@ -4,4 +4,5 @@ export enum SPScenes {
   StoryPlay = 'story-play',
   Experimental = 'title',
   MainMenu = 'mainmenu',
+  Save = 'save',
 }

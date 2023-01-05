@@ -139,6 +139,12 @@ export default class TitleScene extends Phaser.Scene {
     // this.game.scene.pause(this);
   };
 
+  openSave = () => {
+    this.game.scene.run(SPScenes.Save);
+    this.game.scene.getScene(SPScenes.Save).data.set('callerScene', SPScenes.Experimental);
+    this.game.scene.pause(this);
+  }
+
   openNewStory = () => {
     this.scene.start('story-play');
   };
@@ -240,6 +246,7 @@ export default class TitleScene extends Phaser.Scene {
     SceneFiller.PlaceTestButton(this, 100, 200, 'Open Modal', this.openHtmlModal);
     SceneFiller.PlaceTestButton(this, 520, 200, 'Open Menu', this.openMenu);
     SceneFiller.PlaceTestButton(this, 940, 200, 'Play Story', this.openNewStory);
+    SceneFiller.PlaceTestButton(this, 1360, 200, 'Open Save', this.openSave);
 
     SceneFiller.PlaceTestButton(this, 100, 300, 'Static Backgorund', this.backgroundAsStatic);
     SceneFiller.PlaceTestButton(this, 520, 300, 'Pulsing Backgorund', this.backgroundAsPulsing);
