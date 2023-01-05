@@ -1,8 +1,5 @@
 import Phaser from 'phaser';
-import { Button } from '@rggt/gui-elements';
-import { AspectConstants, MainMenu, MainMenuOptions } from '@rggt/gui-custom-elements';
-
-import SceneFiller from '../factories/SceneFiller';
+import { MainMenu, MainMenuOptions } from '@rggt/gui-custom-elements';
 import { SPScenes } from '../types/enums';
 
 export default class MainMenuScene extends Phaser.Scene {
