@@ -181,6 +181,24 @@ class TextCreator {
     return TextCreator.createText(scene, x, y, text, maxWidth, style);
   }
 
+  public static createSaveButtonText(scene: Phaser.Scene, x: number, y: number, text: string | string[], maxWidth: number) {
+    const style: TextStyle = {
+      shadowColor: '#000000',
+      shadowBlur: 0,
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      textSize: '24px',
+      textFontFamily: 'SerifBoldFont',
+      textColor: 'white',
+      textBackgroundColor: 'transparent',
+      outlineTickness: 2,
+      outlineColor: 'black',
+      alignment: 'center',
+      coords: 'MiddleCenter',
+    };
+    return TextCreator.createText(scene, x, y, text, maxWidth, style);
+  }
+
   public static createText(
     scene: Phaser.Scene,
     x: number,
