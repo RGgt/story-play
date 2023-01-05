@@ -1,11 +1,18 @@
 import PanelBox from '../components/PanelBox';
 import GroupBox from '../components/GroupBox';
+import { Perimeter } from '../components/Perimeter';
 
 
 class BoxCreator {
   public static createGroupBox(scene: Phaser.Scene, x: number, y: number, width: number, height: number) {
     const customComponent = new GroupBox(scene);
     customComponent.init(x, y, width, height);
+    scene.add.existing(customComponent);
+    return customComponent;
+  }
+
+  public static createPerimeter(scene: Phaser.Scene, x: number, y: number, width: number, height: number) {
+    const customComponent = new Perimeter(scene, x, y, width, height);
     scene.add.existing(customComponent);
     return customComponent;
   }
