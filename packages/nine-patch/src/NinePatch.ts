@@ -194,7 +194,8 @@ export default class NinePatch extends Phaser.GameObjects.Group {
   }
 
   protected calculateScales(width: number, height: number) {
-    this._scaleX = (width - this.data.textureCornerWidth) / (this.data.textureWidth - this.data.textureCornerWidth);
+    this._scaleX =
+      (width - 2 * this.data.textureCornerWidth) / (this.data.textureWidth - 2 * this.data.textureCornerWidth);
     this._scaleY =
       (height - 2 * this.data.textureCornerHeight) / (this.data.textureHeight - 2 * this.data.textureCornerHeight);
   }

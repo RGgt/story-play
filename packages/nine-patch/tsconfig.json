@@ -4,6 +4,11 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "noEmit": false,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    // "inlineSourceMap": true,
+    "inlineSources": true
   },
   "include": [
     "./src"
