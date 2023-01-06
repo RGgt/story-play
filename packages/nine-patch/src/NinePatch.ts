@@ -30,6 +30,12 @@ export default class NinePatch extends Phaser.GameObjects.Group {
 
   protected _scaleY = 1;
 
+  private _interactiveHitArea: Phaser.Types.Input.InputConfiguration | any;
+
+  private _interactiveCallback: Phaser.Types.Input.HitAreaCallback | undefined;
+
+  private _interactiveDropZone: boolean | undefined;
+
   constructor(public readonly data: NinePatchData, scene: Phaser.Scene) {
     super(scene);
   }
@@ -113,6 +119,29 @@ export default class NinePatch extends Phaser.GameObjects.Group {
     this.setScales(scaleX, scaleY);
   }
 
+  setInteractive(
+    hitArea?: Phaser.Types.Input.InputConfiguration | any,
+    callback?: Phaser.Types.Input.HitAreaCallback,
+    dropZone?: boolean,
+  ) {
+    this._interactiveHitArea = hitArea;
+    this._interactiveCallback = callback;
+    this._interactiveDropZone = dropZone;
+    this._resetInteractive();
+  }
+
+  private _resetInteractive() {
+    this.spriteTL?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+    this.spriteT?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+    this.spriteTR?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+    this.spriteML?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+    this.spriteM?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+    this.spriteMR?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+    this.spriteBL?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+    this.spriteB?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+    this.spriteBR?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+  }
+
   protected addFrames(textureName: string) {
     const textureWidthMinusTwoCorners = this.data.textureWidth - 2 * this.data.textureCornerHeight;
     const textureWidthMinusOneCorner = this.data.textureWidth - this.data.textureCornerWidth;
@@ -191,6 +220,7 @@ export default class NinePatch extends Phaser.GameObjects.Group {
     this.spriteBL?.setTexture(textureName, 'frmBL');
     this.spriteB?.setTexture(textureName, 'frmB');
     this.spriteBR?.setTexture(textureName, 'frmBR');
+    this._resetInteractive();
   }
 
   protected calculateScales(width: number, height: number) {
