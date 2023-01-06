@@ -36,6 +36,13 @@ export default class NinePatch extends Phaser.GameObjects.Group {
 
   private _interactiveDropZone: boolean | undefined;
 
+  private _interactiveIsOn = true;
+
+  public setInteractiveOn(status: boolean) {
+    this._interactiveIsOn = status;
+    this._resetInteractive();
+  }
+
   constructor(public readonly data: NinePatchData, scene: Phaser.Scene) {
     super(scene);
   }
@@ -131,15 +138,27 @@ export default class NinePatch extends Phaser.GameObjects.Group {
   }
 
   private _resetInteractive() {
-    this.spriteTL?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
-    this.spriteT?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
-    this.spriteTR?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
-    this.spriteML?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
-    this.spriteM?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
-    this.spriteMR?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
-    this.spriteBL?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
-    this.spriteB?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
-    this.spriteBR?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+    if (this._interactiveIsOn) {
+      this.spriteTL?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+      this.spriteT?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+      this.spriteTR?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+      this.spriteML?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+      this.spriteM?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+      this.spriteMR?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+      this.spriteBL?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+      this.spriteB?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+      this.spriteBR?.setInteractive(this._interactiveHitArea, this._interactiveCallback, this._interactiveDropZone);
+    } else {
+      this.spriteTL?.setInteractive({ cursor: 'default' });
+      this.spriteT?.setInteractive({ cursor: 'default' });
+      this.spriteTR?.setInteractive({ cursor: 'default' });
+      this.spriteML?.setInteractive({ cursor: 'default' });
+      this.spriteM?.setInteractive({ cursor: 'default' });
+      this.spriteMR?.setInteractive({ cursor: 'default' });
+      this.spriteBL?.setInteractive({ cursor: 'default' });
+      this.spriteB?.setInteractive({ cursor: 'default' });
+      this.spriteBR?.setInteractive({ cursor: 'default' });
+    }
   }
 
   protected addFrames(textureName: string) {

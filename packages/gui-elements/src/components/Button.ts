@@ -3,18 +3,36 @@ import { NinePatch, NinePatchData } from '@rggt/nine-patch';
 export default class Button extends NinePatch {
   private _disabled = false;
 
-  public onClick: undefined | (() => void);
+  private _onClick: undefined | (() => void);
+
+  public get onClick(): undefined | (() => void) {
+    return this._onClick;
+  }
+
+  public set onClick(onClick: undefined | (() => void)) {
+    this._onClick = onClick;
+    this.updateInteractivity();
+  }
+
+  private updateInteractivity() {
+    const interactive = !this._disabled && !!this.onClick;
+    this.setInteractiveOn(interactive);
+  }
+
+
 
   constructor(scene: Phaser.Scene) {
     const data = new NinePatchData('btnNormal', ['btnHover', 'btnPressed', 'btnDisabled'], 310, 60, 8, 8);
     super(data, scene);
     this.setInteractive({ cursor: 'url(/assets/images/gui/cursor.cur), pointer' });
+    this.updateInteractivity();
   }
 
   private _lPressed = false;
 
   setDisabled(disabled: boolean) {
     this._disabled = disabled;
+    this.updateInteractivity();
   }
 
   preUpdate() {
