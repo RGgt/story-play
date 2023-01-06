@@ -8,6 +8,7 @@ export default class Button extends NinePatch {
   constructor(scene: Phaser.Scene) {
     const data = new NinePatchData('btnNormal', ['btnHover', 'btnPressed', 'btnDisabled'], 310, 60, 8, 8);
     super(data, scene);
+    this.setInteractive({ cursor: 'url(/assets/images/gui/cursor.cur), pointer' });
   }
 
   private _lPressed = false;
