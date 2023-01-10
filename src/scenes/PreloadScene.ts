@@ -147,8 +147,11 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   openNextScene() {
+    const sceneCursor = SPScenes.Cursor;
+    // const sceneToLoad = SPScenes.StoryPlay;
     const sceneToLoad = SPScenes.Experimental;
     // const sceneToLoad = SPScenes.StoryPlay;
     this.scene.start(sceneToLoad);
+    this.scene.start(sceneCursor);
   }
 }

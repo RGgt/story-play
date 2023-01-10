@@ -35,6 +35,7 @@
     "vitest": "^0.25.6"
   },
   "dependencies": {
+    "@rggt/game-base": "^0.0.0",
     "@rggt/gui-custom-elements": "^0.0.0",
     "@rggt/gui-elements": "^0.0.0",
     "@rggt/nine-patch": "^0.0.0",

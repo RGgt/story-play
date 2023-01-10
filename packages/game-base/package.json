@@ -1,9 +1,9 @@
 {
-  "name": "@rggt/gui-elements",
+  "name": "@rggt/game-base",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "RGgt <rggt.inbox@gmail.com>",
-  "homepage": "https://github.com/RGgt/story-play/tree/main/packages/gui-elements#readme",
+  "homepage": "https://github.com/RGgt/story-play/tree/main/packages/game-base#readme",
   "license": "ISC",
   "main": "src/index.ts",
   "typings": "src/index.d.ts",
@@ -23,15 +23,12 @@
     "url": "git+https://github.com/RGgt/story-play.git"
   },
   "scripts": {
-    "tsc": "tsc",
-    "test": "node ./__tests__/@rggt/gui-elements.test.js"
+    "test": "node ./__tests__/@rggt/game-base.test.js"
   },
   "bugs": {
     "url": "https://github.com/RGgt/story-play/issues"
   },
   "dependencies": {
-    "@rggt/game-base": "^0.0.0",
-    "@rggt/nine-patch": "^0.0.0",
     "phaser": "^3.55.2"
   }
 }

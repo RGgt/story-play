@@ -14,6 +14,8 @@
     "btnHover": "assets/images/gui/hover.png",
     "btnPressed": "assets/images/gui/press.png",
     "btnDisabled": "assets/images/gui/disable.png",
+    "cursor_enabled": "assets/images/gui/cursor_enabled.png",
+    "cursor_disabled": "assets/images/gui/cursor_disabled.png",
     "panel": "assets/images/gui/panel.png",
     "group_box": "assets/images/gui/group_box.png",
     "frame_1_08_10": "assets/images/frame_1_08_10.jpg",

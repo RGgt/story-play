@@ -8,8 +8,6 @@ import Utilities from '../utilities';
 // import GuiOverGame from './GuiOverGame';
 
 export default class TitleScene extends Phaser.Scene {
-  static readonly CURSOR = 'url(/assets/images/gui/cursor.cur), auto';
-
   private _testPulseTween: Phaser.Tweens.Tween | undefined;
 
   private _testSprite: Phaser.GameObjects.Sprite | undefined;
@@ -232,8 +230,6 @@ export default class TitleScene extends Phaser.Scene {
 
   create() {
     this.createAMask();
-
-    this.game.canvas.style.cursor = TitleScene.CURSOR;
 
     SceneFiller.PlaceTestDialogBackground(this, 100, 400, 1720, 400);
 
