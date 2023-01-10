@@ -37,7 +37,7 @@ class Highlightable extends Phaser.GameObjects.Rectangle {
     // Check if the cursor is over the component
     if (this._bounds.contains(pointer.x, pointer.y)) {
       this.setActiveCursor();
-      this.fillAlpha = 0.15;
+      this.fillAlpha = 0.125;
       if (pointer.button === 0 && pointer.isDown) {
         this._lPressed = true;
       } else {
