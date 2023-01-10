@@ -1,4 +1,4 @@
-import { IGameControlledCursor } from '@rggt/game-base';
+import { ICursorControllingGame } from '@rggt/game-base';
 import Phaser from 'phaser';
 import config from './config';
 // import SampleScene from './SampleScene';
@@ -13,7 +13,7 @@ import { SPScenes } from './types/enums';
 
 type GameConfig = Phaser.Types.Core.GameConfig;
 
-class SimpleGame extends Phaser.Game implements SPGame, IGameControlledCursor {
+class SimpleGame extends Phaser.Game implements SPGame, ICursorControllingGame {
   public gameData: GameMemoryData | undefined;
 
   constructor(c: GameConfig) {
