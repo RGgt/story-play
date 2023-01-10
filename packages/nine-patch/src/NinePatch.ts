@@ -111,6 +111,15 @@ export default class NinePatch extends Phaser.GameObjects.Group {
     this.spriteBR.setOrigin(0, 0);
 
     this.setScales(scaleX, scaleY);
+    this.children.set(this.spriteTL);
+    this.children.set(this.spriteT);
+    this.children.set(this.spriteTR);
+    this.children.set(this.spriteML);
+    this.children.set(this.spriteM);
+    this.children.set(this.spriteMR);
+    this.children.set(this.spriteBL);
+    this.children.set(this.spriteB);
+    this.children.set(this.spriteBR);
   }
 
   protected addFrames(textureName: string) {
@@ -263,4 +272,5 @@ export default class NinePatch extends Phaser.GameObjects.Group {
     if (!this._bounds) return 0;
     return this._bounds.y + this._bounds.height;
   }
+
 }
