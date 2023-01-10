@@ -60,6 +60,17 @@ export default class SaveScene extends Phaser.Scene {
 
   private _screenshotSprite: Phaser.GameObjects.Sprite | undefined;
 
+  private static _formatDatetime(date: Date, format: string) {
+    const padStart = (value: number): string => value.toString().padStart(2, '0');
+    return format
+      .replace(/yyyy/g, padStart(date.getFullYear()))
+      .replace(/dd/g, padStart(date.getDate()))
+      .replace(/mm/g, padStart(date.getMonth() + 1))
+      .replace(/hh/g, padStart(date.getHours()))
+      .replace(/ii/g, padStart(date.getMinutes()))
+      .replace(/ss/g, padStart(date.getSeconds()));
+  }
+
   private _tempSave(
     scene: Phaser.Scene,
     options: SaveOptions,
@@ -77,7 +88,8 @@ export default class SaveScene extends Phaser.Scene {
       const targetWidth = 1920 * SaveScene._screenshotScaleFactor;
       const targetHeight = 1080 * SaveScene._screenshotScaleFactor;
       const dataURL = SaveScene.screenshotToBase64(snapshot as HTMLImageElement, targetWidth, targetHeight);
-      this._savedData[slotIndex].AutoText = new Date().toLocaleString();
+      // this._savedData[slotIndex].AutoText = new Date().toLocaleString();
+      this._savedData[slotIndex].AutoText = SaveScene._formatDatetime(new Date(), 'yyyy-mm-dd,\r\nhh:ii:ss');
       this.base64ToSprite(dataURL, scene, options, pageIndex, slotIndex, callbak);
     });
   }
