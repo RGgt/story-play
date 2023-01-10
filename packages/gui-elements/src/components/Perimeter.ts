@@ -1,3 +1,5 @@
+import { ICursorControllingGame } from "@rggt/game-base";
+
 class Perimeter extends Phaser.GameObjects.Rectangle {
   public reactToClick: undefined | ((x: number, y: number) => void);
 
@@ -20,6 +22,7 @@ class Perimeter extends Phaser.GameObjects.Rectangle {
 
     // Check if the cursor is over the component
     if (this._bounds.contains(pointer.x, pointer.y)) {
+      this.setActiveCursor();
       if (pointer.button === 0 && pointer.isDown) {
         this._lPressed = true;
       } else {
@@ -32,5 +35,13 @@ class Perimeter extends Phaser.GameObjects.Rectangle {
       this._lPressed = false;
     }
   }
+
+  public setActiveCursor() {
+    if (!this.scene.game) return;
+    const igcc = this.scene.game as unknown as ICursorControllingGame;
+    igcc.setCursorEnabled();
+  }
+
+
 }
 export { Perimeter };
