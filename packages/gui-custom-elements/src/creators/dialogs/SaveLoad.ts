@@ -175,10 +175,14 @@ class Save {
       const box = BoxCreator.createGroupBox(scene, slotLeft, slotTop, slotWidth, slotHeight);
 
       // perimeter
-      const boxPerimeter = BoxCreator.createPerimeter(scene, slotLeft, slotTop, slotWidth, slotHeight);
-      boxPerimeter.reactToClick = options.onSave;
+      // const boxPerimeter = BoxCreator.createPerimeter(scene, slotLeft, slotTop, slotWidth, slotHeight);
+      // boxPerimeter.reactToClick = options.onSave;
+
+      // Highlightable
+      const boxHighlightable = BoxCreator.createHighlightable(scene, slotLeft, slotTop, slotWidth, slotHeight);
+      boxHighlightable.onClick = options.onClose;
+      // create an image
     }
-    // create an image
   }
 
   private static _getSlotWidth() {
