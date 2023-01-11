@@ -4,6 +4,10 @@ import { NinePatch, NinePatchData } from '@rggt/nine-patch';
 export default class Button extends NinePatch {
   public Disabled = false;
 
+  /**
+   * Pushed means that the button was pressed and remained pressed after that
+   * even though it lost focus. So it can act like a toggle of on/off switch.
+   */
   public Pushed = false;
 
   private _onClick: undefined | (() => void);
