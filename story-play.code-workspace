@@ -34,6 +34,10 @@
 		*/
 		"javascript.format.enable": false,
 		"typescript.format.enable": false,
+		"[typescript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		// This one may not matter in the end.
 		"editor.defaultFormatter": "dbaeumer.vscode-eslint",
 	}
 }
