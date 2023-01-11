@@ -2,6 +2,7 @@ import PanelBox from '../components/PanelBox';
 import GroupBox from '../components/GroupBox';
 import { Perimeter } from '../components/Perimeter';
 import { Highlightable } from '../components/Highlightable';
+import { BackgroundBlocker } from '../components/BackgroundBlocker';
 
 
 class BoxCreator {
@@ -20,6 +21,12 @@ class BoxCreator {
 
   public static createHighlightable(scene: Phaser.Scene, x: number, y: number, width: number, height: number) {
     const customComponent = new Highlightable(scene, x, y, width, height);
+    scene.add.existing(customComponent);
+    return customComponent;
+  }
+
+  public static createBackgroundBlocker(scene: Phaser.Scene, x: number, y: number, width: number, height: number) {
+    const customComponent = new BackgroundBlocker(scene, x, y, width, height);
     scene.add.existing(customComponent);
     return customComponent;
   }
