@@ -1,4 +1,4 @@
-import { ICursorControllingGame } from "@rggt/game-base";
+import { ICursorControllingGame } from '@rggt/game-base';
 
 class Highlightable extends Phaser.GameObjects.Rectangle {
   public reactToClick: undefined | ((x: number, y: number) => void);
@@ -20,12 +20,12 @@ class Highlightable extends Phaser.GameObjects.Rectangle {
   }
 
   constructor(scene: Phaser.Scene, x = 0, y = 0, width: number | undefined = 1920, height: number | undefined = 1080) {
-    const fillColor = 0x00;
-    const fillAlpha = 0;
+    const fillColor = 0xffbf00;
+    const fillAlpha = 0.25;
     super(scene, x, y, width, height, fillColor, fillAlpha);
     this._bounds = new Phaser.Geom.Rectangle(x, y, width, height);
-    this.fillColor = 0xffbf00;
-    this.fillAlpha = 0.0;
+    this.fillColor = fillColor;
+    this.fillAlpha = fillAlpha;
     this.setOrigin(0, 0);
   }
 
