@@ -13,6 +13,8 @@
     "btnNormal": "assets/images/gui/normal.png",
     "btnHover": "assets/images/gui/hover.png",
     "btnPressed": "assets/images/gui/press.png",
+    "btnPushed": "assets/images/gui/push.png",
+    "btnDisabledPushed": "assets/images/gui/disable_push.png",
     "btnDisabled": "assets/images/gui/disable.png",
     "cursor_enabled": "assets/images/gui/cursor_enabled.png",
     "cursor_disabled": "assets/images/gui/cursor_disabled.png",

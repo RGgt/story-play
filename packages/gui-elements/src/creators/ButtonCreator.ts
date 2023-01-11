@@ -13,7 +13,7 @@ class ButtonCreator {
     disabled: boolean,
   ): { button: Button; text: Phaser.GameObjects.Text } {
     const customComponent = ButtonCreator.createButton(scene, x, y, width, height, onClick);
-    customComponent.setDisabled(disabled);
+    customComponent.Disabled = disabled;
     const textObject = this.addButtonText(scene, customComponent, text, width);
     return { button: customComponent, text: textObject };
   }

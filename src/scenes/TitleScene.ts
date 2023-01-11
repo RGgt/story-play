@@ -159,8 +159,8 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   updateEnabledButons(fullscren: boolean) {
-    this._btnSetWindowed?.setDisabled(!fullscren);
-    this._btnSetFullscreen?.setDisabled(fullscren);
+    if (this._btnSetWindowed) this._btnSetWindowed.Disabled = !fullscren;
+    if (this._btnSetFullscreen) this._btnSetFullscreen.Disabled = fullscren;
   }
 
   backgroundAsVoid = () => {
