@@ -25,6 +25,6 @@ module.exports = {
     'import/prefer-default-export': 0,
     'no-underscore-dangle': 0,
     'prettier/prettier': 'warn',
-    'max-len': ['warn', { code: 120, ignoreUrls: true }],
+    'max-len': ['warn', { code: 80, ignoreUrls: true }],
   },
 };
