@@ -1,4 +1,4 @@
-export type TextCoordType = 'TopLeft' | 'MiddleCenter' | 'TopCenter' | 'TopRight';
+export type TextCoordType = 'TopLeft' | 'TopCenter' | 'TopRight' | 'MiddleCenter' | 'MiddleLeft';
 export type TextStyle = {
   shadowColor: string;
   shadowBlur: number;
@@ -181,7 +181,37 @@ class TextCreator {
     return TextCreator.createText(scene, x, y, text, maxWidth, style);
   }
 
-  public static createSaveButtonText(scene: Phaser.Scene, x: number, y: number, text: string | string[], maxWidth: number) {
+  public static createIconTextButtonText(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    text: string | string[],
+    maxWidth: number,
+  ) {
+    const style: TextStyle = {
+      shadowColor: '#000000',
+      shadowBlur: 0,
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      textSize: '36px',
+      textFontFamily: 'SerifFont',
+      textColor: 'white',
+      textBackgroundColor: 'transparent',
+      outlineTickness: 2,
+      outlineColor: 'black',
+      alignment: 'center',
+      coords: 'MiddleLeft',
+    };
+    return TextCreator.createText(scene, x, y, text, maxWidth, style);
+  }
+
+  public static createSaveButtonText(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    text: string | string[],
+    maxWidth: number,
+  ) {
     const style: TextStyle = {
       shadowColor: '#000000',
       shadowBlur: 0,
@@ -237,6 +267,9 @@ class TextCreator {
         break;
       case 'MiddleCenter':
         customComponent.setOrigin(0.5, 0.5);
+        break;
+      case 'MiddleLeft':
+        customComponent.setOrigin(0.0, 0.5);
         break;
       case 'TopCenter':
         customComponent.setOrigin(0.5, 0.0);
