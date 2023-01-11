@@ -37,6 +37,9 @@
 		"[typescript]": {
 			"editor.defaultFormatter": "esbenp.prettier-vscode"
 		},
+		"[javascript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
 		// This one may not matter in the end.
 		"editor.defaultFormatter": "dbaeumer.vscode-eslint",
 	}
