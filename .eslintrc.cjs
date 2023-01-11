@@ -26,5 +26,6 @@ module.exports = {
     'no-underscore-dangle': 0,
     'prettier/prettier': 'warn',
     'max-len': ['warn', { code: 80, ignoreUrls: true }],
+    '@typescript-eslint/lines-between-class-members': 'warn',
   },
 };
