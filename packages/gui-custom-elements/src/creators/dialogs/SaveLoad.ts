@@ -9,6 +9,10 @@ import {
   TextCreator,
 } from '@rggt/gui-elements';
 import AspectConstants from '../../AspectConstants';
+import { Builder } from '../../dialogs/SaveAndLoad/Helpers/Builder';
+import { SaveAndLoadDialog } from '../../dialogs/SaveAndLoad/SaveAndLoadDialog';
+import { SaveAndLoadDialogOptions } from '../../dialogs/SaveAndLoad/SaveAndLoadDialogOptions';
+import { SaveAndLoadSlotData } from '../../dialogs/SaveAndLoad/SaveAndLoadSlotData';
 
 export type SaveOptions = {
   onSave: (
@@ -35,11 +39,11 @@ export type SaveViewData = {
 
 type SaveSlotControls =
   | {
-    boxHighlightable: Highlightable;
-    box: GroupBox;
-    image?: Phaser.GameObjects.Sprite;
-    label: Phaser.GameObjects.Text;
-  }
+      boxHighlightable: Highlightable;
+      box: GroupBox;
+      image?: Phaser.GameObjects.Sprite;
+      label: Phaser.GameObjects.Text;
+    }
   | undefined;
 class Save {
   private static _saveSlotControls: Array<SaveSlotControls> = [
@@ -52,6 +56,25 @@ class Save {
   ];
 
   public static createSaveDialog(scene: Phaser.Scene, options: SaveOptions) {
+    const dialogData: SaveAndLoadSlotData[] = [
+      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
+      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
+      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
+      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
+      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
+      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
+    ];
+    const dialogOptions: SaveAndLoadDialogOptions = {
+      onClose: options.onClose,
+    };
+    // const dialog = new SaveAndLoadDialog(dialogData, scene, dialogOptions);
+    const dialog = Builder.BuildDialog(scene, options);
+  }
+
+  public static createSaveDialog_OLD(
+    scene: Phaser.Scene,
+    options: SaveOptions,
+  ) {
     const titleTextValue = 'SAVE-âÂ – ăÂ – țȚ – îÎ – șȘ';
 
     const testText = TextCreator.createSaveButtonText(
@@ -64,13 +87,29 @@ class Save {
 
     const dialogWidth = Save._getDialogWidth();
 
-    const titleText = TextCreator.createTitleText(scene, 0, 0, titleTextValue, dialogWidth);
+    const titleText = TextCreator.createTitleText(
+      scene,
+      0,
+      0,
+      titleTextValue,
+      dialogWidth,
+    );
 
-    const dialogHeight = Save._getDialogHeight(titleText.height, testText.height);
+    const dialogHeight = Save._getDialogHeight(
+      titleText.height,
+      testText.height,
+    );
 
-    const shape = BoxCreator.createCentralPanelBox(scene, dialogWidth, dialogHeight);
+    const shape = BoxCreator.createCentralPanelBox(
+      scene,
+      dialogWidth,
+      dialogHeight,
+    );
 
-    titleText.setPosition(shape.getCenter().x, shape.getTop() + AspectConstants.SAVE_DIALOG_PADDING_V);
+    titleText.setPosition(
+      shape.getCenter().x,
+      shape.getTop() + AspectConstants.SAVE_DIALOG_PADDING_V,
+    );
     titleText.setOrigin(0.5, 0);
     // titleText.setPosition(shape.getLeft(), shape.getTop());
     // titleText.setOrigin(0.5, 0);
@@ -96,8 +135,19 @@ class Save {
     const pageIndex = 0;
     const areaLeft = shape.getLeft() + AspectConstants.SAVE_DIALOG_PADDING_H;
     const areaTop =
-      shape.getTop() + AspectConstants.SAVE_DIALOG_PADDING_V + titleText.height + AspectConstants.SAVE_DIALOG_SPACING_V;
-    Save._createSlots(scene, options, shape, pageIndex, areaLeft, areaTop, testText.height);
+      shape.getTop() +
+      AspectConstants.SAVE_DIALOG_PADDING_V +
+      titleText.height +
+      AspectConstants.SAVE_DIALOG_SPACING_V;
+    Save._createSlots(
+      scene,
+      options,
+      shape,
+      pageIndex,
+      areaLeft,
+      areaTop,
+      testText.height,
+    );
 
     Save._createCloseButton(scene, options, shape, dialogWidth);
 
@@ -127,17 +177,27 @@ class Save {
   }
   // private static _placeText()
 
-  private static _createCloseButton(scene: Phaser.Scene, options: SaveOptions, shape: PanelBox, dialogWidth: number) {
-    return ButtonCreator.addSimpleButton(
+  private static _createCloseButton(
+    scene: Phaser.Scene,
+    options: SaveOptions,
+    shape: PanelBox,
+    dialogWidth: number,
+  ) {
+    const result = ButtonCreator.addSimpleButton(
       scene,
       shape.getLeft() + AspectConstants.SAVE_DIALOG_PADDING_H,
-      shape.getBottom() - AspectConstants.SAVE_DIALOG_SPACING_V - AspectConstants.SAVE_DIALOG_BUTTON_HEIGHT,
+      shape.getBottom() -
+        AspectConstants.SAVE_DIALOG_SPACING_V -
+        AspectConstants.SAVE_DIALOG_BUTTON_HEIGHT,
       dialogWidth - 2 * AspectConstants.SAVE_DIALOG_PADDING_H,
       AspectConstants.SAVE_DIALOG_BUTTON_HEIGHT,
       'Close',
       options.onClose,
       false,
     );
+    result.button.Pushed = true;
+    result.button.Disabled = true;
+    return result;
   }
 
   private static _createSlots(
@@ -149,12 +209,60 @@ class Save {
     areaTop: number,
     slotTextHeight: number,
   ) {
-    Save._saveSlotControls[0] = Save._createSaveSlot(scene, options, pageIndex, 0, areaLeft, areaTop, slotTextHeight);
-    Save._saveSlotControls[1] = Save._createSaveSlot(scene, options, pageIndex, 1, areaLeft, areaTop, slotTextHeight);
-    Save._saveSlotControls[2] = Save._createSaveSlot(scene, options, pageIndex, 2, areaLeft, areaTop, slotTextHeight);
-    Save._saveSlotControls[3] = Save._createSaveSlot(scene, options, pageIndex, 3, areaLeft, areaTop, slotTextHeight);
-    Save._saveSlotControls[4] = Save._createSaveSlot(scene, options, pageIndex, 4, areaLeft, areaTop, slotTextHeight);
-    Save._saveSlotControls[5] = Save._createSaveSlot(scene, options, pageIndex, 5, areaLeft, areaTop, slotTextHeight);
+    Save._saveSlotControls[0] = Save._createSaveSlot(
+      scene,
+      options,
+      pageIndex,
+      0,
+      areaLeft,
+      areaTop,
+      slotTextHeight,
+    );
+    Save._saveSlotControls[1] = Save._createSaveSlot(
+      scene,
+      options,
+      pageIndex,
+      1,
+      areaLeft,
+      areaTop,
+      slotTextHeight,
+    );
+    Save._saveSlotControls[2] = Save._createSaveSlot(
+      scene,
+      options,
+      pageIndex,
+      2,
+      areaLeft,
+      areaTop,
+      slotTextHeight,
+    );
+    Save._saveSlotControls[3] = Save._createSaveSlot(
+      scene,
+      options,
+      pageIndex,
+      3,
+      areaLeft,
+      areaTop,
+      slotTextHeight,
+    );
+    Save._saveSlotControls[4] = Save._createSaveSlot(
+      scene,
+      options,
+      pageIndex,
+      4,
+      areaLeft,
+      areaTop,
+      slotTextHeight,
+    );
+    Save._saveSlotControls[5] = Save._createSaveSlot(
+      scene,
+      options,
+      pageIndex,
+      5,
+      areaLeft,
+      areaTop,
+      slotTextHeight,
+    );
   }
 
   private static _createSaveSlot(
@@ -173,9 +281,12 @@ class Save {
     const slotHeight = Save._getSlotHeight(textHeight);
 
     let index = slotIndex % 3;
-    const slotLeft = areaLeft + index * (slotWidth + AspectConstants.SAVE_DIALOG_SPACING_H);
+    const slotLeft =
+      areaLeft + index * (slotWidth + AspectConstants.SAVE_DIALOG_SPACING_H);
     index = slotIndex - (slotIndex % 3);
-    const slotTop = areaTop + (index * (slotHeight + AspectConstants.SAVE_DIALOG_SPACING_V)) / 3;
+    const slotTop =
+      areaTop +
+      (index * (slotHeight + AspectConstants.SAVE_DIALOG_SPACING_V)) / 3;
     if (viewData && viewData.HasData) {
       return Save._createPopulatedSlot(
         viewData,
@@ -189,7 +300,16 @@ class Save {
         slotHeight,
       );
     }
-    return Save._createEmptySlot(scene, options, pageIndex, slotIndex, slotLeft, slotTop, slotWidth, slotHeight);
+    return Save._createEmptySlot(
+      scene,
+      options,
+      pageIndex,
+      slotIndex,
+      slotLeft,
+      slotTop,
+      slotWidth,
+      slotHeight,
+    );
   }
 
   private static _createPopulatedSlot(
@@ -217,7 +337,9 @@ class Save {
 
     // text
     const textLeft =
-      slotLeft + AspectConstants.SAVE_DIALOG_SLOT_PADDING_H + AspectConstants.SAVE_DIALOG_SLOT_IMAGE_WIDTH / 2;
+      slotLeft +
+      AspectConstants.SAVE_DIALOG_SLOT_PADDING_H +
+      AspectConstants.SAVE_DIALOG_SLOT_IMAGE_WIDTH / 2;
     const textTop =
       slotTop +
       AspectConstants.SAVE_DIALOG_SLOT_IMAGE_HEIGHT +
@@ -235,14 +357,26 @@ class Save {
     scene.add.existing(boxText);
 
     // box
-    const box = BoxCreator.createGroupBox(scene, slotLeft, slotTop, slotWidth, slotHeight);
+    const box = BoxCreator.createGroupBox(
+      scene,
+      slotLeft,
+      slotTop,
+      slotWidth,
+      slotHeight,
+    );
 
     // perimeter
     // const boxPerimeter = BoxCreator.createPerimeter(scene, slotLeft, slotTop, slotWidth, slotHeight);
     // boxPerimeter.reactToClick = options.onSave;
 
     // Highlightable
-    const boxHighlightable = BoxCreator.createHighlightable(scene, slotLeft, slotTop, slotWidth, slotHeight);
+    const boxHighlightable = BoxCreator.createHighlightable(
+      scene,
+      slotLeft,
+      slotTop,
+      slotWidth,
+      slotHeight,
+    );
     boxHighlightable.onClick = () => {
       Save._callOnSaveMethod(scene, options, pageIndex, slotIndex);
     };
@@ -266,7 +400,13 @@ class Save {
     slotHeight: number,
   ) {
     // box
-    const box = BoxCreator.createGroupBox(scene, slotLeft, slotTop, slotWidth, slotHeight);
+    const box = BoxCreator.createGroupBox(
+      scene,
+      slotLeft,
+      slotTop,
+      slotWidth,
+      slotHeight,
+    );
 
     // text
     const boxText = TextCreator.createTitleText(
@@ -280,7 +420,13 @@ class Save {
     scene.add.existing(boxText);
 
     // highlightable
-    const boxHighlightable = BoxCreator.createHighlightable(scene, slotLeft, slotTop, slotWidth, slotHeight);
+    const boxHighlightable = BoxCreator.createHighlightable(
+      scene,
+      slotLeft,
+      slotTop,
+      slotWidth,
+      slotHeight,
+    );
     boxHighlightable.onClick = () => {
       Save._callOnSaveMethod(scene, options, pageIndex, slotIndex);
     };
@@ -313,13 +459,23 @@ class Save {
     );
     const titleTextValue = 'SAVE-âÂ – ăÂ – țȚ – îÎ – șȘ';
     const dialogWidth = Save._getDialogWidth();
-    const titleText = TextCreator.createTitleText(scene, 0, 0, titleTextValue, dialogWidth);
-    const dialogHeight = Save._getDialogHeight(titleText.height, testText.height);
+    const titleText = TextCreator.createTitleText(
+      scene,
+      0,
+      0,
+      titleTextValue,
+      dialogWidth,
+    );
+    const dialogHeight = Save._getDialogHeight(
+      titleText.height,
+      testText.height,
+    );
 
     const shapeLeft = (1920 - dialogWidth) / 2;
     const shapeTop = (1080 - dialogHeight) / 2;
 
-    const areaLeft = shapeLeft /* shape.getLeft() */ + AspectConstants.SAVE_DIALOG_PADDING_H;
+    const areaLeft =
+      shapeLeft /* shape.getLeft() */ + AspectConstants.SAVE_DIALOG_PADDING_H;
     const areaTop =
       shapeTop /* shape.getTop() */ +
       AspectConstants.SAVE_DIALOG_PADDING_V +
@@ -337,7 +493,12 @@ class Save {
     );
   }
 
-  private static _callOnSaveMethod(scene: Phaser.Scene, options: SaveOptions, pageIndex: number, slotIndex: number) {
+  private static _callOnSaveMethod(
+    scene: Phaser.Scene,
+    options: SaveOptions,
+    pageIndex: number,
+    slotIndex: number,
+  ) {
     const controls = Save._saveSlotControls[slotIndex];
     if (controls) {
       controls.box.destroy(true);
@@ -350,7 +511,10 @@ class Save {
   }
 
   private static _getSlotWidth() {
-    return 2 * AspectConstants.SAVE_DIALOG_SLOT_PADDING_H + AspectConstants.SAVE_DIALOG_SLOT_IMAGE_WIDTH;
+    return (
+      2 * AspectConstants.SAVE_DIALOG_SLOT_PADDING_H +
+      AspectConstants.SAVE_DIALOG_SLOT_IMAGE_WIDTH
+    );
   }
 
   private static _getSlotHeight(textHeight: number) {
@@ -364,11 +528,16 @@ class Save {
 
   private static _getDialogWidth() {
     return (
-      2 * AspectConstants.SAVE_DIALOG_PADDING_H + 3 * Save._getSlotWidth() + 2 * AspectConstants.SAVE_DIALOG_SPACING_H
+      2 * AspectConstants.SAVE_DIALOG_PADDING_H +
+      3 * Save._getSlotWidth() +
+      2 * AspectConstants.SAVE_DIALOG_SPACING_H
     );
   }
 
-  private static _getDialogHeight(titleTextHeight: number, slotTextHeight: number) {
+  private static _getDialogHeight(
+    titleTextHeight: number,
+    slotTextHeight: number,
+  ) {
     return (
       2 * AspectConstants.SAVE_DIALOG_PADDING_V +
       titleTextHeight +

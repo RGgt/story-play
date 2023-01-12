@@ -4,6 +4,7 @@
     "translation": "assets/json/translation-en-GB.json"
   },
   "image": {
+    "SAMPLE_screenshot_0_5": "assets/images/SAMPLE_screenshot_0_5.jpg",
     "main": "assets/images/frame_001.png",
     "click_areas": "assets/images/click_areas.png",
     "frame_1_01": "assets/images/frame_1_01.jpg",
