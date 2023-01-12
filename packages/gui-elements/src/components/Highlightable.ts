@@ -1,6 +1,18 @@
 import { ICursorControllingGame } from '@rggt/game-base';
 
 class Highlightable extends Phaser.GameObjects.Rectangle {
+  private static readonly ALPHA_INACTIVE = 0.3;
+
+  private static readonly ALPHA_HOVER = 0.125;
+
+  private static readonly ALPHA_DEFAULT = 0.0;
+
+  private static readonly FILL_COLOR_INACTIVE = 0xb39a52;
+
+  private static readonly FILL_COLOR_HOVER = 0xffbf00;
+
+  private static readonly FILL_COLOR_DEFAULT = 0xffbf00;
+
   public reactToClick: undefined | ((x: number, y: number) => void);
 
   protected _bounds = new Phaser.Geom.Rectangle(0, 0, 1920, 1080);
@@ -19,9 +31,15 @@ class Highlightable extends Phaser.GameObjects.Rectangle {
     this._onClick = onClick;
   }
 
-  constructor(scene: Phaser.Scene, x = 0, y = 0, width: number | undefined = 1920, height: number | undefined = 1080) {
-    const fillColor = 0xffbf00;
-    const fillAlpha = 0.25;
+  constructor(
+    scene: Phaser.Scene,
+    x = 0,
+    y = 0,
+    width: number | undefined = 1920,
+    height: number | undefined = 1080,
+  ) {
+    const fillColor = Highlightable.FILL_COLOR_INACTIVE;
+    const fillAlpha = Highlightable.ALPHA_INACTIVE;
     super(scene, x, y, width, height, fillColor, fillAlpha);
     this._bounds = new Phaser.Geom.Rectangle(x, y, width, height);
     this.fillColor = fillColor;
@@ -37,7 +55,8 @@ class Highlightable extends Phaser.GameObjects.Rectangle {
     // Check if the cursor is over the component
     if (this._bounds.contains(pointer.x, pointer.y)) {
       this.setActiveCursor();
-      this.fillAlpha = 0.125;
+      this.fillAlpha = Highlightable.ALPHA_HOVER;
+      this.fillColor = Highlightable.FILL_COLOR_HOVER;
       if (pointer.button === 0 && pointer.isDown) {
         this._lPressed = true;
       } else {
@@ -47,7 +66,8 @@ class Highlightable extends Phaser.GameObjects.Rectangle {
         this._lPressed = false;
       }
     } else {
-      this.fillAlpha = 0.0;
+      this.fillAlpha = Highlightable.ALPHA_DEFAULT;
+      this.fillColor = Highlightable.FILL_COLOR_DEFAULT;
       this._lPressed = false;
     }
   }
