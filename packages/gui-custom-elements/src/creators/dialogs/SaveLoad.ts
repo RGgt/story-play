@@ -10,9 +10,7 @@ import {
 } from '@rggt/gui-elements';
 import AspectConstants from '../../AspectConstants';
 import { Builder } from '../../dialogs/SaveAndLoad/Helpers/Builder';
-import { SaveAndLoadDialog } from '../../dialogs/SaveAndLoad/SaveAndLoadDialog';
-import { SaveAndLoadDialogOptions } from '../../dialogs/SaveAndLoad/SaveAndLoadDialogOptions';
-import { SaveAndLoadSlotData } from '../../dialogs/SaveAndLoad/SaveAndLoadSlotData';
+import { DialogOptions } from '../../dialogs/SaveAndLoad/DialogOptions';
 
 export type SaveOptions = {
   onSave: (
@@ -55,19 +53,7 @@ class Save {
     undefined,
   ];
 
-  public static createSaveDialog(scene: Phaser.Scene, options: SaveOptions) {
-    const dialogData: SaveAndLoadSlotData[] = [
-      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
-      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
-      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
-      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
-      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
-      { IsEmpty: true, PreviewTexture: '', SaveTitle: '' },
-    ];
-    const dialogOptions: SaveAndLoadDialogOptions = {
-      onClose: options.onClose,
-    };
-    // const dialog = new SaveAndLoadDialog(dialogData, scene, dialogOptions);
+  public static createSaveDialog(scene: Phaser.Scene, options: DialogOptions) {
     const dialog = Builder.BuildDialog(scene, options);
   }
 

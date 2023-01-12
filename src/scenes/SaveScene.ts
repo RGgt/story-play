@@ -1,5 +1,10 @@
 import Phaser from 'phaser';
-import { Save, SaveOptions, SaveViewData } from '@rggt/gui-custom-elements';
+import {
+  Save,
+  SaveOptions,
+  SaveViewData,
+  DialogOptions,
+} from '@rggt/gui-custom-elements';
 import { SPScenes } from '../types/enums';
 
 export default class SaveScene extends Phaser.Scene {
@@ -18,10 +23,66 @@ export default class SaveScene extends Phaser.Scene {
   ];
 
   create() {
-    const options: SaveOptions = {
-      onSave: this.onSave.bind(this),
-      getViewData: this.getViewData.bind(this),
-      onClose: this.restoreSceneBellow.bind(this),
+    // const options: SaveOptions = {
+    //   onSave: this.onSave.bind(this),
+    //   getViewData: this.getViewData.bind(this),
+    //   onClose: this.restoreSceneBellow.bind(this),
+    // };
+    const options: DialogOptions = {
+      isSaveMode: true,
+      activePageIndex: 0,
+      onClose: () => {},
+      onPageChanged: () => {},
+      onLoadFromSlot: () => {},
+      onSaveToSlot: () => {},
+      allSlots: [
+        {
+          Slots: [
+            {
+              emptySlotText: 'Available slot',
+              isAvailableSlot: true,
+              isEmptySlot: true,
+              previewLabel: '',
+              previewTexture: '',
+            },
+            {
+              emptySlotText: 'Free slot',
+              isAvailableSlot: true,
+              isEmptySlot: true,
+              previewLabel: '',
+              previewTexture: '',
+            },
+            {
+              emptySlotText: 'Slot not available',
+              isAvailableSlot: false,
+              isEmptySlot: true,
+              previewLabel: '',
+              previewTexture: '',
+            },
+            {
+              emptySlotText: '',
+              isAvailableSlot: false,
+              isEmptySlot: false,
+              previewLabel: 'this save is damaged!',
+              previewTexture: 'SAMPLE_screenshot_0_5',
+            },
+            {
+              emptySlotText: '',
+              isAvailableSlot: true,
+              isEmptySlot: false,
+              previewLabel: 'Friday, October 15 2021\r\n23:42',
+              previewTexture: 'SAMPLE_screenshot_0_5',
+            },
+            {
+              emptySlotText: '',
+              isAvailableSlot: true,
+              isEmptySlot: false,
+              previewLabel: 'Friday, October 15 2021\r\n23:48',
+              previewTexture: 'SAMPLE_screenshot_0_5',
+            },
+          ],
+        },
+      ],
     };
     Save.createSaveDialog(this, options);
   }
@@ -61,7 +122,8 @@ export default class SaveScene extends Phaser.Scene {
   private _screenshotSprite: Phaser.GameObjects.Sprite | undefined;
 
   private static _formatDatetime(date: Date, format: string) {
-    const padStart = (value: number): string => value.toString().padStart(2, '0');
+    const padStart = (value: number): string =>
+      value.toString().padStart(2, '0');
     return format
       .replace(/yyyy/g, padStart(date.getFullYear()))
       .replace(/dd/g, padStart(date.getDate()))
@@ -87,18 +149,40 @@ export default class SaveScene extends Phaser.Scene {
     this.renderer.snapshot((snapshot) => {
       const targetWidth = 1920 * SaveScene._screenshotScaleFactor;
       const targetHeight = 1080 * SaveScene._screenshotScaleFactor;
-      const dataURL = SaveScene.screenshotToBase64(snapshot as HTMLImageElement, targetWidth, targetHeight);
+      const dataURL = SaveScene.screenshotToBase64(
+        snapshot as HTMLImageElement,
+        targetWidth,
+        targetHeight,
+      );
       // this._savedData[slotIndex].AutoText = new Date().toLocaleString();
-      this._savedData[slotIndex].AutoText = SaveScene._formatDatetime(new Date(), 'yyyy-mm-dd,\r\nhh:ii:ss');
-      this.base64ToSprite(dataURL, scene, options, pageIndex, slotIndex, callbak);
+      this._savedData[slotIndex].AutoText = SaveScene._formatDatetime(
+        new Date(),
+        'yyyy-mm-dd,\r\nhh:ii:ss',
+      );
+      this.base64ToSprite(
+        dataURL,
+        scene,
+        options,
+        pageIndex,
+        slotIndex,
+        callbak,
+      );
     });
   }
 
-  private static screenshotToBase64 = (screenshot: HTMLImageElement, targetWidth: number, targetHeight: number) => {
-    const scaledDownCanvas = document.createElement('canvas') as HTMLCanvasElement;
+  private static screenshotToBase64 = (
+    screenshot: HTMLImageElement,
+    targetWidth: number,
+    targetHeight: number,
+  ) => {
+    const scaledDownCanvas = document.createElement(
+      'canvas',
+    ) as HTMLCanvasElement;
     scaledDownCanvas.width = targetWidth;
     scaledDownCanvas.height = targetHeight;
-    const context = scaledDownCanvas.getContext('2d') as CanvasRenderingContext2D;
+    const context = scaledDownCanvas.getContext(
+      '2d',
+    ) as CanvasRenderingContext2D;
     context.drawImage(
       screenshot,
       0,
@@ -126,7 +210,8 @@ export default class SaveScene extends Phaser.Scene {
       pageIndex: number,
       slotIndex: number,
       textureName: string,
-    ) => void,) => {
+    ) => void,
+  ) => {
     // /////////////////////////////////////////////////
     // Alternative using addBase64:
     //
@@ -150,17 +235,30 @@ export default class SaveScene extends Phaser.Scene {
       this.textures.remove(textureName);
       this.textures.addImage(textureName, image);
 
-      const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-      const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-      this._screenshotSprite = this.add.sprite(screenCenterX, screenCenterY, textureName);
+      const screenCenterX =
+        this.cameras.main.worldView.x + this.cameras.main.width / 2;
+      const screenCenterY =
+        this.cameras.main.worldView.y + this.cameras.main.height / 2;
+      this._screenshotSprite = this.add.sprite(
+        screenCenterX,
+        screenCenterY,
+        textureName,
+      );
       this._screenshotSprite.setOrigin(0.0);
-      this._screenshotSprite.setPosition(0, 1080 * (1 - SaveScene._screenshotScaleFactor));
+      this._screenshotSprite.setPosition(
+        0,
+        1080 * (1 - SaveScene._screenshotScaleFactor),
+      );
       callbak?.(scene, options, pageIndex, slotIndex, textureName);
     });
     image.src = base64DataUrl;
   };
 
-  private base64ToSprite_OLD = (base64DataUrl: string, pageIndex: number, slotIndex: number) => {
+  private base64ToSprite_OLD = (
+    base64DataUrl: string,
+    pageIndex: number,
+    slotIndex: number,
+  ) => {
     // /////////////////////////////////////////////////
     // Alternative using addBase64:
     //
@@ -185,11 +283,20 @@ export default class SaveScene extends Phaser.Scene {
       this.textures.addImage(textureName, image);
       console.log(`writting screenshot_${pageIndex}_${slotIndex}`);
 
-      const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-      const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-      this._screenshotSprite = this.add.sprite(screenCenterX, screenCenterY, textureName);
+      const screenCenterX =
+        this.cameras.main.worldView.x + this.cameras.main.width / 2;
+      const screenCenterY =
+        this.cameras.main.worldView.y + this.cameras.main.height / 2;
+      this._screenshotSprite = this.add.sprite(
+        screenCenterX,
+        screenCenterY,
+        textureName,
+      );
       this._screenshotSprite.setOrigin(0.0);
-      this._screenshotSprite.setPosition(0, 1080 * (1 - SaveScene._screenshotScaleFactor));
+      this._screenshotSprite.setPosition(
+        0,
+        1080 * (1 - SaveScene._screenshotScaleFactor),
+      );
     });
     image.src = base64DataUrl;
   };

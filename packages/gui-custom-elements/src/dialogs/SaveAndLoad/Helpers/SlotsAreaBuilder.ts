@@ -3,13 +3,15 @@ import { SlotBuilder, SlotComponents } from './SlotBuilder';
 class SlotsAreaBuilder {
   public static buildSlotsArea(
     scene: Phaser.Scene,
-    onUseSlot: (slotIndex: number) => void,
+    pageIndex: number,
+    onUseSlot: (pageIndex: number, slotIndex: number) => void,
   ) {
     const slotComponents: SlotComponents[] = [];
 
     slotComponents.push(
       SlotsAreaBuilder.buildSlotsAreaSlot(
         scene,
+        pageIndex,
         0,
         true,
         'Free Slot',
@@ -22,6 +24,7 @@ class SlotsAreaBuilder {
     slotComponents.push(
       SlotsAreaBuilder.buildSlotsAreaSlot(
         scene,
+        pageIndex,
         1,
         true,
         'Slot not available',
@@ -34,6 +37,7 @@ class SlotsAreaBuilder {
     slotComponents.push(
       SlotsAreaBuilder.buildSlotsAreaSlot(
         scene,
+        pageIndex,
         2,
         true,
         'Free Slot',
@@ -46,6 +50,7 @@ class SlotsAreaBuilder {
     slotComponents.push(
       SlotsAreaBuilder.buildSlotsAreaSlot(
         scene,
+        pageIndex,
         3,
         false,
         '',
@@ -58,6 +63,7 @@ class SlotsAreaBuilder {
     slotComponents.push(
       SlotsAreaBuilder.buildSlotsAreaSlot(
         scene,
+        pageIndex,
         4,
         true,
         'Free Slot',
@@ -70,6 +76,7 @@ class SlotsAreaBuilder {
     slotComponents.push(
       SlotsAreaBuilder.buildSlotsAreaSlot(
         scene,
+        pageIndex,
         5,
         false,
         '',
@@ -84,13 +91,14 @@ class SlotsAreaBuilder {
 
   private static buildSlotsAreaSlot(
     scene: Phaser.Scene,
+    pageIndex: number,
     slotIndex: number,
     isEmptySlot: boolean,
     emptySlotText: string,
     previewTexture: string,
     previewLabel: string,
     isAvailableSlot: boolean,
-    onUseSlot: (slotIndex: number) => void,
+    onUseSlot: (pageIndex: number, slotIndex: number) => void,
   ) {
     if (isEmptySlot)
       return SlotBuilder.buildEmptySlot(
@@ -99,7 +107,7 @@ class SlotsAreaBuilder {
         emptySlotText,
         isAvailableSlot
           ? () => {
-              onUseSlot(slotIndex);
+              onUseSlot(pageIndex, slotIndex);
             }
           : undefined,
       );
@@ -110,7 +118,7 @@ class SlotsAreaBuilder {
       previewLabel,
       isAvailableSlot
         ? () => {
-            onUseSlot(slotIndex);
+            onUseSlot(pageIndex, slotIndex);
           }
         : undefined,
     );

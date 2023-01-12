@@ -1,36 +1,54 @@
-import { BoxCreator, ButtonCreator, TextCreator } from '@rggt/gui-elements';
-import { SaveAndLoadDialogOptions } from '../../SaveAndLoad_V1/SaveAndLoadDialogOptions';
+import {
+  BoxCreator,
+  Button,
+  ButtonCreator,
+  PanelBox,
+  TextCreator,
+  BackgroundBlocker,
+} from '@rggt/gui-elements';
+import { DialogOptions } from '../DialogOptions';
 import { Metrics } from './Metrics';
 import { PaginationAreaBuilder } from './PaginationAreaBuilder';
+import { PaginationSlotComponents } from './PaginationSlotBuilder';
+import { SlotComponents } from './SlotBuilder';
 import { SlotsAreaBuilder } from './SlotsAreaBuilder';
 
+type SaveLoadDialogComponents = {
+  windowBackground: PanelBox;
+  backgroundBlocker: BackgroundBlocker;
+  lblWindowTitle: Phaser.GameObjects.Text;
+  slotsArea: SlotComponents[];
+  buildPaginationArea: PaginationSlotComponents[];
+  btnCloseWindow: { button: Button; text: Phaser.GameObjects.Text };
+};
 class Builder {
   public static BuildDialog(
     scene: Phaser.Scene,
-    options: SaveAndLoadDialogOptions,
-  ) {
+    options: DialogOptions,
+  ): SaveLoadDialogComponents {
     const windowBackground = Builder.buildWindowShape(scene);
     // Blocker (darker area outside the window)
     const backgroundBlocker = Builder.buildBackgroundBlocker(scene);
     const lblWindowTitle = Builder.buildWindowTitle(scene);
     const slotsArea = SlotsAreaBuilder.buildSlotsArea(
       scene,
-      (slotIndex: number) => {},
+      options.activePageIndex,
+      options.onSaveToSlot,
     );
     const buildPaginationArea = PaginationAreaBuilder.buildPaginationArea(
       scene,
-      0,
-      (pageIndex: number) => {},
+      options.activePageIndex,
+      options.onPageChanged,
     );
     const btnCloseWindow = Builder.buildCloseButton(scene, options.onClose);
 
     return {
       windowBackground,
-      blocker: backgroundBlocker,
+      backgroundBlocker,
       lblWindowTitle,
       slotsArea,
       buildPaginationArea,
-      btnClose: btnCloseWindow,
+      btnCloseWindow,
     };
   }
 
