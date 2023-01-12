@@ -4,3 +4,4 @@ export * from './creators/dialogs/MainMenu';
 export * from './creators/dialogs/SaveLoad';
 export * from './dialogs/SaveAndLoad/DialogOptions';
 export * from './dialogs/SaveAndLoad/Helpers/Builder';
+export * from './dialogs/SaveAndLoad/Helpers/Metrics';
