@@ -31,7 +31,7 @@ export default class SaveScene extends Phaser.Scene {
     const options: DialogOptions = {
       isSaveMode: true,
       activePageIndex: 2,
-      onClose: () => {},
+      onClose: this.restoreSceneBellow.bind(this),
       onPageChanged: () => {},
       onLoadFromSlot: () => {},
       onSaveToSlot: () => {},
