@@ -30,7 +30,7 @@ export default class SaveScene extends Phaser.Scene {
     // };
     const options: DialogOptions = {
       isSaveMode: true,
-      activePageIndex: 0,
+      activePageIndex: 1,
       onClose: () => {},
       onPageChanged: () => {},
       onLoadFromSlot: () => {},
@@ -40,6 +40,52 @@ export default class SaveScene extends Phaser.Scene {
           Slots: [
             {
               emptySlotText: 'Available slot',
+              isAvailableSlot: true,
+              isEmptySlot: true,
+              previewLabel: '',
+              previewTexture: '',
+            },
+            {
+              emptySlotText: 'Free slot',
+              isAvailableSlot: true,
+              isEmptySlot: true,
+              previewLabel: '',
+              previewTexture: '',
+            },
+            {
+              emptySlotText: 'Slot not available',
+              isAvailableSlot: false,
+              isEmptySlot: true,
+              previewLabel: '',
+              previewTexture: '',
+            },
+            {
+              emptySlotText: '',
+              isAvailableSlot: false,
+              isEmptySlot: false,
+              previewLabel: 'this save is damaged!',
+              previewTexture: 'SAMPLE_screenshot_0_5',
+            },
+            {
+              emptySlotText: '',
+              isAvailableSlot: true,
+              isEmptySlot: false,
+              previewLabel: 'Friday, October 15 2021\r\n23:42',
+              previewTexture: 'SAMPLE_screenshot_0_5',
+            },
+            {
+              emptySlotText: '',
+              isAvailableSlot: true,
+              isEmptySlot: false,
+              previewLabel: 'Friday, October 15 2021\r\n23:48',
+              previewTexture: 'SAMPLE_screenshot_0_5',
+            },
+          ],
+        },
+        {
+          Slots: [
+            {
+              emptySlotText: 'Did you know you are on page 2?',
               isAvailableSlot: true,
               isEmptySlot: true,
               previewLabel: '',
