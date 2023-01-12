@@ -5,8 +5,8 @@ import {
   SaveViewData,
   DialogOptions,
 } from '@rggt/gui-custom-elements';
+import {} from '@rggt/gui-custom-elements/src/dialogs/SaveAndLoad/Helpers/Builder';
 import { SPScenes } from '../types/enums';
-import { SaveLoadDialogComponents } from '@rggt/gui-custom-elements/src/dialogs/SaveAndLoad/Helpers/Builder';
 
 export default class SaveScene extends Phaser.Scene {
   constructor() {
@@ -15,6 +15,7 @@ export default class SaveScene extends Phaser.Scene {
   }
 
   private _dialogComponents?: SaveLoadDialogComponents;
+
   private _options?: DialogOptions;
 
   private _savedData: SaveViewData[] = [
@@ -136,7 +137,6 @@ export default class SaveScene extends Phaser.Scene {
   }
 
   onPageChanged(pageIndex: number) {
-    console.log('onPageChanged');
     if (!this._options || !this._dialogComponents) return;
     this._options.activePageIndex = pageIndex;
     this._dialogComponents = Save.UpdateOnPageChanges(

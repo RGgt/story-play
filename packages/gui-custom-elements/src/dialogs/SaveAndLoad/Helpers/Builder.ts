@@ -110,6 +110,7 @@ class Builder {
     dialogComponents: SaveLoadDialogComponents,
     options: DialogOptions,
   ) {
+    SlotsAreaBuilder.destroySlotsArea(dialogComponents.slotsArea);
     PaginationAreaBuilder.destroyPaginationArea(
       dialogComponents.paginationArea,
     );
@@ -118,7 +119,14 @@ class Builder {
       options.activePageIndex,
       options.onPageChanged,
     );
-    return { ...dialogComponents, paginationArea };
+    const slotsArea = SlotsAreaBuilder.buildSlotsArea(
+      scene,
+      options.activePageIndex,
+      options.onSaveToSlot,
+      options.allSlots[options.activePageIndex].Slots,
+    );
+
+    return { ...dialogComponents, paginationArea, slotsArea };
   }
 }
 export { Builder };

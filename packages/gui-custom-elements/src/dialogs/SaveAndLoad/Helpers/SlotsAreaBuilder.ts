@@ -1,5 +1,5 @@
 import { SlotData } from '../DialogOptions';
-import { SlotBuilder } from './SlotBuilder';
+import { SlotBuilder, SlotComponents } from './SlotBuilder';
 
 class SlotsAreaBuilder {
   public static buildSlotsArea(
@@ -57,6 +57,16 @@ class SlotsAreaBuilder {
           }
         : undefined,
     );
+  }
+
+  public static destroySlotsArea(components: SlotComponents[]) {
+    components.forEach((component) => {
+      component.slotBox.destroy();
+      component.slotHighlightable.destroy();
+      component.slotLargeText?.destroy();
+      component.slotPreviewImage?.destroy();
+      component.slotPreviewLabel?.destroy();
+    });
   }
 }
 export { SlotsAreaBuilder };

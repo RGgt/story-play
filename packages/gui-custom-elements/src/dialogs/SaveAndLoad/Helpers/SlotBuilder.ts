@@ -1,11 +1,16 @@
-import { BoxCreator, GroupBox, TextCreator } from '@rggt/gui-elements';
+import {
+  BoxCreator,
+  GroupBox,
+  Highlightable,
+  TextCreator,
+} from '@rggt/gui-elements';
 import { Metrics } from './Metrics';
 
 type SlotComponents = {
   hasData: boolean;
   slotBox: GroupBox;
-  slotLargeText?: void;
-  slotHighlightable: void;
+  slotLargeText?: Phaser.GameObjects.Text;
+  slotHighlightable: Highlightable;
   slotPreviewImage?: Phaser.GameObjects.Sprite;
   slotPreviewLabel?: Phaser.GameObjects.Text;
 };
@@ -114,6 +119,7 @@ class SlotBuilder {
     );
     boxText.setOrigin(0.5, 0.5);
     scene.add.existing(boxText);
+    return boxText;
   }
 
   private static buildSlotHighlightable(
@@ -133,6 +139,7 @@ class SlotBuilder {
     if (!onClick) {
       boxHighlightable.setActive(false);
     }
+    return boxHighlightable;
   }
 
   private static buildSlotPreviewImage(
