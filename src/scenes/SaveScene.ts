@@ -4,8 +4,8 @@ import {
   SaveOptions,
   SaveViewData,
   DialogOptions,
+  SaveLoadDialogComponents,
 } from '@rggt/gui-custom-elements';
-import { SaveLoadDialogComponents } from '@rggt/gui-custom-elements/src/dialogs/SaveAndLoad/Helpers/Builder';
 import { SPScenes } from '../types/enums';
 
 export default class SaveScene extends Phaser.Scene {
