@@ -34,6 +34,7 @@ class Builder {
       scene,
       options.activePageIndex,
       options.onSaveToSlot,
+      options.allSlots[options.activePageIndex].Slots,
     );
     const buildPaginationArea = PaginationAreaBuilder.buildPaginationArea(
       scene,
