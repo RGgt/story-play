@@ -54,7 +54,7 @@ class Save {
   ];
 
   public static createSaveDialog(scene: Phaser.Scene, options: DialogOptions) {
-    const dialog = Builder.BuildDialog(scene, options);
+    return Builder.BuildDialog(scene, options);
   }
 
   public static createSaveDialog_OLD(

@@ -106,3 +106,4 @@ class Builder {
   }
 }
 export { Builder };
+export type { SaveLoadDialogComponents };

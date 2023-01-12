@@ -6,12 +6,15 @@ import {
   DialogOptions,
 } from '@rggt/gui-custom-elements';
 import { SPScenes } from '../types/enums';
+import { SaveLoadDialogComponents } from '@rggt/gui-custom-elements/src/dialogs/SaveAndLoad/Helpers/Builder';
 
 export default class SaveScene extends Phaser.Scene {
   constructor() {
     super(SPScenes.Save);
     this.events = new Phaser.Events.EventEmitter();
   }
+
+  private _dialogComponents?: SaveLoadDialogComponents;
 
   private _savedData: SaveViewData[] = [
     { HasData: false, AutoText: 'dddd', ImageB64: 'ddd' },
@@ -133,7 +136,7 @@ export default class SaveScene extends Phaser.Scene {
         SaveScene._createEmptyPageSlots(),
       ],
     };
-    Save.createSaveDialog(this, options);
+    this._dialogComponents = Save.createSaveDialog(this, options);
   }
 
   restoreSceneBellow() {
