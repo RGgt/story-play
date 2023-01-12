@@ -61,20 +61,37 @@ export default class TitleScene extends Phaser.Scene {
       this.textures.remove(textureName);
       this.textures.addImage(textureName, image);
 
-      const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-      const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-      this._screenshotSprite = this.add.sprite(screenCenterX, screenCenterY, textureName);
+      const screenCenterX =
+        this.cameras.main.worldView.x + this.cameras.main.width / 2;
+      const screenCenterY =
+        this.cameras.main.worldView.y + this.cameras.main.height / 2;
+      this._screenshotSprite = this.add.sprite(
+        screenCenterX,
+        screenCenterY,
+        textureName,
+      );
       this._screenshotSprite.setOrigin(0.0);
-      this._screenshotSprite.setPosition(0, 1080 * (1 - TitleScene._screenshotScaleFactor));
+      this._screenshotSprite.setPosition(
+        0,
+        1080 * (1 - TitleScene._screenshotScaleFactor),
+      );
     });
     image.src = base64DataUrl;
   };
 
-  private static screenshotToBase64 = (screenshot: HTMLImageElement, targetWidth: number, targetHeight: number) => {
-    const scaledDownCanvas = document.createElement('canvas') as HTMLCanvasElement;
+  private static screenshotToBase64 = (
+    screenshot: HTMLImageElement,
+    targetWidth: number,
+    targetHeight: number,
+  ) => {
+    const scaledDownCanvas = document.createElement(
+      'canvas',
+    ) as HTMLCanvasElement;
     scaledDownCanvas.width = targetWidth;
     scaledDownCanvas.height = targetHeight;
-    const context = scaledDownCanvas.getContext('2d') as CanvasRenderingContext2D;
+    const context = scaledDownCanvas.getContext(
+      '2d',
+    ) as CanvasRenderingContext2D;
     context.drawImage(
       screenshot,
       0,
@@ -94,7 +111,11 @@ export default class TitleScene extends Phaser.Scene {
     this.game.renderer.snapshot((snapshot) => {
       const targetWidth = 1920 * TitleScene._screenshotScaleFactor;
       const targetHeight = 1080 * TitleScene._screenshotScaleFactor;
-      const dataURL = TitleScene.screenshotToBase64(snapshot as HTMLImageElement, targetWidth, targetHeight);
+      const dataURL = TitleScene.screenshotToBase64(
+        snapshot as HTMLImageElement,
+        targetWidth,
+        targetHeight,
+      );
       this.base64ToSprite(dataURL);
     });
   };
@@ -103,8 +124,12 @@ export default class TitleScene extends Phaser.Scene {
     // Create the modal window
     const dialog = document.getElementById('favDialog') as HTMLDialogElement;
     const cancelButton = document.getElementById('cancel') as HTMLButtonElement;
-    const confirmButton = document.getElementById('confirm') as HTMLButtonElement;
-    const languagesComboBox = document.getElementById('favLanguage') as HTMLSelectElement;
+    const confirmButton = document.getElementById(
+      'confirm',
+    ) as HTMLButtonElement;
+    const languagesComboBox = document.getElementById(
+      'favLanguage',
+    ) as HTMLSelectElement;
     cancelButton.addEventListener('click', () => {
       dialog.close('languageNotChosen');
       dialog.classList.remove('dialog-visible');
@@ -128,7 +153,9 @@ export default class TitleScene extends Phaser.Scene {
 
   openMenu = () => {
     this.game.scene.run(SPScenes.MainMenu);
-    this.game.scene.getScene(SPScenes.MainMenu).data.set('callerScene', SPScenes.Experimental);
+    this.game.scene
+      .getScene(SPScenes.MainMenu)
+      .data.set('callerScene', SPScenes.Experimental);
     this.game.scene.pause(this);
     // this.game.scene.run(SPScenes.GuiOverGame);
     // const guiOverGame = this.game.scene.getScene(SPScenes.GuiOverGame) as GuiOverGame;
@@ -139,9 +166,11 @@ export default class TitleScene extends Phaser.Scene {
 
   openSave = () => {
     this.game.scene.run(SPScenes.Save);
-    this.game.scene.getScene(SPScenes.Save).data.set('callerScene', SPScenes.Experimental);
+    this.game.scene
+      .getScene(SPScenes.Save)
+      .data.set('callerScene', SPScenes.Experimental);
     this.game.scene.pause(this);
-  }
+  };
 
   openNewStory = () => {
     this.scene.start('story-play');
@@ -169,18 +198,18 @@ export default class TitleScene extends Phaser.Scene {
 
   backgroundAsStatic = () => {
     this.cleanupBackground();
-    ({ sprite: this._testSprite } = SceneFiller.PlaceBackgroundStatic(this, 'main'));
+    ({ sprite: this._testSprite } = SceneFiller.PlaceBackgroundStatic(
+      this,
+      'main',
+    ));
     this._testSprite.setDepth(-100);
   };
 
   backgroundAsPulsing = () => {
     this.cleanupBackground();
     const configDefault = { scale: 2.0, speed: 2200, repeats: -1, yoyo: true };
-    ({ sprite: this._testSprite, pulseTween: this._testPulseTween } = SceneFiller.PlaceBackgroundPulsing(
-      this,
-      'main',
-      configDefault,
-    ));
+    ({ sprite: this._testSprite, pulseTween: this._testPulseTween } =
+      SceneFiller.PlaceBackgroundPulsing(this, 'main', configDefault));
     this._testSprite.setDepth(-100);
   };
 
@@ -197,7 +226,11 @@ export default class TitleScene extends Phaser.Scene {
       'frame_1_08_17',
     ];
     const configDefault = { frames, repeats: -1, frameRate: 8, yoyo: false };
-    ({ sprite: this._testSprite } = SceneFiller.PlaceBackgroundAnimdated(this, 'main', configDefault));
+    ({ sprite: this._testSprite } = SceneFiller.PlaceBackgroundAnimdated(
+      this,
+      'main',
+      configDefault,
+    ));
     this._testSprite.setDepth(-100);
   };
 
@@ -225,7 +258,6 @@ export default class TitleScene extends Phaser.Scene {
     // sample usage
     const image1 = this.add.image(0, 0, 'frame_1_08_10').setOrigin(0);
     image1.setMask(mask);
-
   }
 
   create() {
@@ -234,22 +266,82 @@ export default class TitleScene extends Phaser.Scene {
     SceneFiller.PlaceTestDialogBackground(this, 100, 400, 1720, 400);
 
     let btnDetail: { button: Button; text: Phaser.GameObjects.Text };
-    btnDetail = SceneFiller.PlaceTestButton(this, 100, 100, 'Fullscreen', this.setFullscreen, false);
+    btnDetail = SceneFiller.PlaceTestButton(
+      this,
+      100,
+      100,
+      'Fullscreen',
+      this.setFullscreen,
+      false,
+    );
     this._btnSetFullscreen = btnDetail.button;
-    btnDetail = SceneFiller.PlaceTestButton(this, 520, 100, 'Windowed', this.setWindowed, true);
+    btnDetail = SceneFiller.PlaceTestButton(
+      this,
+      520,
+      100,
+      'Windowed',
+      this.setWindowed,
+      true,
+    );
     this._btnSetWindowed = btnDetail.button;
-    SceneFiller.PlaceTestButton(this, 940, 100, 'Screenshot', this.setTakeScreenshot, false);
-    SceneFiller.PlaceTestButton(this, 100, 200, 'Open Modal', this.openHtmlModal);
+    SceneFiller.PlaceTestButton(
+      this,
+      940,
+      100,
+      'Screenshot',
+      this.setTakeScreenshot,
+      false,
+    );
+    SceneFiller.PlaceTestButton(
+      this,
+      100,
+      200,
+      'Open Modal',
+      this.openHtmlModal,
+    );
     SceneFiller.PlaceTestButton(this, 520, 200, 'Open Menu', this.openMenu);
-    SceneFiller.PlaceTestButton(this, 940, 200, 'Play Story', this.openNewStory);
+    SceneFiller.PlaceTestButton(
+      this,
+      940,
+      200,
+      'Play Story',
+      this.openNewStory,
+    );
     SceneFiller.PlaceTestButton(this, 1360, 200, 'Open Save', this.openSave);
 
-    SceneFiller.PlaceTestButton(this, 100, 300, 'Static Backgorund', this.backgroundAsStatic);
-    SceneFiller.PlaceTestButton(this, 520, 300, 'Pulsing Backgorund', this.backgroundAsPulsing);
-    SceneFiller.PlaceTestButton(this, 940, 300, 'Animated Backgorund', this.backgroundAsAnimation);
-    SceneFiller.PlaceTestButton(this, 1360, 300, 'No Backgorund', this.backgroundAsVoid);
+    SceneFiller.PlaceTestButton(
+      this,
+      100,
+      300,
+      'Static Backgorund',
+      this.backgroundAsStatic,
+    );
+    SceneFiller.PlaceTestButton(
+      this,
+      520,
+      300,
+      'Pulsing Backgorund',
+      this.backgroundAsPulsing,
+    );
+    SceneFiller.PlaceTestButton(
+      this,
+      940,
+      300,
+      'Animated Backgorund',
+      this.backgroundAsAnimation,
+    );
+    SceneFiller.PlaceTestButton(
+      this,
+      1360,
+      300,
+      'No Backgorund',
+      this.backgroundAsVoid,
+    );
 
-    const title = SceneFiller.PlaceGameTitleText(this, 'Story Title\r\nThe quick brown fox\r\njumps over the lazy dog');
+    const title = SceneFiller.PlaceGameTitleText(
+      this,
+      'Story Title\r\nThe quick brown fox\r\njumps over the lazy dog',
+    );
     const pos = title.getBottomCenter();
     const s1 = SceneFiller.PlaceGameSubtitleCenterText(
       this,
@@ -274,7 +366,13 @@ export default class TitleScene extends Phaser.Scene {
 
     const scrollingText =
       'The quick brown fox\r\njumps over the lazy dog\r\nurabitur non pulvinar ipsum. Duis sit amet dolor velit. Nulla facilisi. Donec quis ornare metus. Integer sit amet sem luctus, imperdiet risus id, accumsan mauris. Nullam nunc lorem, malesuada eget ante sit amet, lacinia maximus leo. Vestibulum tincidunt lacinia sem, aliquam accumsan nisi tristique in. Curabitur accumsan lacus nunc, vitae ultricies dui eleifend ut. Morbi eu consectetur mi, sed tincidunt dui. Sed sed velit sit amet ligula molestie fringilla. Suspendisse eget eros pretium, feugiat eros at, consequat nibh. Morbi ultricies dolor laoreet tristique lobortis.\r\nPraesent pellentesque augue non ultrices sagittis. Nullam tempus risus sed pretium pulvinar. Phasellus tincidunt dolor in velit viverra, non vulputate diam iaculis. Aenean ullamcorper fringilla enim, sit amet scelerisque quam egestas vel. Aliquam sit amet dictum mi. Praesent eget sem nisi. Nulla dui dolor, commodo eu mi sed, vestibulum vestibulum ligula.\r\nEtiam non viverra diam. Suspendisse non ex in lectus consectetur pharetra a eget eros. Integer cursus pharetra tincidunt. Mauris ut est nunc. Maecenas libero ex, pellentesque quis augue sed, mollis gravida augue. Nam semper eros sit amet felis scelerisque convallis. In hac habitasse platea dictumst. Nulla tincidunt eget lectus non fermentum. ';
-    this._testText = SceneFiller.PlaceScrollingLetterText(this, scrollingText, 1920 / 2, 1080, 1920 * 0.7);
+    this._testText = SceneFiller.PlaceScrollingLetterText(
+      this,
+      scrollingText,
+      1920 / 2,
+      1080,
+      1920 * 0.7,
+    );
   }
 
   update(): void {
