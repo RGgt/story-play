@@ -19,6 +19,9 @@
 			// "LICENSE": true,
 		},
 		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "file", // required to format on save
+		"editor.formatOnPaste": false, // required
+		"editor.formatOnType": false, // required
 		"editor.fontSize": 12,
 		"editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
 		/**
