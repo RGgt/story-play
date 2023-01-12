@@ -30,7 +30,7 @@ export default class SaveScene extends Phaser.Scene {
     // };
     const options: DialogOptions = {
       isSaveMode: true,
-      activePageIndex: 1,
+      activePageIndex: 2,
       onClose: () => {},
       onPageChanged: () => {},
       onLoadFromSlot: () => {},
@@ -128,6 +128,9 @@ export default class SaveScene extends Phaser.Scene {
             },
           ],
         },
+        SaveScene._createEmptyPageSlots(),
+        SaveScene._createEmptyPageSlots(),
+        SaveScene._createEmptyPageSlots(),
       ],
     };
     Save.createSaveDialog(this, options);
@@ -160,7 +163,55 @@ export default class SaveScene extends Phaser.Scene {
 
   getViewData(page: number, slot: number): SaveViewData {
     return this._savedData[slot];
-    // return { AutoText: 'Friday, October 15 2021, 23:42', ImageB64: 'base-64' };
+  }
+
+  private static _createEmptyPageSlots() {
+    return {
+      Slots: [
+        {
+          emptySlotText: 'Free slot',
+          isAvailableSlot: true,
+          isEmptySlot: true,
+          previewLabel: '',
+          previewTexture: '',
+        },
+        {
+          emptySlotText: 'Free slot',
+          isAvailableSlot: true,
+          isEmptySlot: true,
+          previewLabel: '',
+          previewTexture: '',
+        },
+        {
+          emptySlotText: 'Free slot',
+          isAvailableSlot: true,
+          isEmptySlot: true,
+          previewLabel: '',
+          previewTexture: '',
+        },
+        {
+          emptySlotText: 'Free slot',
+          isAvailableSlot: true,
+          isEmptySlot: true,
+          previewLabel: '',
+          previewTexture: '',
+        },
+        {
+          emptySlotText: 'Free slot',
+          isAvailableSlot: true,
+          isEmptySlot: true,
+          previewLabel: '',
+          previewTexture: '',
+        },
+        {
+          emptySlotText: 'Free slot',
+          isAvailableSlot: true,
+          isEmptySlot: true,
+          previewLabel: '',
+          previewTexture: '',
+        },
+      ],
+    };
   }
 
   private static _screenshotScaleFactor = 0.25;
