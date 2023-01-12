@@ -78,5 +78,12 @@ class Highlightable extends Phaser.GameObjects.Rectangle {
     const igcc = this.scene.game as unknown as ICursorControllingGame;
     igcc.setCursorEnabled();
   }
+
+  override setActive(value: boolean): this {
+    this.fillAlpha = Highlightable.ALPHA_INACTIVE;
+    this.fillColor = Highlightable.FILL_COLOR_INACTIVE;
+    super.setActive(value);
+    return this;
+  }
 }
 export { Highlightable };
