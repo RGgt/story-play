@@ -11,6 +11,6 @@ DELETED/
 # GitHub Pages
 githubPages/
 
-dist/
+# dist/
 packages/*/lib/
 lerna-debug.log

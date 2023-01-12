@@ -1,0 +1,69 @@
+/*Fonts */
+@font-face {
+  font-family: 'DisplayBoldFont';
+  src: url('../fonts/NotoSansDisplay-Black.ttf');
+}
+
+@font-face {
+  font-family: 'DisplayFont';
+  src: url('../fonts/NotoSansDisplay-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'SansBoldFont';
+  src: url('../fonts/NotoSans-Black.ttf');
+}
+
+@font-face {
+  font-family: 'SansFont';
+  src: url('../fonts/NotoSans-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'SerifBoldFont';
+  src: url('../fonts/NotoSerif-Black.ttf');
+}
+
+@font-face {
+  font-family: 'SerifFont';
+  src: url('../fonts/NotoSerif-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'MonoFont';
+  src: url('../fonts/NotoMono-Regular.ttf');
+}
+/* Dialog hidden by default on iPhone */
+.dialog-hidden {
+  display: none;
+}
+
+.dialog-visible {
+  display: initial;
+}
+/* Define the dimensions of the game canvas */
+#phaser canvas {
+  width: 94px;
+  height: 54px;
+  cursor: none;
+}
+@media (min-width: 320px) {
+  @media (max-aspect-ratio: 16/9) {
+    #phaser canvas {
+      width: 100vw;
+      height: 56.25vw;
+    }
+  }
+  @media (min-aspect-ratio: 16/9) {
+    #phaser canvas {
+      width: 177.78vh;
+      height: 100vh;
+    }
+  }
+}
+@media ((min-width: 1920px) and (min-height: 1080px)) {
+  #phaser canvas {
+    width: 1920px;
+    height: 1080px;
+  }
+}
