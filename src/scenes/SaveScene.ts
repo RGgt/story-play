@@ -1,10 +1,9 @@
 import Phaser from 'phaser';
 import {
   Save,
-  SaveOptions,
-  SaveViewData,
   DialogOptions,
   SaveLoadDialogComponents,
+  Metrics,
 } from '@rggt/gui-custom-elements';
 import { SPScenes } from '../types/enums';
 
@@ -18,15 +17,6 @@ export default class SaveScene extends Phaser.Scene {
 
   private _options?: DialogOptions;
 
-  private _savedData: SaveViewData[] = [
-    { HasData: false, AutoText: 'dddd', ImageB64: 'ddd' },
-    { HasData: false, AutoText: 'dddd', ImageB64: 'ddd' },
-    { HasData: false, AutoText: 'dddd', ImageB64: 'ddd' },
-    { HasData: false, AutoText: 'dddd', ImageB64: 'ddd' },
-    { HasData: false, AutoText: 'dddd', ImageB64: 'ddd' },
-    { HasData: false, AutoText: 'dddd', ImageB64: 'ddd' },
-  ];
-
   create() {
     this._options = {
       isSaveMode: true,
@@ -34,7 +24,7 @@ export default class SaveScene extends Phaser.Scene {
       onClose: this.restoreSceneBellow.bind(this),
       onPageChanged: this.onPageChanged.bind(this),
       onLoadFromSlot: () => {},
-      onSaveToSlot: () => {},
+      onSaveToSlot: this.onSaveToSlot.bind(this),
       allSlots: [
         {
           Slots: [
@@ -146,33 +136,61 @@ export default class SaveScene extends Phaser.Scene {
     );
   }
 
+  onSaveToSlot(pageIndex: number, slotIndex: number): void {
+    if (!this._options || !this._dialogComponents) return;
+    this.game.scene.sleep(this);
+    // capture screenshot
+    this.renderer.snapshot((snapshot) => {
+      if (!this._options || !this._dialogComponents) return;
+      const previewLabel = SaveScene._formatDateTime(
+        new Date(),
+        'yyyy-mm-dd,\r\nhh:ii:ss',
+      );
+
+      // draw the image on a canvas having the specified size
+      // and the the image as dataURL.
+      const dataURL = SaveScene.screenshotToBase64(
+        snapshot as HTMLImageElement,
+        Metrics.SLOT_IMAGE_WIDTH,
+        Metrics.SLOT_IMAGE_HEIGHT,
+      );
+      // TODO: save dataURL
+      const textureName = `savegame_screenshot_pg${pageIndex}_slot${slotIndex}`;
+      const image = new Image();
+      image.crossOrigin = 'anonymous';
+      image.addEventListener('error', (e: ErrorEvent) => {
+        // eslint-disable-next-line no-console
+        console.log(`Error saving screenshot: ${e} || ${e.target}`, e, this);
+        this.game.scene.wake(this);
+      });
+
+      image.addEventListener('load', () => {
+        if (!this._options || !this._dialogComponents) return;
+        this.game.scene.wake(this);
+        this.textures.remove(textureName);
+        this.textures.addImage(textureName, image);
+        this._options.allSlots[pageIndex].Slots[slotIndex].isEmptySlot = false;
+        this._options.allSlots[pageIndex].Slots[slotIndex].previewLabel =
+          previewLabel;
+        this._options.allSlots[pageIndex].Slots[slotIndex].previewTexture =
+          textureName;
+        this._options.activePageIndex = pageIndex;
+        this._dialogComponents = Save.UpdateOnPageChanges(
+          this,
+          this._dialogComponents,
+          this._options,
+        );
+        this.restoreSceneBellow();
+      });
+      image.src = dataURL;
+    });
+  }
+
   restoreSceneBellow() {
     const callerScene = this.data.get('callerScene');
     if (!callerScene) return;
     this.game.scene.resume(callerScene);
     this.game.scene.sleep(SPScenes.Save);
-  }
-
-  onSave(
-    scene: Phaser.Scene,
-    options: SaveOptions,
-    pageIndex: number,
-    slotIndex: number,
-    callbak: (
-      scene: Phaser.Scene,
-      options: SaveOptions,
-      pageIndex: number,
-      slotIndex: number,
-      textureName: string,
-    ) => void,
-  ) {
-    this._savedData[slotIndex].HasData = true;
-    this._tempSave(scene, options, pageIndex, slotIndex, callbak);
-    return;
-  }
-
-  getViewData(page: number, slot: number): SaveViewData {
-    return this._savedData[slot];
   }
 
   private static _createEmptyPageSlots() {
@@ -224,11 +242,7 @@ export default class SaveScene extends Phaser.Scene {
     };
   }
 
-  private static _screenshotScaleFactor = 0.25;
-
-  private _screenshotSprite: Phaser.GameObjects.Sprite | undefined;
-
-  private static _formatDatetime(date: Date, format: string) {
+  private static _formatDateTime(date: Date, format: string) {
     const padStart = (value: number): string =>
       value.toString().padStart(2, '0');
     return format
@@ -238,43 +252,6 @@ export default class SaveScene extends Phaser.Scene {
       .replace(/hh/g, padStart(date.getHours()))
       .replace(/ii/g, padStart(date.getMinutes()))
       .replace(/ss/g, padStart(date.getSeconds()));
-  }
-
-  private _tempSave(
-    scene: Phaser.Scene,
-    options: SaveOptions,
-    pageIndex: number,
-    slotIndex: number,
-    callbak: (
-      scene: Phaser.Scene,
-      options: SaveOptions,
-      pageIndex: number,
-      slotIndex: number,
-      textureName: string,
-    ) => void,
-  ) {
-    this.renderer.snapshot((snapshot) => {
-      const targetWidth = 1920 * SaveScene._screenshotScaleFactor;
-      const targetHeight = 1080 * SaveScene._screenshotScaleFactor;
-      const dataURL = SaveScene.screenshotToBase64(
-        snapshot as HTMLImageElement,
-        targetWidth,
-        targetHeight,
-      );
-      // this._savedData[slotIndex].AutoText = new Date().toLocaleString();
-      this._savedData[slotIndex].AutoText = SaveScene._formatDatetime(
-        new Date(),
-        'yyyy-mm-dd,\r\nhh:ii:ss',
-      );
-      this.base64ToSprite(
-        dataURL,
-        scene,
-        options,
-        pageIndex,
-        slotIndex,
-        callbak,
-      );
-    });
   }
 
   private static screenshotToBase64 = (
@@ -303,108 +280,5 @@ export default class SaveScene extends Phaser.Scene {
     );
 
     return scaledDownCanvas.toDataURL();
-  };
-
-  private base64ToSprite = (
-    base64DataUrl: string,
-    scene: Phaser.Scene,
-    options: SaveOptions,
-    pageIndex: number,
-    slotIndex: number,
-    callbak: (
-      scene: Phaser.Scene,
-      options: SaveOptions,
-      pageIndex: number,
-      slotIndex: number,
-      textureName: string,
-    ) => void,
-  ) => {
-    // /////////////////////////////////////////////////
-    // Alternative using addBase64:
-    //
-    // this.textures.once('addtexture', function () {
-    //   this.add.image(400, 300, textureName);
-    // }, this);
-    // this.textures.addBase64(textureName, dataURL);
-    // /////////////////////////////////////////////////
-    const textureName = `screenshot_${pageIndex}_${slotIndex}`;
-    const image = new Image();
-    image.crossOrigin = 'anonymous';
-    image.addEventListener('error', (e: ErrorEvent) => {
-      console.log(`Error: ${e} || ${e.target}`, e, this);
-    });
-
-    image.addEventListener('load', () => {
-      if (this._screenshotSprite) {
-        this._screenshotSprite.destroy();
-        this.textures.remove(textureName);
-      }
-      this.textures.remove(textureName);
-      this.textures.addImage(textureName, image);
-
-      const screenCenterX =
-        this.cameras.main.worldView.x + this.cameras.main.width / 2;
-      const screenCenterY =
-        this.cameras.main.worldView.y + this.cameras.main.height / 2;
-      this._screenshotSprite = this.add.sprite(
-        screenCenterX,
-        screenCenterY,
-        textureName,
-      );
-      this._screenshotSprite.setOrigin(0.0);
-      this._screenshotSprite.setPosition(
-        0,
-        1080 * (1 - SaveScene._screenshotScaleFactor),
-      );
-      callbak?.(scene, options, pageIndex, slotIndex, textureName);
-    });
-    image.src = base64DataUrl;
-  };
-
-  private base64ToSprite_OLD = (
-    base64DataUrl: string,
-    pageIndex: number,
-    slotIndex: number,
-  ) => {
-    // /////////////////////////////////////////////////
-    // Alternative using addBase64:
-    //
-    // this.textures.once('addtexture', function () {
-    //   this.add.image(400, 300, textureName);
-    // }, this);
-    // this.textures.addBase64(textureName, dataURL);
-    // /////////////////////////////////////////////////
-    const textureName = `screenshot_${pageIndex}_${slotIndex}`;
-    const image = new Image();
-    image.crossOrigin = 'anonymous';
-    image.addEventListener('error', (e: ErrorEvent) => {
-      console.log(`Error: ${e} || ${e.target}`, e, this);
-    });
-
-    image.addEventListener('load', () => {
-      if (this._screenshotSprite) {
-        this._screenshotSprite.destroy();
-        this.textures.remove(textureName);
-      }
-      this.textures.remove(textureName);
-      this.textures.addImage(textureName, image);
-      console.log(`writting screenshot_${pageIndex}_${slotIndex}`);
-
-      const screenCenterX =
-        this.cameras.main.worldView.x + this.cameras.main.width / 2;
-      const screenCenterY =
-        this.cameras.main.worldView.y + this.cameras.main.height / 2;
-      this._screenshotSprite = this.add.sprite(
-        screenCenterX,
-        screenCenterY,
-        textureName,
-      );
-      this._screenshotSprite.setOrigin(0.0);
-      this._screenshotSprite.setPosition(
-        0,
-        1080 * (1 - SaveScene._screenshotScaleFactor),
-      );
-    });
-    image.src = base64DataUrl;
   };
 }
