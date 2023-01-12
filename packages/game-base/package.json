@@ -23,6 +23,7 @@
     "url": "git+https://github.com/RGgt/story-play.git"
   },
   "scripts": {
+    "tsc": "tsc",
     "test": "node ./__tests__/@rggt/game-base.test.js",
     "lint": "eslint src"
   },
