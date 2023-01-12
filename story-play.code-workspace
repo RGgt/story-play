@@ -45,5 +45,13 @@
 		},
 		// This one may not matter in the end.
 		"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+		"cSpell.words": [
+			"highlightable",
+			"rggt",
+			"Fira",
+			"Consolas",
+			"esbenp",
+			"dbaeumer"
+		],
 	}
 }
