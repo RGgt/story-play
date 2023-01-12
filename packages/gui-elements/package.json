@@ -24,7 +24,8 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "test": "node ./__tests__/@rggt/gui-elements.test.js"
+    "test": "node ./__tests__/@rggt/gui-elements.test.js",
+    "lint": "eslint src"
   },
   "bugs": {
     "url": "https://github.com/RGgt/story-play/issues"
