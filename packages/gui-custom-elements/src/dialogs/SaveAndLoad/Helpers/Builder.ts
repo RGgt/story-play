@@ -18,7 +18,7 @@ type SaveLoadDialogComponents = {
   backgroundBlocker: BackgroundBlocker;
   lblWindowTitle: Phaser.GameObjects.Text;
   slotsArea: SlotComponents[];
-  buildPaginationArea: PaginationSlotComponents[];
+  paginationArea: PaginationSlotComponents[];
   btnCloseWindow: { button: Button; text: Phaser.GameObjects.Text };
 };
 class Builder {
@@ -36,7 +36,7 @@ class Builder {
       options.onSaveToSlot,
       options.allSlots[options.activePageIndex].Slots,
     );
-    const buildPaginationArea = PaginationAreaBuilder.buildPaginationArea(
+    const paginationArea = PaginationAreaBuilder.buildPaginationArea(
       scene,
       options.activePageIndex,
       options.onPageChanged,
@@ -48,7 +48,7 @@ class Builder {
       backgroundBlocker,
       lblWindowTitle,
       slotsArea,
-      buildPaginationArea,
+      paginationArea,
       btnCloseWindow,
     };
   }
@@ -103,6 +103,22 @@ class Builder {
       false,
     );
     return btnClose;
+  }
+
+  public static UpdateOnPageChanges(
+    scene: Phaser.Scene,
+    dialogComponents: SaveLoadDialogComponents,
+    options: DialogOptions,
+  ) {
+    PaginationAreaBuilder.destroyPaginationArea(
+      dialogComponents.paginationArea,
+    );
+    const paginationArea = PaginationAreaBuilder.buildPaginationArea(
+      scene,
+      options.activePageIndex,
+      options.onPageChanged,
+    );
+    return { ...dialogComponents, paginationArea };
   }
 }
 export { Builder };

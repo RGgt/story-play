@@ -69,5 +69,13 @@ class PaginationAreaBuilder {
           },
     );
   }
+
+  public static destroyPaginationArea(components: PaginationSlotComponents[]) {
+    components.forEach((value) => {
+      value.slotBox.destroy();
+      value.slotHighlightable.destroy();
+      value.slotText.destroy();
+    });
+  }
 }
 export { PaginationAreaBuilder };

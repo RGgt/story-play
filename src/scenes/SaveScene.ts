@@ -15,6 +15,7 @@ export default class SaveScene extends Phaser.Scene {
   }
 
   private _dialogComponents?: SaveLoadDialogComponents;
+  private _options?: DialogOptions;
 
   private _savedData: SaveViewData[] = [
     { HasData: false, AutoText: 'dddd', ImageB64: 'ddd' },
@@ -26,16 +27,11 @@ export default class SaveScene extends Phaser.Scene {
   ];
 
   create() {
-    // const options: SaveOptions = {
-    //   onSave: this.onSave.bind(this),
-    //   getViewData: this.getViewData.bind(this),
-    //   onClose: this.restoreSceneBellow.bind(this),
-    // };
-    const options: DialogOptions = {
+    this._options = {
       isSaveMode: true,
       activePageIndex: 2,
       onClose: this.restoreSceneBellow.bind(this),
-      onPageChanged: () => {},
+      onPageChanged: this.onPageChanged.bind(this),
       onLoadFromSlot: () => {},
       onSaveToSlot: () => {},
       allSlots: [
@@ -136,7 +132,18 @@ export default class SaveScene extends Phaser.Scene {
         SaveScene._createEmptyPageSlots(),
       ],
     };
-    this._dialogComponents = Save.createSaveDialog(this, options);
+    this._dialogComponents = Save.createSaveDialog(this, this._options);
+  }
+
+  onPageChanged(pageIndex: number) {
+    console.log('onPageChanged');
+    if (!this._options || !this._dialogComponents) return;
+    this._options.activePageIndex = pageIndex;
+    this._dialogComponents = Save.UpdateOnPageChanges(
+      this,
+      this._dialogComponents,
+      this._options,
+    );
   }
 
   restoreSceneBellow() {

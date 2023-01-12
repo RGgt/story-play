@@ -9,7 +9,10 @@ import {
   TextCreator,
 } from '@rggt/gui-elements';
 import AspectConstants from '../../AspectConstants';
-import { Builder } from '../../dialogs/SaveAndLoad/Helpers/Builder';
+import {
+  Builder,
+  SaveLoadDialogComponents,
+} from '../../dialogs/SaveAndLoad/Helpers/Builder';
 import { DialogOptions } from '../../dialogs/SaveAndLoad/DialogOptions';
 
 export type SaveOptions = {
@@ -52,6 +55,14 @@ class Save {
     undefined,
     undefined,
   ];
+
+  public static UpdateOnPageChanges(
+    scene: Phaser.Scene,
+    dialogComponents: SaveLoadDialogComponents,
+    options: DialogOptions,
+  ) {
+    return Builder.UpdateOnPageChanges(scene, dialogComponents, options);
+  }
 
   public static createSaveDialog(scene: Phaser.Scene, options: DialogOptions) {
     return Builder.BuildDialog(scene, options);
