@@ -36,6 +36,7 @@
     "vitest": "^0.25.6"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "@rggt/game-base": "^0.0.0",
     "@rggt/gui-custom-elements": "^0.0.0",
     "@rggt/gui-elements": "^0.0.0",
