@@ -10,8 +10,9 @@ import SaveScene from './scenes/SaveScene';
 import StoryPlayScene from './scenes/StoryPlayScene';
 import TitleScene from './scenes/TitleScene';
 import { SPScenes } from './types/enums';
-import { store } from './store/store';
-import { updateSavegameTexture } from './store/savegameSlice';
+// import { store } from './store/store';
+// import { updateSavegameTexture } from './store/savegameSlice';
+import { testMe } from './store/myStoreClient';
 
 type GameConfig = Phaser.Types.Core.GameConfig;
 
@@ -40,48 +41,53 @@ class SimpleGame extends Phaser.Game implements SPGame, ICursorControllingGame {
       framesHistory: [] as string[],
     };
     // store.getState().savegames.pages[0].slots[0].base64Texture = '';
-    let currentState = store.getState();
+    // let currentState = store.getState();
 
-    this.unsubscribe = store.subscribe(() => {
-      const previousState = currentState;
-      currentState = store.getState();
-      for (
-        let pageIndex = 0;
-        pageIndex < currentState.savegames.pages.length;
-        pageIndex += 1
-      ) {
-        for (
-          let slotIndex = 0;
-          slotIndex < currentState.savegames.pages[pageIndex].slots.length;
-          slotIndex += 1
-        ) {
-          if (
-            previousState.savegames.pages[pageIndex].slots[slotIndex]
-              .base64Texture !==
-            currentState.savegames.pages[pageIndex].slots[slotIndex]
-              .base64Texture
-          ) {
-            // base64Texture has changed
-            // update UI
-          }
-        }
-      }
-    });
+    // this.unsubscribe = store.subscribe(() => {
+    //   const previousState = currentState;
+    //   currentState = store.getState();
+    //   for (
+    //     let pageIndex = 0;
+    //     pageIndex < currentState.savegames.pages.length;
+    //     pageIndex += 1
+    //   ) {
+    //     for (
+    //       let slotIndex = 0;
+    //       slotIndex < currentState.savegames.pages[pageIndex].slots.length;
+    //       slotIndex += 1
+    //     ) {
+    //       if (
+    //         previousState.savegames.pages[pageIndex].slots[slotIndex]
+    //           .base64Texture !==
+    //         currentState.savegames.pages[pageIndex].slots[slotIndex]
+    //           .base64Texture
+    //       ) {
+    //         // base64Texture has changed
+    //         // update UI
+    //       }
+    //     }
+    //   }
+    // });
 
-    store.dispatch(
-      updateSavegameTexture({
-        pageIndex: 0,
-        slotIndex: 0,
-        gameType: 'RPG',
-        savegame: {
-          name: 'New Savegame',
-          base64Texture: 'ABCD',
-          gameData: {
-            gameDataJson: {},
-          },
-        },
-      }),
-    );
+    // store.dispatch(
+    //   updateSavegameTexture({
+    //     pageIndex: 0,
+    //     slotIndex: 0,
+    //     gameType: 'RPG',
+    //     savegame: {
+    //       name: 'New Savegame',
+    //       base64Texture: 'ABCD',
+    //       gameData: {
+    //         gameDataJson: {},
+    //       },
+    //     },
+    //   }),
+    // );
+
+    testMe();
+    testMe();
+    testMe();
+    testMe();
   }
 
   public setCursorEnabled() {
